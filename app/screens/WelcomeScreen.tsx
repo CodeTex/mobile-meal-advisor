@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Button, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 
 function WelcomeScreen() {
