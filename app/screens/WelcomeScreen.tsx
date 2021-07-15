@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 
-function WelcomeScreen() {
+import { ScreenProps } from "../models/screen.model";
+
+
+function WelcomeScreen({ navigation }: ScreenProps) {
     const [text, onChangeText] = React.useState("Useless Text");
 
     return (
@@ -18,7 +21,7 @@ function WelcomeScreen() {
                         value={text}
                     />
                     <Button
-                        onPress={() => console.log("Button clicked.")}
+                        onPress={() => navigation.navigate("Search")}
                         title="Choose for me, senp'ai'"
                         color="#D1A641"
                     />

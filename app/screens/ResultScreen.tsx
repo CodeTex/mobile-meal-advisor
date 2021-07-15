@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-function ResultScreen() {
+import { ScreenProps } from "../models/screen.model";
+
+
+function ResultScreen({ navigation }: ScreenProps) {
     return (
         <View style={styles.container}>
             <Text>Result</Text>
