@@ -14,21 +14,21 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
         switch(name.toLowerCase()) {
             case "alex":
                 setGifSrc(require("../assets/gifs/shronk.webp"));
-                return "She who Shronks, welcome!"
+                return "She who Shronks, \nwelcome!"
             case "bernd":
                 setGifSrc(require("../assets/gifs/buoy.gif"));
-                return "The ever-afloat-heckling-buoy, ahoi!"
+                return "The ever-afloat-heckling-buoy, \nahoi!"
             case "christian":
                 setGifSrc(require("../assets/gifs/doctor.webp"));
-                return "The Dr. Rodenbach himself, at your service!"
+                return "The Dr. Rodenbach himself, \nat your service!"
             case "":
             case "enter your name":
-                return "No name entered, well keep your secrets then..."
+                return "No name entered, \nwell keep your secrets then..."
             case "julian":
                 setGifSrc(require("../assets/gifs/bow.webp"));
-                return "At your service, my liege!"
+                return "At your service, \nmy liege!"
             default:
-                return "Don't know you, I'll keep an eye on your."
+                return "Don't know you, \nI'll keep an eye on your."
         }
     }
 
@@ -38,7 +38,9 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 
     const onScreenLoad = (seconds: number) => {
         setTimeout(() => {
-            navigation.navigate("Result")
+            navigation.navigate("Result", {
+                userName: userName.userName
+            })
         }, seconds * 1000)
     }
 

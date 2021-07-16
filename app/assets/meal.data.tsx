@@ -3,17 +3,17 @@ import { Meals } from "../models/meal.model";
 export const menu: Meals = {
         schnitzel: {
             image: require("./meals/schnitzel.jpg"),
-            title: "WIENER SCHNITZEL VOM SCHWEIN",
+            title: "Wiener Schnitzel \nvom Schwein",
             description: "Preiselbeeren, 1 x Beilage nach Wahl"
         },
         schnitzel_wedges: {
             image: require("./meals/schnitzel_wedges.jpeg"),
-            title: "WIENER SCHNITZEL VOM SCHWEIN",
+            title: "Wiener Schnitzel \nvom Schwein",
             description: "Preiselbeeren, 1 x Beilage nach Wahl, mit Wedges"
         },
         schnitzel_kalb: {
             image: require("./meals/schnitzel.jpg"),
-            title: "ORIGINAL WIENER SCHNITZEL VOM KALB",
+            title: "Original Wiener Schnitzel \nvom Kalb",
             description: "Preiselbeeren, 1 x Beilage nach Wahl"
         },
         hamburger: {
@@ -28,32 +28,32 @@ export const menu: Meals = {
         },
         brieburger: {
             image: require("./meals/brieburger.jpg"),
-            title: "LA VIE EN BRIE BURGER",
+            title: "La Vie en Brie Burger",
             description: "200g Rindfleisch, Brie, Preiselbeeren, Pekan-Nüssen, Vogerlsalat, Honigsenf"
         },
         pulledporkburger: {
             image: require("./meals/pulledporkburger.jpg"),
-            title: "PULLED PORK BURGER",
+            title: "Pulled Pork Burger",
             description: "200g Schweinefleisch, Krautsalat, Tomaten, Essiggurken, Zwiebel, BBQ-Sauce"
         },
         burgerburger: {
             image: require("./meals/burgerburger.jpg"),
-            title: "THE BURGER BURGER",
+            title: "The Burger Burger",
             description: "300g Rindfleisch, Cheddarkäse, Räucherschinken, Tomaten, Zwiebeln"
         },
         clubsandwich: {
             image: require("./meals/clubsandwich.jpg"),
-            title: "CLUB SANDWICH MIT POMMES",
+            title: "Club Sandwich mit Pommes",
             description: "Well, it seems it is decided!"
         },
         cordon_bleu_baellchen: {
             image: require("./meals/cordonbleubaellchen.jpeg"),
-            title: "CORDON BLEU BÄLLCHEN",
+            title: "Cordone Bleu Bällchen",
             description: "Salivating without end in sight..."
         },
         all: {
             image: require("./meals/all.jpeg"),
-            title: "HIGH BLOOD PRESSURE",
+            title: "Le High Blood Pressure ",
             description: "Choosing only one meal damages the integritiy of my free will to choose all and to die by my own choices!"
         },
     }

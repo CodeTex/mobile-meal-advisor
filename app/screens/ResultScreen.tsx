@@ -7,9 +7,11 @@ import { Meal, Meals } from "../models/meal.model";
 import { menu } from "../assets/meal.data";
 
 
-function ResultScreen({ navigation }: ScreenProps) {
+function ResultScreen({ route, navigation }: ScreenProps) {
 
-    
+    const { userName } = route.params;
+
+    console.log(userName)
 
     const [meal, setMeal] = useState<Meal>(menu.schnitzel);
 
@@ -30,7 +32,10 @@ function ResultScreen({ navigation }: ScreenProps) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Result</Text>
+            <View style={styles.title}>
+                <Text style={{fontSize: 32, fontWeight: 'bold'}}>The AI has decided</Text>
+                <Text style={{fontSize: 28, fontWeight: 'bold'}}>{userName}</Text>
+            </View>
             <View style={styles.resultContainer}>
                 <Text style={styles.resultTitle}>{meal.title}</Text>
                 <Image style={styles.resultImage} source={meal.image}></Image>
@@ -50,15 +55,16 @@ function ResultScreen({ navigation }: ScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F4953E',
+        backgroundColor: '#F2BD71',
         justifyContent: 'center',
         alignItems: 'center'
     },
     title: {
         position: 'absolute',
-        top: '10%',
-        fontWeight: '700',
-        fontSize: 36
+        top: 20,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     resultContainer: {
         display: 'flex',
@@ -66,9 +72,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     resultTitle: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 20
+        marginBottom: 20,
+        marginHorizontal: 20
     },
     resultImage: {
         height: 200,
