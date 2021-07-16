@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 import { ScreenProps } from "../models/screen.model";
 import { Meal, Meals } from "../models/meal.model";
@@ -10,8 +10,6 @@ import { menu } from "../assets/meal.data";
 function ResultScreen({ route, navigation }: ScreenProps) {
 
     const { userName } = route.params;
-
-    console.log(userName)
 
     const [meal, setMeal] = useState<Meal>(menu.schnitzel);
 
@@ -33,18 +31,20 @@ function ResultScreen({ route, navigation }: ScreenProps) {
     return (
         <View style={styles.container}>
             <View style={styles.title}>
-                <Text style={{fontSize: 32, fontWeight: 'bold'}}>The AI has decided</Text>
-                <Text style={{fontSize: 28, fontWeight: 'bold'}}>{userName}</Text>
+                <Text style={{fontSize: 30, fontWeight: 'bold'}}>The AI has decided</Text>
+                <Text style={{fontSize: 32, fontWeight: 'bold'}}>{userName}</Text>
             </View>
             <View style={styles.resultContainer}>
                 <Text style={styles.resultTitle}>{meal.title}</Text>
-                <Image style={styles.resultImage} source={meal.image}></Image>
+                <TouchableHighlight onPress={() => setMeal(pickMeal())}>
+                    <Image style={styles.resultImage} source={meal.image}></Image>
+                </TouchableHighlight>
                 <Text style={styles.resultDescription}>{meal.description}</Text>
             </View>
             <View style={styles.buttonContainer}>
                 <Button
                     onPress={() => setMeal(menu.clubsandwich)}
-                    title="Well, maybe.."
+                    title="Well, maybe..."
                     color="#D1A641"
                 />
             </View>
@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         marginBottom: 20,
-        marginHorizontal: 20
+        marginHorizontal: 20,
+        textAlign: 'center'
     },
     resultImage: {
         height: 200,
