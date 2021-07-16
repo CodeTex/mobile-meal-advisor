@@ -2,11 +2,11 @@
   "expo": {
     "name": "mobile-meal-advisor",
     "slug": "mobile-meal-advisor",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./app/assets/icons/icon.png",
+    "icon": "./app/assets/icon.png",
     "splash": {
-      "image": "./app/assets/icons/splash.png",
+      "image": "./app/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,13 +19,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/icons/playstore.png",
+        "foregroundImage": "./app/assets/playstore.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.behistun.mobilemealadvisor"
     },
     "web": {
-      "favicon": "./app/assets/icons/favicon.ico"
+      "favicon": "./app/assets/favicon.ico"
     },
     "description": "Mobile Meal Advisor AI",
     "githubUrl": "https://github.com/behistun/mobile-meal-advisor"

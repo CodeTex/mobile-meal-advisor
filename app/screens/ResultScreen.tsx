@@ -4,7 +4,7 @@ import { Button, Image, StyleSheet, Text, TouchableHighlight, View } from 'react
 import { ScreenProps } from "../models/screen.model";
 import { Meal, Meals } from "../models/meal.model";
 
-import { menu } from "../assets/meal.data";
+import { menu } from "../data/meal.data";
 
 
 function ResultScreen({ route, navigation }: ScreenProps) {

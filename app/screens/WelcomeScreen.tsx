@@ -11,7 +11,7 @@ function WelcomeScreen({ navigation }: ScreenProps) {
         <View style={styles.container}>
             <ImageBackground
                 style={styles.background}
-                source={require('../assets/welcome-background.jpg')}>
+                source={require('../assets/img/welcome-background.jpg')}>
 
                 <Text style={styles.titleText}>Meal Advisor AI</Text>
                 <View style={styles.inputContainer}>

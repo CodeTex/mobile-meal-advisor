@@ -16,7 +16,7 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
                 setGifSrc(require("../assets/gifs/shronk.webp"));
                 return "She who Shronks, \nwelcome!"
             case "bernd":
-                setGifSrc(require("../assets/gifs/buoy.gif"));
+                setGifSrc(require("../assets/gifs/road_rage.webp"));
                 return "The ever-afloat-heckling-buoy, \nahoi!"
             case "christian":
                 setGifSrc(require("../assets/gifs/doctor.webp"));
