@@ -12,23 +12,32 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 
     const titleText = (name: string) => {
         switch(name.toLowerCase()) {
-            case "alex":
-                setGifSrc(require("../assets/gifs/shronk.webp"));
-                return "She who Shronks, \nwelcome!"
-            case "bernd":
-                setGifSrc(require("../assets/gifs/road_rage.webp"));
-                return "The ever-afloat-heckling-buoy, \nahoi!"
-            case "christian":
-                setGifSrc(require("../assets/gifs/doctor.webp"));
-                return "The Dr. Rodenbach himself, \nat your service!"
             case "":
             case "enter your name":
                 return "No name entered, \nwell keep your secrets then..."
+            case "ludwig":
+            case "shronk":
+            case "godzillo":
+            case "alex":
+                setGifSrc(require("../assets/gifs/shronk.webp"));
+                return "She who Shronks, \nwelcome!"
+            case "björn":
+            case "bernd das brot":
+            case "bernd kalchbrenner":
+            case "kalchbrenner":
+            case "bernd":
+                setGifSrc(require("../assets/gifs/road_rage.webp"));
+                return "The ever-afloat-heckling-buoy, \nahoi!"
+            case "zafito":
+            case "christian":
+                setGifSrc(require("../assets/gifs/doctor.webp"));
+                return "The Dr. Rodenbach himself, \nat your service!"
             case "julian":
                 setGifSrc(require("../assets/gifs/bow.webp"));
                 return "At your service, \nmy liege!"
             default:
-                return "Don't know you, \nI'll keep an eye on your."
+                setGifSrc(require("../assets/gifs/suspicious.webp"));
+                return "Don't know you, \nI'll keep an eye on you."
         }
     }
 
