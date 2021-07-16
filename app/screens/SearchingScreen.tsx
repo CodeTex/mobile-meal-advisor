@@ -8,20 +8,24 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
     const { userName } = route.params;
 
     const [text, setText] = useState("")
-    const [gifSrc, setGifSrc] = useState(require("../assets/calc_gif.gif"))
+    const [gifSrc, setGifSrc] = useState(require("../assets/gifs/calculating.gif"))
 
     const titleText = (name: string) => {
         switch(name.toLowerCase()) {
             case "alex":
+                setGifSrc(require("../assets/gifs/shronk.webp"));
                 return "She who Shronks, welcome!"
             case "bernd":
+                setGifSrc(require("../assets/gifs/buoy.gif"));
                 return "The ever-afloat-heckling-buoy, ahoi!"
             case "christian":
+                setGifSrc(require("../assets/gifs/doctor.webp"));
                 return "The Dr. Rodenbach himself, at your service!"
             case "":
             case "enter your name":
                 return "No name entered, well keep your secrets then..."
             case "julian":
+                setGifSrc(require("../assets/gifs/bow.webp"));
                 return "At your service, my liege!"
             default:
                 return "Don't know you, I'll keep an eye on your."
@@ -40,13 +44,14 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 
     useEffect(() => {
         setText(titleText(userName.userName));
-        // onScreenLoad(randomDuration(1, 10))
+        onScreenLoad(randomDuration(4, 10))
     }, [])
 
     return (
         <View style={styles.container}>
             <Text style={styles.nameText}>{text}</Text>
             <Image source={gifSrc} />
+            <Text style={{marginTop: 10}}>Calculating ideal meal...</Text>
         </View>
     );
 }
