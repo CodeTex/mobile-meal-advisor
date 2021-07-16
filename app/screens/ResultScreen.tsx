@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ScreenProps } from "../models/component.model";
 import { Meal, Meals } from "../models/data.model";
@@ -9,7 +9,7 @@ import { menu } from "../data/meal.data";
 
 function ResultScreen({ route, navigation }: ScreenProps) {
 
-    const { userName } = route.params;
+    const { user } = route.params;
 
     const [meal, setMeal] = useState<Meal>(menu.schnitzel);
 
@@ -31,7 +31,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
     return (
         <View style={[containerStyle.container, generalStyle.primColor]}>
             <View style={[containerStyle.header, generalStyle.flexCenter]}>
-                <Text style={{fontSize: 18, fontWeight: '600'}}>{userName}, the AI choose: </Text>
+                <Text style={{fontSize: 18, fontWeight: '600'}}>{user.name}, the AI choose: </Text>
             </View>
             <View style={containerStyle.body}>
                 <View style={[
@@ -42,7 +42,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                 </View>
                 <View style={containerStyle.bodyImage}>
                     <Pressable onPress={() => setMeal(pickMeal())}>
-                        <Image source={meal.image} style={elementStyle.mealImage}></Image>
+                        <Image source={meal.image} style={elementStyle.mealImage} />
                     </Pressable>
                 </View>
                 <View style={[

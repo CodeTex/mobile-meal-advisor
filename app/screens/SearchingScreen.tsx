@@ -1,68 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { ScreenProps } from '../models/component.model';
+import { randint } from '../utils/utils';
 
 
 function SearchingScreen({ route, navigation }: ScreenProps) {
 
-    const { userName } = route.params;
+    const points = ['', '.', '. ', '..', '.. ', '...'];
 
-    const [text, setText] = useState("")
-    const [gifSrc, setGifSrc] = useState(require("../assets/gifs/calculating.gif"))
+    const [progress, setProgress] = useState('');
 
-    const titleText = (name: string) => {
-        switch(name.toLowerCase()) {
-            case "":
-            case "enter your name":
-                return "No name entered, \nwell keep your secrets then..."
-            case "ludwig":
-            case "shronk":
-            case "godzillo":
-            case "alex":
-                setGifSrc(require("../assets/gifs/shronk.webp"));
-                return "She who Shronks, \nwelcome!"
-            case "björn":
-            case "bernd das brot":
-            case "bernd kalchbrenner":
-            case "kalchbrenner":
-            case "bernd":
-                setGifSrc(require("../assets/gifs/road_rage.webp"));
-                return "The ever-afloat-heckling-buoy, \nahoi!"
-            case "zafito":
-            case "christian":
-                setGifSrc(require("../assets/gifs/doctor.webp"));
-                return "The Dr. Rodenbach himself, \nat your service!"
-            case "julian":
-                setGifSrc(require("../assets/gifs/bow.webp"));
-                return "At your service, \nmy liege!"
-            default:
-                setGifSrc(require("../assets/gifs/suspicious.webp"));
-                return "Don't know you, \nI'll keep an eye on you."
-        }
-    }
+    const { user } = route.params;
 
-    const randomDuration = (min: number, max: number) => {
-        return Math.floor(Math.random() * (max - min)) + min
-    }
-
-    const onScreenLoad = (seconds: number) => {
+    const randomDuration = (seconds: number): void => {
         setTimeout(() => {
             navigation.navigate("Result", {
-                userName: userName.userName
+                user: user
             })
         }, seconds * 1000)
     }
 
+    const runModel = (model: string): void => {
+        switch(model) {
+            case 'random':
+                randomDuration(randint(4,10))
+                break;
+            default:
+                randomDuration(randint(4,10))
+                break;
+        }
+    }
+
     useEffect(() => {
-        setText(titleText(userName.userName));
-        onScreenLoad(randomDuration(4, 10))
+        runModel('random');
+        // let interval: any = setInterval(() => {
+        //     console.log(points.indexOf(progress), points.length)
+        //     let i = points.indexOf(progress) < points.length ? (points.indexOf(progress) + 1) : 0;
+        //     console.log(points.indexOf(progress))
+        //     console.log(points[i])
+        //     setProgress(points[i]);
+        // }, 500);
+        // return function cleanup() {
+        //     clearInterval(interval)
+        // };
     }, [])
 
     return (
         <View style={styles.container}>
-            <Text style={styles.nameText}>{text}</Text>
-            <Image source={gifSrc} />
-            <Text style={{marginTop: 10}}>Calculating ideal meal...</Text>
+            <Text style={styles.greeting}>{user.greeting}</Text>
+            <Image source={user.gif} style={styles.gif}/>
+            <Text style={styles.message}>Calculating ideal meal {progress}</Text>
+            <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
+                <ActivityIndicator size="large" color="#8A570A"/>
+                <Image source={require("../assets/gifs/calculating_01.gif")} style={{width: '40%', height: '100%'}}></Image>
+                <ActivityIndicator size="large" color="#8A570A"/>
+            </View>
+            <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
+                <Image source={require("../assets/gifs/calculating_02.webp")} style={{width: '40%', height: '100%'}}></Image>
+                <ActivityIndicator size="large" color="#8A570A"/>
+                <Image source={require("../assets/gifs/calculating_03.webp")} style={{width: '40%', height: '100%'}}></Image>
+            </View>
+            <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
+                <ActivityIndicator size="large" color="#8A570A"/>
+                <Image source={require("../assets/gifs/calculating_04.webp")} style={{width: '40%', height: '100%'}}></Image>
+                <ActivityIndicator size="large" color="#8A570A"/>
+            </View>
         </View>
     );
 }
@@ -74,11 +76,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    nameText: {
-        fontSize: 24,
-        fontWeight: '600',
+    greeting: {
+        fontSize: 22,
+        fontWeight: '500',
         marginBottom: 40,
-        marginHorizontal: 20
+        marginHorizontal: 20,
+        textAlign: 'center'
+    },
+    gif: {
+        height: '50%',
+        width: '100%'
+    },
+    message: {
+        margin: 30
     }
 })
 
