@@ -1,5 +1,5 @@
 export type Meal = {
-    image: NodeRequire,
+    image: any,
     title: string, 
     description: string
 };
