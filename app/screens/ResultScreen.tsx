@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 
 import { ScreenProps } from "../models/screen.model";
 
@@ -81,9 +81,6 @@ function ResultScreen({ navigation }: ScreenProps) {
             <View style={styles.resultContainer}>
                 <Text style={styles.resultTitle}>{meal.title}</Text>
                 <Image style={styles.resultImage} source={meal.image}></Image>
-                {/* <ScrollView style={styles.scrollView}>
-                    <Text style={styles.resultDescription}>{meal.description}</Text>
-                </ScrollView> */}
                 <Text style={styles.resultDescription}>{meal.description}</Text>
             </View>
             <View style={styles.buttonContainer}>
