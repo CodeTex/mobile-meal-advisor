@@ -5,7 +5,7 @@ import { ScreenProps } from "../models/screen.model";
 
 
 function WelcomeScreen({ navigation }: ScreenProps) {
-    const [text, onChangeText] = React.useState("Useless Text");
+    const [userName, setUserName] = React.useState("Enter your name");
 
     return (
         <View style={styles.container}>
@@ -17,11 +17,13 @@ function WelcomeScreen({ navigation }: ScreenProps) {
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={setUserName}
+                        value={userName}
                     />
                     <Button
-                        onPress={() => navigation.navigate("Search")}
+                        onPress={() => navigation.navigate("Search", {
+                            userName: {userName}
+                        })}
                         title="Choose for me, senp'ai'"
                         color="#D1A641"
                     />

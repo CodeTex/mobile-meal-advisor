@@ -1,3 +1,4 @@
 export type ScreenProps = {
-    navigation: any
+    navigation: any,
+    route?: any
 }
