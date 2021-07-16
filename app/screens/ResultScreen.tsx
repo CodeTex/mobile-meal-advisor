@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ScreenProps } from "../models/screen.model";
 import { Meal, Meals } from "../models/meal.model";
@@ -29,73 +29,138 @@ function ResultScreen({ route, navigation }: ScreenProps) {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <View style={styles.title}>
-                <Text style={{fontSize: 30, fontWeight: 'bold'}}>The AI has decided</Text>
-                <Text style={{fontSize: 32, fontWeight: 'bold'}}>{userName}</Text>
+        <View style={[containerStyle.container, generalStyle.primColor]}>
+            <View style={[containerStyle.header, generalStyle.flexCenter]}>
+                <Text style={{fontSize: 18, fontWeight: '600'}}>{userName}, the AI choose: </Text>
             </View>
-            <View style={styles.resultContainer}>
-                <Text style={styles.resultTitle}>{meal.title}</Text>
-                <TouchableHighlight onPress={() => setMeal(pickMeal())}>
-                    <Image style={styles.resultImage} source={meal.image}></Image>
-                </TouchableHighlight>
-                <Text style={styles.resultDescription}>{meal.description}</Text>
+            <View style={containerStyle.body}>
+                <View style={[
+                    containerStyle.bodyTitle, generalStyle.flexCenter, 
+                    generalStyle.fieldBorder, generalStyle.secdColor
+                ]}>
+                    <Text style={elementStyle.mealTitle}>{meal.title}</Text>
+                </View>
+                <View style={containerStyle.bodyImage}>
+                    <Pressable onPress={() => setMeal(pickMeal())}>
+                        <Image source={meal.image} style={elementStyle.mealImage}></Image>
+                    </Pressable>
+                </View>
+                <View style={[
+                    containerStyle.bodyDescription, generalStyle.fieldBorder, generalStyle.secdColor
+                ]}>
+                    <Text style={elementStyle.mealDescription}>{meal.description}</Text>
+                </View>
             </View>
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={() => setMeal(menu.clubsandwich)}
-                    title="Well, maybe..."
-                    color="#D1A641"
-                />
+            <View style={[containerStyle.footer, generalStyle.flexCenter]}>
+                <View style={containerStyle.footerRow}>
+                    <Pressable 
+                        onPress={() => setMeal(menu.clubsandwich)} 
+                        style={[elementStyle.button, generalStyle.secdColor]}
+                    >
+                        <Text style={elementStyle.buttonLabel}>Well, maybe...</Text>
+                    </Pressable>
+                    <Pressable 
+                        onPress={() => navigation.navigate("Home")} 
+                        style={[elementStyle.button, generalStyle.secdColor]}
+                    >
+                        <Text style={elementStyle.buttonLabel}>Back to Start</Text>
+                    </Pressable>
+                </View>
             </View>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
+const containerStyle = StyleSheet.create({
     container: {
+        flexDirection: 'column',
+        flex: 1
+    },
+    header: {
         flex: 1,
-        backgroundColor: '#F2BD71',
-        justifyContent: 'center',
-        alignItems: 'center'
     },
-    title: {
-        position: 'absolute',
-        top: 20,
+    body: {
+        flex: 6,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'stretch',
     },
-    resultContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    resultTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 20,
+    bodyTitle: {
+        flex: 1,
         marginHorizontal: 20,
-        textAlign: 'center'
+        marginVertical: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5, 
+        borderRadius: 5
     },
-    resultImage: {
-        height: 200,
+    bodyImage: {
+        flex: 6,
+        justifyContent: 'center'
+    },
+    bodyDescription: {
+        flex: 3,
+        margin: 10,
+        padding: 10,
+    },
+    footer: {
+        flex: .8,
+    },
+    footerRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    }
+})
+
+const elementStyle = StyleSheet.create({
+    mealTitle: {
+        fontSize: 24,
+        fontWeight: '700',
+    },
+    mealImage: {
+        height: 250,
         width: 400
     },
-    scrollView: {
-        marginBottom: 80,
-        width: 300
+    mealDescription: {
+        textAlign: 'left'
     },
-    resultDescription: {
-        marginTop: 20,
-        marginHorizontal: 20
+    button: {
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderRadius: 4,
+        marginHorizontal: '1%',
+        marginBottom: 6,
+        minWidth: '33%',
+        textAlign: 'center',
+        borderColor: '#8A570A',
+        borderWidth: .5
     },
-    buttonContainer: {
-        position: "absolute",
-        bottom: 20,
-        display: 'flex',
+    buttonLabel: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: 'black'
+    }
+})
+
+const generalStyle = StyleSheet.create({
+    flexCenter: {
+        display: 'flex', 
         justifyContent: 'center',
-        alignItems: 'flex-end'
+        alignItems: 'center',
+    },
+    fieldBorder: {
+        borderRadius: 4,
+        borderColor: '#8A570A',
+        borderStyle: 'solid',
+        borderBottomWidth: .5,
+        borderLeftWidth: 2,
+        borderRightWidth: 2,
+        borderTopWidth: .5,
+    },
+    primColor: {
+        backgroundColor: '#F5BE6B'
+    },
+    secdColor: {
+        backgroundColor: '#FEF9F1'
     }
 })
 
