@@ -19,5 +19,12 @@ export const userMap: UserMap = new Map([
     ["your name", "Genius"],
     ["name", "Genius"],
     ["enter your name", "Genius"],
+    ["coco", "Coco"],
+    ["blue", "Blue"],
+    ["emil", "Emil"],
+    ["shronk", "Coco"],
+    ["godzillo", "Emil"],
+    ["the duchess", "Blue"],
+    ["duchess", "Blue"],
 
 ])
