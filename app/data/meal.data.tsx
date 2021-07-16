@@ -1,19 +1,19 @@
-import { Meals } from "../models/meal.model";
+import { Meals } from "../models/data.model";
 
 export const menu: Meals = {
         schnitzel: {
             image: require("../assets/img/schnitzel.jpg"),
-            title: "Wiener Schnitzel \nvom Schwein",
+            title: "Wiener Schnitzel (Schwein)",
             description: "Preiselbeeren, 1 x Beilage nach Wahl"
         },
         schnitzel_wedges: {
             image: require("../assets/img/schnitzel_wedges.jpeg"),
-            title: "Wiener Schnitzel \nvom Schwein",
+            title: "Wiener Schnitzel (Schwein)",
             description: "Preiselbeeren, 1 x Beilage nach Wahl, mit Wedges"
         },
         schnitzel_kalb: {
             image: require("../assets/img/schnitzel.jpg"),
-            title: "Original Wiener Schnitzel \nvom Kalb",
+            title: "Original Wiener Schnitzel",
             description: "Preiselbeeren, 1 x Beilage nach Wahl"
         },
         hamburger: {
@@ -31,12 +31,12 @@ export const menu: Meals = {
             title: "La Vie en Brie Burger",
             description: "200g Rindfleisch, Brie, Preiselbeeren, Pekan-Nüssen, Vogerlsalat, Honigsenf"
         },
-        pulledporkburger: {
+        pulledpork_burger: {
             image: require("../assets/img/pulledporkburger.jpg"),
             title: "Pulled Pork Burger",
             description: "200g Schweinefleisch, Krautsalat, Tomaten, Essiggurken, Zwiebel, BBQ-Sauce"
         },
-        burgerburger: {
+        burger_burger: {
             image: require("../assets/img/burgerburger.jpg"),
             title: "The Burger Burger",
             description: "300g Rindfleisch, Cheddarkäse, Räucherschinken, Tomaten, Zwiebeln"
@@ -46,7 +46,7 @@ export const menu: Meals = {
             title: "Club Sandwich mit Pommes",
             description: "Well, it seems it is decided!"
         },
-        cordon_bleu_baellchen: {
+        cordonbleu_baellchen: {
             image: require("../assets/img/cordonbleubaellchen.jpeg"),
             title: "Cordone Bleu Bällchen",
             description: "Salivating without end in sight..."

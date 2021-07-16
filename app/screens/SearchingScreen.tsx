@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { ScreenProps } from '../models/screen.model';
+import { ScreenProps } from '../models/component.model';
 
 
 function SearchingScreen({ route, navigation }: ScreenProps) {
@@ -70,7 +70,7 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F2BD71',
+        backgroundColor: '#F5BE6B',
         justifyContent: 'center',
         alignItems: 'center'
     },

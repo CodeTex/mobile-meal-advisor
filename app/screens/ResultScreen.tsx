@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { ScreenProps } from "../models/screen.model";
-import { Meal, Meals } from "../models/meal.model";
+import { ScreenProps } from "../models/component.model";
+import { Meal, Meals } from "../models/data.model";
 
 import { menu } from "../data/meal.data";
 

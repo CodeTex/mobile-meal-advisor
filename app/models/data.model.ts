@@ -5,3 +5,5 @@ export type Meal = {
 };
 
 export type Meals = {[key: string]: Meal};
+
+export type UserMap = Map<string, string>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { ScreenProps } from "../models/screen.model";
+import { ScreenProps } from "../models/component.model";
 
 
 function WelcomeScreen({ navigation }: ScreenProps) {
