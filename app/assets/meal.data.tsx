@@ -6,6 +6,11 @@ export const menu: Meals = {
             title: "WIENER SCHNITZEL VOM SCHWEIN",
             description: "Preiselbeeren, 1 x Beilage nach Wahl"
         },
+        schnitzel_wedges: {
+            image: require("./meals/schnitzel_wedges.jpeg"),
+            title: "WIENER SCHNITZEL VOM SCHWEIN",
+            description: "Preiselbeeren, 1 x Beilage nach Wahl, mit Wedges"
+        },
         schnitzel_kalb: {
             image: require("./meals/schnitzel.jpg"),
             title: "ORIGINAL WIENER SCHNITZEL VOM KALB",
@@ -40,5 +45,15 @@ export const menu: Meals = {
             image: require("./meals/clubsandwich.jpg"),
             title: "CLUB SANDWICH MIT POMMES",
             description: "Well, it seems it is decided!"
+        },
+        cordon_bleu_baellchen: {
+            image: require("./meals/cordonbleubaellchen.jpeg"),
+            title: "CORDON BLEU BÄLLCHEN",
+            description: "Salivating without end in sight..."
+        },
+        all: {
+            image: require("./meals/all.jpeg"),
+            title: "HIGH BLOOD PRESSURE",
+            description: "Choosing only one meal damages the integritiy of my free will to choose all and to die by my own choices!"
         },
     }
