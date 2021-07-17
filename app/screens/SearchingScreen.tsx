@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Button, Image, StyleSheet, Text, View } from 'react-native';
 import { ScreenProps } from '../models/component.model';
 import { randint } from '../utils/utils';
 
 
 function SearchingScreen({ route, navigation }: ScreenProps) {
-
-    const points = ['', '.', '. ', '..', '.. ', '...'];
-
-    const [progress, setProgress] = useState('');
 
     const { user } = route.params;
 
@@ -34,23 +30,13 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 
     useEffect(() => {
         runModel('random');
-        // let interval: any = setInterval(() => {
-        //     console.log(points.indexOf(progress), points.length)
-        //     let i = points.indexOf(progress) < points.length ? (points.indexOf(progress) + 1) : 0;
-        //     console.log(points.indexOf(progress))
-        //     console.log(points[i])
-        //     setProgress(points[i]);
-        // }, 500);
-        // return function cleanup() {
-        //     clearInterval(interval)
-        // };
     }, []);
 
     return (
         <View style={styles.container}>
             <Text style={styles.greeting}>{user.greeting}</Text>
             <Image source={user.gif} style={styles.gif}/>
-            <Text style={styles.message}>Calculating ideal meal {progress}</Text>
+            <Text style={styles.message}>Calculating ideal meal ...</Text>
             <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
                 <ActivityIndicator size="large" color="#8A570A"/>
                 <Image source={require("../assets/gifs/calculating_01.gif")} style={{width: '40%', height: '100%'}}></Image>
