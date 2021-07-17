@@ -12,24 +12,25 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 
     const { user } = route.params;
 
-    const randomDuration = (seconds: number): void => {
+    const timeoutModel = (seconds: number): void => {
+        console.log(seconds)
         setTimeout(() => {
             navigation.navigate("Result", {
                 user: user
             })
         }, seconds * 1000)
-    }
+    };
 
     const runModel = (model: string): void => {
         switch(model) {
             case 'random':
-                randomDuration(randint(4,10))
+                timeoutModel(randint(6,12));
                 break;
             default:
-                randomDuration(randint(4,10))
+                timeoutModel(4);
                 break;
         }
-    }
+    };
 
     useEffect(() => {
         runModel('random');
@@ -43,7 +44,7 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
         // return function cleanup() {
         //     clearInterval(interval)
         // };
-    }, [])
+    }, []);
 
     return (
         <View style={styles.container}>
