@@ -5,6 +5,7 @@ import { ScreenProps } from "../models/component.model";
 import { Meal, Meals } from "../models/data.model";
 
 import { menu } from "../data/meal.data";
+import { pickRandomKey } from '../utils/utils';
 
 
 function ResultScreen({ route, navigation }: ScreenProps) {
@@ -13,14 +14,8 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const [meal, setMeal] = useState<Meal>(menu.schnitzel);
 
-    const pickRandomKey = (obj: Meals) => {
-        const keys: Array<string> = Object.keys(obj);
-        return obj[keys[ keys.length * Math.random() << 0]];
-    }
-
     const pickMeal = () => {
         const picked: Meal = pickRandomKey(menu);
-        // console.log(picked)
         return picked;
     }
 
