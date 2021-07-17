@@ -23,7 +23,6 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const reloadBtnPress = (): void => {
         setReloadCount(reloadCount + 1)
-        console.log(reloadCount)
         switch(reloadCount) {
             case 0:
                 setReloadBtnLabel("Where's the Club Sandwich?")
