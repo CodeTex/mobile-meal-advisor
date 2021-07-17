@@ -18,9 +18,13 @@ export const getUser = (user: string): User => {
     }
 
     switch(user.toLowerCase()) {
-        case 'genius':
-            selectedUser['greeting'] = 'A funny one, eh?\nKeeping my photo sensors on you!';
+        case 'jester':
+            selectedUser['greeting'] = 'A funny one, eh?\nKeeping my lenses on you!';
             selectedUser['gif'] = require("../assets/gifs/suspicious.webp");
+            break;
+        case 'idiot':
+            selectedUser['greeting'] = "Do you know what a rethorical question is?\nOf course not, you're an idiot.";
+            selectedUser['gif'] = require("../assets/gifs/dean_pelton.webp");
             break;
         case 'alex':
             selectedUser['greeting'] = 'It is she who shronketh,\nwelcome!';
