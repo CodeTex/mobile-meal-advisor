@@ -83,7 +83,7 @@ const containerStyle = StyleSheet.create({
         height: 45,
         width: '100%',
         paddingHorizontal: 10,
-        backgroundColor: '#F5BE6B'
+        backgroundColor: '#DDA768'
     }
 });
 
@@ -108,7 +108,8 @@ const elementStyle = StyleSheet.create({
     },
     buttonLabel: {
         fontSize: 20,
-        fontWeight: '600'
+        fontWeight: '600',
+        color: '#774C0A'
     },
     flexCenter: {
         justifyContent: 'center',
