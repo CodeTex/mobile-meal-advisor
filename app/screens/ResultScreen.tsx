@@ -4,7 +4,7 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ScreenProps } from "../models/component.model";
 import { Meal, Meals } from "../models/data.model";
 
-import { menu } from "../data/meal.data";
+import { menu, reloadMenu } from "../data/meal.data";
 import { pickRandomKey } from '../utils/utils';
 
 
@@ -12,21 +12,63 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const { user } = route.params;
 
+    const [reloadCount, setReloadCount] = useState(0)
+    const [reloadBtnLabel, setReloadBtnLabel] = useState("Well, maybe...")
     const [meal, setMeal] = useState<Meal>(menu.schnitzel);
 
     const pickMeal = () => {
         const picked: Meal = pickRandomKey(menu);
         return picked;
-    }
+    };
+
+    const reloadBtnPress = (): void => {
+        setReloadCount(reloadCount + 1)
+        console.log(reloadCount)
+        switch(reloadCount) {
+            case 0:
+                setReloadBtnLabel("Where's the Club Sandwich?")
+                setMeal({ ...pickMeal(), description: "Got ya haha!"})
+                break;
+            case 1:
+                setReloadBtnLabel("Thanks, but maybe...")
+                setMeal(reloadMenu.give_in)
+                break;
+            case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
+                setReloadBtnLabel("Well, still maybe...")
+                setMeal({ ...pickMeal(), description: "You're not my favorite customer!"})
+                break;
+            case 10: case 11: case 12: case 13: case 14:
+                setReloadBtnLabel("...")
+                setMeal(reloadMenu.stop_it)
+                break;
+            case 15:
+                setReloadBtnLabel("...")
+                setMeal(reloadMenu.dead_end)
+                break;
+            default:
+                setReloadBtnLabel(" ")
+                setMeal(reloadMenu.dead_dead_end)
+                break;
+        }
+    };
+
+    const restartBtnPress = (): void => {
+        navigation.navigate("Home");
+    };
 
     useEffect(() => {
         setMeal(pickMeal())
-    }, [])
+        return () => {
+            setReloadCount(0)
+        }
+    }, []);
 
     return (
         <View style={[containerStyle.container, generalStyle.primColor]}>
             <View style={[containerStyle.header, generalStyle.flexCenter]}>
-                <Text style={{fontSize: 18, fontWeight: '600'}}>{user.name}, for you the AI chose: </Text>
+                <Text 
+                    style={[elementStyle.screenTitle, reloadCount > 15 && generalStyle.hide]}
+                >{user.name}, for you the AI chose:</Text>
             </View>
             <View style={containerStyle.body}>
                 <View style={[
@@ -49,14 +91,17 @@ function ResultScreen({ route, navigation }: ScreenProps) {
             <View style={[containerStyle.footer, generalStyle.flexCenter]}>
                 <View style={containerStyle.footerRow}>
                     <Pressable 
-                        onPress={() => setMeal(menu.clubsandwich)} 
+                        onPress={reloadBtnPress} 
                         style={[elementStyle.button, generalStyle.secdColor]}
                     >
-                        <Text style={elementStyle.buttonLabel}>Well, maybe...</Text>
+                        <Text style={elementStyle.buttonLabel}>{reloadBtnLabel}</Text>
                     </Pressable>
                     <Pressable 
-                        onPress={() => navigation.navigate("Home")} 
-                        style={[elementStyle.button, generalStyle.secdColor]}
+                        onPress={restartBtnPress} 
+                        style={[
+                            elementStyle.button, generalStyle.secdColor,
+                            reloadCount > 5 && generalStyle.hide
+                        ]}
                     >
                         <Text style={elementStyle.buttonLabel}>Back to Start</Text>
                     </Pressable>
@@ -107,6 +152,9 @@ const containerStyle = StyleSheet.create({
 })
 
 const elementStyle = StyleSheet.create({
+    screenTitle: {
+        fontSize: 18, fontWeight: '600'
+    },
     mealTitle: {
         fontSize: 24,
         fontWeight: '700',
@@ -119,6 +167,8 @@ const elementStyle = StyleSheet.create({
         textAlign: 'left'
     },
     button: {
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: 8,
         paddingVertical: 6,
         borderRadius: 4,
@@ -150,6 +200,9 @@ const generalStyle = StyleSheet.create({
         borderLeftWidth: 2,
         borderRightWidth: 2,
         borderTopWidth: .5,
+    },
+    hide: {
+        display: 'none'
     },
     primColor: {
         backgroundColor: '#F5BE6B'
