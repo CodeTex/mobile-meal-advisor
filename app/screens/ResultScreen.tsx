@@ -26,7 +26,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
     return (
         <View style={[containerStyle.container, generalStyle.primColor]}>
             <View style={[containerStyle.header, generalStyle.flexCenter]}>
-                <Text style={{fontSize: 18, fontWeight: '600'}}>{user.name}, the AI choose: </Text>
+                <Text style={{fontSize: 18, fontWeight: '600'}}>{user.name}, for you the AI chose: </Text>
             </View>
             <View style={containerStyle.body}>
                 <View style={[
