@@ -9,7 +9,6 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
     const { user } = route.params;
 
     const timeoutModel = (seconds: number): void => {
-        console.log(seconds)
         setTimeout(() => {
             navigation.navigate("Result", {
                 user: user
