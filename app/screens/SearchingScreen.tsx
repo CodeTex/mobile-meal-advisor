@@ -44,11 +44,11 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
             <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
                 <Image source={require("../assets/gifs/calculating_02.webp")} style={{width: '40%', height: '100%'}}></Image>
                 <ActivityIndicator size="large" color="#8A570A"/>
-                <Image source={require("../assets/gifs/calculating_03.webp")} style={{width: '40%', height: '100%'}}></Image>
+                <Image source={require("../assets/gifs/calculating_02.webp")} style={{width: '40%', height: '100%'}}></Image>
             </View>
             <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
                 <ActivityIndicator size="large" color="#8A570A"/>
-                <Image source={require("../assets/gifs/calculating_04.webp")} style={{width: '40%', height: '100%'}}></Image>
+                <Image source={require("../assets/gifs/calculating_01.gif")} style={{width: '40%', height: '100%'}}></Image>
                 <ActivityIndicator size="large" color="#8A570A"/>
             </View>
         </View>
