@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Alert, Button, Image, Linking, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ScreenProps } from "../models/component.model";
-import { Meal, Meals } from "../models/data.model";
+import { Meal } from "../models/data.model";
 
 import { menu, reloadMenu } from "../data/meal.data";
 import { pickRandomKey } from '../utils/utils';
@@ -12,9 +12,12 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const { user } = route.params;
 
+    const adUrl: string = "https://www.reddit.com/r/PornMemes/?ref=porndude";
+
     const [reloadCount, setReloadCount] = useState(0)
     const [reloadBtnLabel, setReloadBtnLabel] = useState("Well, maybe...")
     const [meal, setMeal] = useState<Meal>(menu.schnitzel);
+    const [modalVisible, toggleModalVisibility] = useState(false);
 
     const pickMeal = () => {
         const picked: Meal = pickRandomKey(menu);
@@ -55,6 +58,29 @@ function ResultScreen({ route, navigation }: ScreenProps) {
         navigation.navigate("Home");
     };
 
+
+    const toggleModal = (modalState: boolean): void => {
+        console.log(modalState)
+        toggleModalVisibility(!modalState)
+    };
+
+    const OpenURLButton = ({ url, children }: {[key: string]: any}) => {
+        const handlePress = useCallback(async () => {
+        // Checking if the link is supported for links with custom URL scheme.
+        const supported = await Linking.canOpenURL(url);
+
+        if (supported) {
+        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+        // by some browser in the mobile
+        await Linking.openURL(url);
+        } else {
+        Alert.alert(`Don't know how to open this URL: ${url}`);
+        }
+    }, [url]);
+
+        return <Button title={children} onPress={handlePress} />;
+    };
+
     useEffect(() => {
         setMeal(pickMeal())
         return () => {
@@ -64,48 +90,76 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     return (
         <View style={[containerStyle.container, generalStyle.primColor]}>
-            <View style={[containerStyle.header, generalStyle.flexCenter]}>
-                <Text 
-                    style={[elementStyle.screenTitle, reloadCount > 15 && generalStyle.hide]}
-                >{user.name}, for you the AI chose:</Text>
+            <View style={[containerStyle.container, generalStyle.primColor, modalVisible && generalStyle.grayedOut]}>
+                <View style={[containerStyle.header, generalStyle.flexCenter]}>
+                    <Text 
+                        style={[elementStyle.screenTitle, reloadCount > 15 && generalStyle.hide]}
+                    >{user.name}, for you the AI chose:</Text>
+                </View>
+                <View style={containerStyle.body}>
+                    <View style={[
+                        containerStyle.bodyTitle, generalStyle.flexCenter, 
+                        generalStyle.fieldBorder, generalStyle.secdColor
+                    ]}>
+                        <Text style={elementStyle.mealTitle}>{meal.title}</Text>
+                    </View>
+                    <View style={containerStyle.bodyImage}>
+                        <Pressable onPress={() => setMeal(pickMeal())}>
+                            <Image source={meal.image} style={elementStyle.mealImage} />
+                        </Pressable>
+                    </View>
+                    <View style={[
+                        containerStyle.bodyDescription, generalStyle.fieldBorder, generalStyle.secdColor
+                    ]}>
+                        <Text style={elementStyle.mealDescription}>{meal.description}</Text>
+                    </View>
+                </View>
+                <View style={[containerStyle.footer, generalStyle.flexCenter]}>
+                    <View style={containerStyle.footerRow}>
+                        <Pressable 
+                            onPress={reloadBtnPress} 
+                            style={[elementStyle.button, generalStyle.secdColor]}
+                        >
+                            <Text style={elementStyle.buttonLabel}>{reloadBtnLabel}</Text>
+                        </Pressable>
+                        <Pressable 
+                            onPress={restartBtnPress} 
+                            style={[
+                                elementStyle.button, generalStyle.secdColor,
+                                reloadCount > 5 && generalStyle.hide
+                            ]}
+                        >
+                            <Text style={elementStyle.buttonLabel}>Back to Start</Text>
+                        </Pressable>
+                    </View>
+                </View>
+                {/* Modal pop up button */}
+                <Pressable 
+                    style={[elementStyle.popUpButton, generalStyle.flexCenter]}
+                    onPress={() => toggleModalVisibility(!modalVisible)}
+                >
+                    <Text style={{color:'#8A570A', fontSize:2}}>👾</Text>
+                </Pressable>
             </View>
-            <View style={containerStyle.body}>
-                <View style={[
-                    containerStyle.bodyTitle, generalStyle.flexCenter, 
-                    generalStyle.fieldBorder, generalStyle.secdColor
-                ]}>
-                    <Text style={elementStyle.mealTitle}>{meal.title}</Text>
+            
+            {/* Modal */}
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => toggleModalVisibility(!modalVisible)}
+            >
+                <View style={[containerStyle.modal]}>
+                    <Image source={require('../assets/img/geralt_fuck.jpg')} style={elementStyle.modalImage}></Image>
+                    <View style={elementStyle.modalButton}>
+                        <Pressable 
+                            onPress={() => toggleModalVisibility(!modalVisible)}
+                        >
+                            <Text style={{color:'#8A570A', fontSize: 2}}>👾</Text>
+                        </Pressable>
+                    </View>
                 </View>
-                <View style={containerStyle.bodyImage}>
-                    <Pressable onPress={() => setMeal(pickMeal())}>
-                        <Image source={meal.image} style={elementStyle.mealImage} />
-                    </Pressable>
-                </View>
-                <View style={[
-                    containerStyle.bodyDescription, generalStyle.fieldBorder, generalStyle.secdColor
-                ]}>
-                    <Text style={elementStyle.mealDescription}>{meal.description}</Text>
-                </View>
-            </View>
-            <View style={[containerStyle.footer, generalStyle.flexCenter]}>
-                <View style={containerStyle.footerRow}>
-                    <Pressable 
-                        onPress={reloadBtnPress} 
-                        style={[elementStyle.button, generalStyle.secdColor]}
-                    >
-                        <Text style={elementStyle.buttonLabel}>{reloadBtnLabel}</Text>
-                    </Pressable>
-                    <Pressable 
-                        onPress={restartBtnPress} 
-                        style={[
-                            elementStyle.button, generalStyle.secdColor,
-                            reloadCount > 5 && generalStyle.hide
-                        ]}
-                    >
-                        <Text style={elementStyle.buttonLabel}>Back to Start</Text>
-                    </Pressable>
-                </View>
-            </View>
+            </Modal>
         </View>
     );
 }
@@ -147,6 +201,26 @@ const containerStyle = StyleSheet.create({
     footerRow: {
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    modal: {
+        display: 'flex', 
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: 20,
+        marginTop: 35,
+        backgroundColor: "#000",
+        borderRadius: 20,
+        padding: 25,
+        paddingTop: 45,
+        height: '80%',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     }
 })
 
@@ -182,6 +256,20 @@ const elementStyle = StyleSheet.create({
         fontSize: 12,
         fontWeight: '600',
         color: 'black'
+    },
+    popUpButton: {
+        position: 'absolute',
+        top: 40,
+        right: 5,
+        height: 25,
+        width: 25,
+        borderRadius: 25
+    },
+    modalImage: {
+        height: '80%',
+        width: '100%',
+    },
+    modalButton: {
     }
 })
 
@@ -202,6 +290,10 @@ const generalStyle = StyleSheet.create({
     },
     hide: {
         display: 'none'
+    },
+    grayedOut: {
+        backgroundColor: 'black',
+        opacity: .5
     },
     primColor: {
         backgroundColor: '#F5BE6B'
