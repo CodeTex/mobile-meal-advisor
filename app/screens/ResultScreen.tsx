@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, Button, Image, Linking, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, Image, ImageBackground, Linking, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { ScreenProps } from "../models/component.model";
 import { Meal } from "../models/data.model";
@@ -12,7 +12,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const { user } = route.params;
 
-    const adUrl: string = "https://www.reddit.com/r/PornMemes/?ref=porndude";
+    const adUrl = "https://www.reddit.com/r/PornMemes/";
 
     const [reloadCount, setReloadCount] = useState(0)
     const [reloadBtnLabel, setReloadBtnLabel] = useState("Well, maybe...")
@@ -62,23 +62,6 @@ function ResultScreen({ route, navigation }: ScreenProps) {
     const toggleModal = (modalState: boolean): void => {
         console.log(modalState)
         toggleModalVisibility(!modalState)
-    };
-
-    const OpenURLButton = ({ url, children }: {[key: string]: any}) => {
-        const handlePress = useCallback(async () => {
-        // Checking if the link is supported for links with custom URL scheme.
-        const supported = await Linking.canOpenURL(url);
-
-        if (supported) {
-        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-        // by some browser in the mobile
-        await Linking.openURL(url);
-        } else {
-        Alert.alert(`Don't know how to open this URL: ${url}`);
-        }
-    }, [url]);
-
-        return <Button title={children} onPress={handlePress} />;
     };
 
     useEffect(() => {
@@ -150,7 +133,12 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                 onRequestClose={() => toggleModalVisibility(!modalVisible)}
             >
                 <View style={[containerStyle.modal]}>
-                    <Image source={require('../assets/img/geralt_fuck.jpg')} style={elementStyle.modalImage}></Image>
+                    <ImageBackground source={require('../assets/img/geralt_fuck.jpg')} style={elementStyle.modalImage}>
+                        <Pressable
+                            onPress={() => Linking.openURL(adUrl)}
+                            style={{flex: 1}}
+                        ></Pressable>
+                    </ImageBackground>
                     <View style={elementStyle.modalButton}>
                         <Pressable 
                             onPress={() => toggleModalVisibility(!modalVisible)}
