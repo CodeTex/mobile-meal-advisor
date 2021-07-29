@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Image, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { ScreenProps } from '../models/component.model';
 import { randint } from '../utils/utils';
 
@@ -36,21 +36,7 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
             <Text style={styles.greeting}>{user.greeting}</Text>
             <Image source={user.gif} style={styles.gif}/>
             <Text style={styles.message}>Calculating ideal meal ...</Text>
-            <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
-                <ActivityIndicator size="large" color="#8A570A"/>
-                <Image source={require("../assets/gifs/calculating_01.gif")} style={{width: '40%', height: '100%'}}></Image>
-                <ActivityIndicator size="large" color="#8A570A"/>
-            </View>
-            <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
-                <Image source={require("../assets/gifs/calculating_02.webp")} style={{width: '40%', height: '100%'}}></Image>
-                <ActivityIndicator size="large" color="#8A570A"/>
-                <Image source={require("../assets/gifs/calculating_02.webp")} style={{width: '40%', height: '100%'}}></Image>
-            </View>
-            <View style={{flexDirection: 'row', width: '80%', justifyContent: 'space-around'}}>
-                <ActivityIndicator size="large" color="#8A570A"/>
-                <Image source={require("../assets/gifs/calculating_01.gif")} style={{width: '40%', height: '100%'}}></Image>
-                <ActivityIndicator size="large" color="#8A570A"/>
-            </View>
+            <Image source={require('../assets/gifs/loading-48.gif')} style={styles.loadingGif}></Image>
         </View>
     );
 }
@@ -58,12 +44,12 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#4C6680',
-        color: '#E1E5EA',
+        backgroundColor: '#001E31',
         justifyContent: 'center',
         alignItems: 'center'
     },
     greeting: {
+        color: '#E1E5EA',
         fontSize: 22,
         fontWeight: '500',
         marginBottom: 40,
@@ -71,12 +57,18 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     gif: {
-        height: '50%',
-        width: '100%'
+        height: '30%',
+        width: '90%'
     },
     message: {
-        margin: 30
-    }
+        color: '#E1E5EA',
+        marginTop: 50
+    },
+    loadingGif: {
+        marginTop: 50,
+        height: '30%',
+        width: '50%'
+    },
 })
 
 export default SearchingScreen;
