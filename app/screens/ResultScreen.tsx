@@ -35,15 +35,15 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                 setReloadBtnLabel("Thanks, but maybe...")
                 setMeal(reloadMenu.give_in)
                 break;
-            case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
+            case 2: case 3: case 4: case 5:
                 setReloadBtnLabel("Well, still maybe...")
                 setMeal({ ...pickMeal(), description: "You're not my favorite customer!"})
                 break;
-            case 10: case 11: case 12: case 13: case 14:
+            case 6: case 7: case 8: case 9:
                 setReloadBtnLabel("...")
                 setMeal(reloadMenu.stop_it)
                 break;
-            case 15:
+            case 10:
                 setReloadBtnLabel("...")
                 setMeal(reloadMenu.dead_end)
                 break;
