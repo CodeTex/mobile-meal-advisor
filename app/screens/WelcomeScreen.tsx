@@ -12,10 +12,22 @@ function WelcomeScreen({ navigation }: ScreenProps) {
     const [btnLabel, setBtnLabel] = useState('');
 
     const buttonLabel: Array<string> = [
-        "Choose the ideal meal",
+        "Choose my meal",
         "Let SenpAI™ do the work",  // longest string
-        "Bibi, hex hex!"
+        "Bibi, hex hex!",
+        "Gimme recommendation",
+        "Work, bitch!"
     ];
+
+    const backgroundImage: Array<NodeRequire> = [
+        require('../assets/img/welcome/chicken-burger.png'),
+        require('../assets/img/welcome/gray-bowl.jpg'),
+        require('../assets/img/welcome/ice-cream.jpg'),
+        require('../assets/img/welcome/raspberry-cake.png'),
+        require('../assets/img/welcome/steak.jpg')
+    ];
+
+    const [bgImg, setBgImg] = useState(backgroundImage[0]);
 
     const btnPress = (name: string): void => {
         navigation.navigate("Search", {
@@ -25,18 +37,16 @@ function WelcomeScreen({ navigation }: ScreenProps) {
 
     useEffect(() => {
         setBtnLabel(buttonLabel[randint(0, buttonLabel.length)])
+        setBgImg(backgroundImage[randint(0, backgroundImage.length)])
     }, []);
 
     return (
         <View style={containerStyle.container}>
             <ImageBackground
                 style={elementStyle.background}
-                source={require('../assets/img/welcome-background.jpg')}>
-
+                source={bgImg}
+                >
                 <View style={containerStyle.content}>
-                    <View style={[containerStyle.title, elementStyle.flexCenter]}>
-                        <Image source={require("../assets/logo.png")}></Image>
-                    </View>
                     <View style={[containerStyle.input, elementStyle.flexCenter]}>
                         <TextInput
                             style={[elementStyle.input, elementStyle.border]}
@@ -65,25 +75,23 @@ const containerStyle = StyleSheet.create({
     },
     content: {
         flex: 1,
+        position: 'absolute',
+        bottom: 15, 
+        left: '20%',
+        height: '15%',
         width: '60%',
-        marginTop: '20%',
-        alignItems: 'center'
-    },
-    title: {
-        height: 100,
-        width: '100%',
-        marginBottom: '15%'
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     input: {
         height: 40,
         width: '80%',
-        margin: 20,
     },
     button: {
         height: 45,
         width: '100%',
         paddingHorizontal: 10,
-        backgroundColor: '#DDA768'
+        backgroundColor: '#EDF3F8'
     }
 });
 
@@ -95,28 +103,23 @@ const elementStyle = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute'
     },
-    title: {
-        color: 'black',
-        fontSize: 42,
-        fontWeight: '700'
-    },
     input: {
         height: '100%',
         width: '100%',
         paddingLeft: 10,
-        backgroundColor: '#F4DDA4'
+        backgroundColor: '#EDF3F8'
     },
     buttonLabel: {
         fontSize: 20,
         fontWeight: '600',
-        color: '#774C0A'
+        color: '#000'
     },
     flexCenter: {
         justifyContent: 'center',
         alignItems: 'center'
     },
     border: {
-        borderColor: '#8A570A',
+        borderColor: '#000',
         borderStyle: 'solid',
         borderWidth: .4,
         borderRadius: 4,
