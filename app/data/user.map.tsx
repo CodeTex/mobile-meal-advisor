@@ -6,6 +6,7 @@ export const userMap: UserMap = new Map([
     ["ludwig", "Alex"],
     ["bernd", "Bernd"],
     ["björn", "Bernd"],
+    ["björk", "Bernd"],
     ["bernd das brot", "Bernd"],
     ["kalchbrenner", "Bernd"],
     ["christian", "Christian"],
