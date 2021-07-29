@@ -286,7 +286,7 @@ const generalStyle = StyleSheet.create({
         opacity: .5
     },
     primColor: {
-        backgroundColor: '#4C6680'
+        backgroundColor: '#62788E'
     },
     secdColor: {
         backgroundColor: '#C3CCD5'
