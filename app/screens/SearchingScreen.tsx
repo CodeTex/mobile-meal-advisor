@@ -58,7 +58,8 @@ function SearchingScreen({ route, navigation }: ScreenProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5BE6B',
+        backgroundColor: '#4C6680',
+        color: '#E1E5EA',
         justifyContent: 'center',
         alignItems: 'center'
     },

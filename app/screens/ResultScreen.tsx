@@ -214,7 +214,9 @@ const containerStyle = StyleSheet.create({
 
 const elementStyle = StyleSheet.create({
     screenTitle: {
-        fontSize: 18, fontWeight: '600'
+        color: '#E1E5EA',
+        fontSize: 18, 
+        fontWeight: '600'
     },
     mealTitle: {
         fontSize: 24,
@@ -269,7 +271,7 @@ const generalStyle = StyleSheet.create({
     },
     fieldBorder: {
         borderRadius: 4,
-        borderColor: '#8A570A',
+        borderColor: '#103356',
         borderStyle: 'solid',
         borderBottomWidth: .5,
         borderLeftWidth: 2,
@@ -284,10 +286,10 @@ const generalStyle = StyleSheet.create({
         opacity: .5
     },
     primColor: {
-        backgroundColor: '#F5BE6B'
+        backgroundColor: '#4C6680'
     },
     secdColor: {
-        backgroundColor: '#FEF9F1'
+        backgroundColor: '#C3CCD5'
     }
 })
 
