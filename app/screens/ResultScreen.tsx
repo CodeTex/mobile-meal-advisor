@@ -16,7 +16,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const [reloadCount, setReloadCount] = useState(0)
     const [reloadBtnLabel, setReloadBtnLabel] = useState("Well, maybe...")
-    const [meal, setMeal] = useState<Meal>(menu.schnitzel);
+    const [meal, setMeal] = useState<Meal>(menu.schnitzel_schwein);
     const [modalVisible, toggleModalVisibility] = useState(false);
 
     const pickMeal = () => {
@@ -95,6 +95,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                         containerStyle.bodyDescription, generalStyle.fieldBorder, generalStyle.secdColor
                     ]}>
                         <Text style={elementStyle.mealDescription}>{meal.description}</Text>
+                        <Text style={elementStyle.mealPrice}>€ {meal.price.toFixed(2)}</Text>
                     </View>
                 </View>
                 <View style={[containerStyle.footer, generalStyle.flexCenter]}>
@@ -116,6 +117,13 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                         </Pressable>
                     </View>
                 </View>
+                {/* Recalculate button */}
+                <Pressable 
+                    style={[elementStyle.recalcButton, generalStyle.flexCenter]}
+                    onPress={() => setMeal(pickMeal())}
+                >
+                    <Image source={require("../assets/icons/recalculate.png")} style={elementStyle.recalcButtonImage}></Image>
+                </Pressable>
                 {/* Modal pop up button */}
                 <Pressable 
                     style={[elementStyle.popUpButton, generalStyle.flexCenter]}
@@ -228,6 +236,17 @@ const elementStyle = StyleSheet.create({
     mealDescription: {
         textAlign: 'left'
     },
+    mealPrice: {
+        position: 'absolute',
+        bottom: 5,
+        right: 10,
+        width: '100%',
+        paddingTop: 5,
+        textAlign: 'right',
+        borderColor: '#103356',
+        borderStyle: 'solid',
+        borderTopWidth: 1
+    },
     button: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -238,7 +257,7 @@ const elementStyle = StyleSheet.create({
         marginBottom: 6,
         minWidth: '33%',
         textAlign: 'center',
-        borderColor: '#8A570A',
+        borderColor: '#103356',
         borderWidth: .5
     },
     buttonLabel: {
@@ -246,10 +265,22 @@ const elementStyle = StyleSheet.create({
         fontWeight: '600',
         color: 'black'
     },
+    recalcButton: {
+        position: 'absolute',
+        top: 50,
+        left: 20,
+        height: 25,
+        width: 25,
+        borderRadius: 25
+    },
+    recalcButtonImage: {
+        height: 30,
+        width: 30
+    },
     popUpButton: {
         position: 'absolute',
-        top: 40,
-        right: 5,
+        top: 50,
+        right: 20,
         height: 25,
         width: 25,
         borderRadius: 25

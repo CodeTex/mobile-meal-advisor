@@ -1,7 +1,8 @@
 export type Meal = {
     image: any,
     title: string, 
-    description: string
+    description: string,
+    price: number
 };
 
 export type Meals = {[key: string]: Meal};
