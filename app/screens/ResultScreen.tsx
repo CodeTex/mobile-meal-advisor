@@ -12,7 +12,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
 
     const { user } = route.params;
 
-    const adUrl = "https://www.reddit.com/r/PornMemes/";
+    const adUrl = "https://pointerpointer.com";
 
     const [reloadCount, setReloadCount] = useState(0)
     const [reloadBtnLabel, setReloadBtnLabel] = useState("Well, maybe...")
@@ -121,7 +121,7 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                     style={[elementStyle.popUpButton, generalStyle.flexCenter]}
                     onPress={() => toggleModalVisibility(!modalVisible)}
                 >
-                    <Text style={{color:'#8A570A', fontSize:2}}>👾</Text>
+                    <Image source={require("../assets/icons/making-love.png")} style={elementStyle.popUpButtonImage}></Image>
                 </Pressable>
             </View>
             
@@ -133,19 +133,18 @@ function ResultScreen({ route, navigation }: ScreenProps) {
                 onRequestClose={() => toggleModalVisibility(!modalVisible)}
             >
                 <View style={[containerStyle.modal]}>
-                    <ImageBackground source={require('../assets/img/geralt_fuck.jpg')} style={elementStyle.modalImage}>
+                    <ImageBackground source={require('../assets/img/suggestive.jpg')} style={elementStyle.modalImage}>
                         <Pressable
                             onPress={() => Linking.openURL(adUrl)}
                             style={{flex: 1}}
                         ></Pressable>
-                    </ImageBackground>
-                    <View style={elementStyle.modalButton}>
                         <Pressable 
+                            style={elementStyle.modalReturnButton}
                             onPress={() => toggleModalVisibility(!modalVisible)}
                         >
-                            <Text style={{color:'#8A570A', fontSize: 2}}>👾</Text>
+                            <Image source={require("../assets/icons/return.png")} style={elementStyle.modalReturnImage}></Image>
                         </Pressable>
-                    </View>
+                    </ImageBackground>
                 </View>
             </Modal>
         </View>
@@ -196,10 +195,10 @@ const containerStyle = StyleSheet.create({
         alignItems: 'center',
         margin: 20,
         marginTop: 35,
-        backgroundColor: "#000",
-        borderRadius: 20,
-        padding: 25,
-        paddingTop: 45,
+        backgroundColor: "#C3CCD5",
+        borderRadius: 15,
+        padding: 1,
+        // paddingTop: 45,
         height: '80%',
         shadowColor: "#000",
         shadowOffset: {
@@ -255,11 +254,35 @@ const elementStyle = StyleSheet.create({
         width: 25,
         borderRadius: 25
     },
-    modalImage: {
-        height: '80%',
-        width: '100%',
+    popUpButtonImage: {
+        height: 20,
+        width: 30
     },
-    modalButton: {
+    modalImage: {
+        height: '100%',
+        width: '100%',
+        overflow: 'hidden',
+        borderRadius: 15,
+        flex: 1,
+        alignItems: 'center'
+    },
+    modalReturnButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 8,
+        paddingVertical: 6,
+        borderRadius: 15,
+        marginHorizontal: 6,
+        marginBottom: 2,
+        width: '99%',
+        textAlign: 'center',
+        borderColor: '#103356',
+        borderWidth: .5,
+        backgroundColor: '#C3CCD5'
+    },
+    modalReturnImage: {
+        height: 30,
+        width: 40
     }
 })
 
