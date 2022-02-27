@@ -93,11 +93,21 @@ class NameInput extends StatefulWidget {
 
 class _NameInputState extends State<NameInput> {
   final textController = TextEditingController();
+  Icon? inputIcon;
   int charLength = 0;
 
   _onChanged(String value) {
     setState(() {
       charLength = value.length;
+
+      if (charLength == 0) {
+        inputIcon = null;
+      } else {
+        inputIcon = const Icon(
+          Icons.favorite,
+          color: Colors.black45,
+        );
+      }
     });
   }
 
@@ -123,12 +133,13 @@ class _NameInputState extends State<NameInput> {
           filled: true,
           fillColor: Colors.white70,
           labelStyle: GoogleFonts.ubuntu(
-            color: Colors.black45,
+            color: Colors.black54,
           ),
           labelText: "Name",
+          suffixIcon: inputIcon, // make clickable
         ),
         maxLength: 25,
-        maxLines: 2,
+        maxLines: 1,
         onChanged: _onChanged,
       ),
     );
