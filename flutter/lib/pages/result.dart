@@ -1,15 +1,10 @@
+import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mobile_meal_advisor/meals.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
-
-class MealResult {
-  String? name;
-  String? text;
-  double? price;
-  String? imageFileName;
-
-  MealResult({this.name, this.text, this.price, this.imageFileName});
-}
 
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -19,10 +14,14 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  String title = "Init Title";
-  String text = "Init Text";
-  String imageFileName = "Init File";
-  double price = 12.34;
+  List<Meal> meals = <Meal>[];
+  Meal selectedMeal = defaultMeal;
+
+  @override
+  void initState() {
+    loadMealsFromFile();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +40,20 @@ class _ResultPageState extends State<ResultPage> {
             Expanded(
               flex: 2,
               child: ResultTitle(
-                title: title,
+                title: selectedMeal.name,
               ),
             ),
             Expanded(
               flex: 5,
               child: ResultImage(
-                fileName: imageFileName,
+                fileName: selectedMeal.imageFileName,
               ),
             ),
             Expanded(
               flex: 4,
               child: ResultDescription(
-                price: price,
-                text: text,
+                text: selectedMeal.text,
+                price: selectedMeal.price,
               ),
             ),
             Expanded(
@@ -67,9 +66,7 @@ class _ResultPageState extends State<ResultPage> {
                   child: ElevatedButton(
                     child: const Text("Choose Meal"),
                     onPressed: () {
-                      changeDescription();
-                      changeImage();
-                      changeTitle();
+                      changeMeal();
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).colorScheme.background,
@@ -85,22 +82,27 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  void changeDescription() {
-    setState(() {
-      text = "Changed Description";
-    });
+  void changeMeal() {
+    if (meals.isNotEmpty) {
+      int index = Random().nextInt(meals.length);
+      setState(() {
+        selectedMeal = meals[index];
+      });
+    } else {
+      setState(() {
+        selectedMeal = defaultMeal;
+      });
+    }
   }
 
-  void changeImage() {
+  Future<void> loadMealsFromFile() async {
+    String path = "assets/data/meals.json";
+    final String response = await rootBundle.loadString(path);
+    final data = await json.decode(response);
     setState(() {
-      imageFileName = "Changed Image";
+      meals = Meals.fromJson(data).meals;
     });
-  }
-
-  void changeTitle() {
-    setState(() {
-      title = "Changed Title";
-    });
+    changeMeal();
   }
 }
 
@@ -176,7 +178,7 @@ class ResultImage extends StatelessWidget {
   }
 }
 
-class ResultDescription extends StatefulWidget {
+class ResultDescription extends StatelessWidget {
   final String text;
   final double price;
 
@@ -185,24 +187,6 @@ class ResultDescription extends StatefulWidget {
     required this.text,
     required this.price,
   }) : super(key: key);
-
-  @override
-  _ResultDescriptionState createState() => _ResultDescriptionState();
-}
-
-class _ResultDescriptionState extends State<ResultDescription> {
-  String priceString = "";
-
-  @override
-  void initState() {
-    priceString = "€ " + widget.price.toString().replaceAll(".", ",");
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +205,7 @@ class _ResultDescriptionState extends State<ResultDescription> {
                   horizontal: 15,
                   vertical: 10,
                 ),
-                child: Text(widget.text),
+                child: Text(text),
               ),
             ),
             const Divider(
@@ -236,7 +220,7 @@ class _ResultDescriptionState extends State<ResultDescription> {
               height: 30,
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                priceString,
+                "€ " + price.toStringAsFixed(2).replaceAll(".", ","),
                 style: const TextStyle(
                   fontSize: 18,
                 ),
