@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 
 class MealResult {
   String? name;
@@ -25,7 +26,7 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -145,12 +146,12 @@ class ResultTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-      ),
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-      child: Center(
-        child: Text(title),
+      child: SlimBorderedBox(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        child: Center(
+          child: Text(title),
+        ),
       ),
     );
   }
@@ -209,19 +210,19 @@ class _ResultDescriptionState extends State<ResultDescription> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-      ),
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-      child: Column(
-        children: [
-          Center(
-            child: Text(widget.text),
-          ),
-          Center(
-            child: Text(priceString),
-          ),
-        ],
+      child: SlimBorderedBox(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        child: Column(
+          children: [
+            Center(
+              child: Text(widget.text),
+            ),
+            Center(
+              child: Text(priceString),
+            ),
+          ],
+        ),
       ),
     );
   }
