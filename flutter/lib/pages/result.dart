@@ -41,36 +41,21 @@ class _ResultPageState extends State<ResultPage> {
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: ResultTitle(
-                  title: title,
-                ),
+              child: ResultTitle(
+                title: title,
               ),
             ),
             Expanded(
               flex: 5,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: ResultImage(
-                  fileName: imageFileName,
-                ),
+              child: ResultImage(
+                fileName: imageFileName,
               ),
             ),
             Expanded(
               flex: 4,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: ResultDescription(
-                  price: price,
-                  text: text,
-                ),
+              child: ResultDescription(
+                price: price,
+                text: text,
               ),
             ),
             Expanded(
@@ -172,9 +157,14 @@ class ResultImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: const Border.symmetric(
+          horizontal: BorderSide(
+            color: Palette.borderColor,
+            width: 2,
+          ),
+        ),
+        color: Theme.of(context).colorScheme.background,
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: Center(
         child: Text(fileName),
       ),
