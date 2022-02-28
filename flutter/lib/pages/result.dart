@@ -30,6 +30,12 @@ class _ResultPageState extends State<ResultPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+              ),
+              child: const ResultTopBar(),
+            ),
             Expanded(
               flex: 2,
               child: Container(
@@ -42,7 +48,7 @@ class _ResultPageState extends State<ResultPage> {
               ),
             ),
             Expanded(
-              flex: 6,
+              flex: 5,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black),
@@ -53,7 +59,7 @@ class _ResultPageState extends State<ResultPage> {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black),
@@ -103,6 +109,28 @@ class _ResultPageState extends State<ResultPage> {
     setState(() {
       imageFileName = "Changed Image";
     });
+  }
+}
+
+class ResultTopBar extends StatelessWidget {
+  const ResultTopBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const <Widget>[
+          Icon(
+            Icons.favorite,
+          ),
+          Icon(
+            Icons.alarm,
+          ),
+        ],
+      ),
+    );
   }
 }
 
