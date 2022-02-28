@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 
@@ -66,11 +65,16 @@ class _ResultPageState extends State<ResultPage> {
                 ),
                 child: Center(
                   child: ElevatedButton(
-                    child: const Text("Change"),
+                    child: const Text("Choose Meal"),
                     onPressed: () {
+                      changeDescription();
                       changeImage();
                       changeTitle();
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).colorScheme.background,
+                      onPrimary: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -81,9 +85,9 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  void changeTitle() {
+  void changeDescription() {
     setState(() {
-      title = "Changed Title";
+      text = "Changed Description";
     });
   }
 
@@ -93,9 +97,9 @@ class _ResultPageState extends State<ResultPage> {
     });
   }
 
-  void changeDescription() {
+  void changeTitle() {
     setState(() {
-      imageFileName = "Changed Image";
+      title = "Changed Title";
     });
   }
 }
