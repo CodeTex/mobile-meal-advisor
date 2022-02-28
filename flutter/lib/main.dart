@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/pages/login.dart';
+import 'package:mobile_meal_advisor/pages/result.dart';
+import 'package:mobile_meal_advisor/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mobile Meal Advisor',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
+      theme: materialAdvisorTheme,
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const ResultPage(),
     );
   }
 }
