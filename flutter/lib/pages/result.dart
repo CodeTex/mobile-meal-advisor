@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 
 class MealResult {
@@ -149,6 +151,7 @@ class ResultTitle extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: SlimBorderedBox(
         backgroundColor: Theme.of(context).colorScheme.background,
+        borderColor: Palette.borderColor,
         child: Center(
           child: Text(title),
         ),
@@ -198,7 +201,7 @@ class _ResultDescriptionState extends State<ResultDescription> {
 
   @override
   void initState() {
-    priceString = "€" + widget.price.toString();
+    priceString = "€ " + widget.price.toString().replaceAll(".", ",");
     super.initState();
   }
 
@@ -213,13 +216,37 @@ class _ResultDescriptionState extends State<ResultDescription> {
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: SlimBorderedBox(
         backgroundColor: Theme.of(context).colorScheme.background,
+        borderColor: Palette.borderColor,
         child: Column(
-          children: [
-            Center(
-              child: Text(widget.text),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 10,
+                ),
+                child: Text(widget.text),
+              ),
             ),
-            Center(
-              child: Text(priceString),
+            const Divider(
+              height: 2,
+              thickness: 2,
+              color: Palette.borderColor,
+              indent: 10,
+              endIndent: 10,
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              height: 30,
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                priceString,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
             ),
           ],
         ),
