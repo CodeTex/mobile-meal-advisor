@@ -46,6 +46,6 @@ final ThemeData materialAdvisorTheme = ThemeData(
 class Palette {
   static const Color primary = Color(0xFF62788E);
   static const Color secondary = Color(0xFFC3CCD5);
-  static const Color tertiary = Color(0xFF103356);
+  static const Color borderColor = Color(0xFF103356);
   static const Color quartery = Color(0xFFE1E5EA);
 }
