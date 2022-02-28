@@ -1,0 +1,22 @@
+{
+  "meals": [
+    {
+      "name": "Hamburger",
+      "text": "200g Rindfeisch, Rucola, Cheddarkäse, geröstete Zwiebel, Tomaten, Prosciutto, rote Rüben & BBQ-Sauce",
+      "price": 11.9,
+      "image": "hamburger.jpg"
+    },
+    {
+      "name": "Cheeseburger",
+      "text": "200g Rindfleisch, Rucola, Gurken, Tomaten, Bergkäse, Ketchup, Senf & Mayonnaise",
+      "price": 11.9,
+      "image": "cheeseburger.jpg"
+    },
+    {
+      "name": "La Vie en Brie Burger",
+      "text": "200g Rindfleisch, Brie, Preiselbeeren, Pekan-Nüssen, Vogerlsalat, Honigsenf",
+      "price": 11.9,
+      "image": "brieburger.jpg"
+    }
+  ]
+}
