@@ -62,6 +62,8 @@ flutter:
   assets:
     - assets/images/login/
     - assets/images/meals/
+    - assets/images/img-not-found-alt.jpg
+    - assets/images/img-not-found.png
     - assets/data/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

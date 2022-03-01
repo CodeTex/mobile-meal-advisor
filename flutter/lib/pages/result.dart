@@ -175,7 +175,7 @@ class ResultImage extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fitHeight,
-              image: AssetImage("assets/images/meals/" + fileName),
+              image: AssetImage("assets/images/" + fileName),
             ),
           ),
         ));
