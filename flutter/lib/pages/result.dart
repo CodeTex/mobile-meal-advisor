@@ -143,8 +143,19 @@ class ResultTitle extends StatelessWidget {
       child: SlimBorderedBox(
         backgroundColor: Theme.of(context).colorScheme.background,
         borderColor: Palette.borderColor,
-        child: Center(
-          child: Text(title),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Palette.borderColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              // overflow: TextOverflow.ellipsis,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
