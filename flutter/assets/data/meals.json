@@ -17,6 +17,58 @@
       "text": "200g Rindfleisch, Brie, Preiselbeeren, Pekan-Nüssen, Vogerlsalat, Honigsenf",
       "price": 11.9,
       "image": "brieburger.jpg"
+    },
+    {
+      "name": "Pulled Pork Burger",
+      "text": "200g Schweinefleisch, Krautsalat, Tomaten, Essiggurken, Zwiebel, BBQ-Sauce",
+      "price": 12.9,
+      "image": "pulledporkburger.jpg"
+    },
+    {
+      "name": "The Burger Burger",
+      "text": "300g Rindfleisch, Cheddarkäse, Räucherschinken, Tomaten, Zwiebeln",
+      "price": 15.8,
+      "image": "burgerburger.jpg"
+    },
+    {
+      "name": "Lachs Burger",
+      "text": "180g Lachs, Kren, Zitronen, Mayonnaise, Gurken, Radieschen, Vogerlsalat",
+      "price": 11.9
+    },
+    {
+      "name": "Halloumi Burger",
+      "text": "Halloumi Käse, Melanzani, Zwiebel, Paprika, Humus, leicht scharf, vegetarisch 🌱",
+      "price": 10.8
+    },
+    {
+      "name": "Flammkuchen Classico",
+      "text": "Mit Speck und Zwiebel",
+      "price": 12.8
+    },
+    {
+      "name": "Flammkuchen Portofino",
+      "text": "Mit Tomaten, Büffelmozarella und Basilikum, vegetarisch 🌱",
+      "price": 14.8
+    },
+    {
+      "name": "Flammkuchen Trentino",
+      "text": "Mit Ziegenkäse, Feigen und Rucola, vegetarisch 🌱",
+      "price": 14.8
+    },
+    {
+      "name": "Flammkuchen Parma",
+      "text": "Mit frischem Prosciutto, Rucola und Grana",
+      "price": 15.8
+    },
+    {
+      "name": "Flammkuchen Napoli",
+      "text": "Mit Spinat und Schafskäse, vegetarisch 🌱",
+      "price": 13.8
+    },
+    {
+      "name": "Flammkuchen Verona",
+      "text": "Mit Tomatensauce, Büffelmozzarella, Thunfisch und roten Zwiebel",
+      "price": 14.8
     }
   ]
 }
