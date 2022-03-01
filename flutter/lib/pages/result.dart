@@ -178,8 +178,23 @@ class ResultImage extends StatelessWidget {
               image: AssetImage("assets/images/" + fileName),
             ),
           ),
+          // child: Image.asset("assets/images/" + fileName),
         ));
   }
+
+  // AssetImage _load_img(String path,
+  //     {String altPath = "assets/images/img-not-found.png"}) {
+  //   AssetImage img;
+  //   try {
+  //     print(">>> " + path);
+  //     img = AssetImage(path);
+  //   } on FlutterError {
+  //   } catch (_) {
+  //     print(">>> " + altPath);
+  //     img = AssetImage(altPath);
+  //   }
+  //   return img;
+  // }
 }
 
 class ResultDescription extends StatelessWidget {
