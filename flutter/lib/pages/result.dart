@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/meals.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -31,12 +32,7 @@ class _ResultPageState extends State<ResultPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
-              child: const ResultTopBar(),
-            ),
+            ResultTopBar(),
             Expanded(
               flex: 2,
               child: ResultTitle(
@@ -107,7 +103,18 @@ class _ResultPageState extends State<ResultPage> {
 }
 
 class ResultTopBar extends StatelessWidget {
-  const ResultTopBar({Key? key}) : super(key: key);
+  final List<String> urlList = <String>[
+    "http://ninjaflex.com/",
+    "http://endless.horse/",
+    "https://thatsthefinger.com/",
+    "http://burymewithmymoney.com/",
+    "https://quickdraw.withgoogle.com/",
+    "http://crossdivisions.com/",
+    "https://cat-bounce.com/",
+    "http://www.koalastothemax.com/",
+  ];
+
+  ResultTopBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,16 +122,40 @@ class ResultTopBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const <Widget>[
-          Icon(
-            Icons.favorite,
-          ),
-          Icon(
-            Icons.alarm,
+        children: <Widget>[
+          Row(children: [
+            IconButton(
+              icon: const Icon(Icons.auto_fix_high),
+              onPressed: _launchRandomURL,
+            ),
+            // IconButton(
+            //   icon: const Icon(Icons.security_update_warning_outlined),
+            //   onPressed: () {
+            //     _launchURL("https://cat-bounce.com/");
+            //   },
+            // ),
+          ]),
+          const Icon(
+            Icons.add_box_outlined,
           ),
         ],
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw "Could not launch $url";
+    }
+  }
+
+  void _launchRandomURL() {
+    if (urlList.isNotEmpty) {
+      int index = Random().nextInt(urlList.length);
+      _launchURL(urlList[index]);
+    }
   }
 }
 
