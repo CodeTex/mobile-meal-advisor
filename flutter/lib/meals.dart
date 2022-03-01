@@ -33,4 +33,5 @@ class Meals {
       );
 }
 
-Meal defaultMeal = Meal(name: "", text: "", price: 12.3, imageFileName: "");
+Meal defaultMeal =
+    Meal(name: "", text: "", price: 12.3, imageFileName: "img-not-found.png");

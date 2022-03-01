@@ -162,19 +162,23 @@ class ResultImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: const Border.symmetric(
-          horizontal: BorderSide(
-            color: Palette.borderColor,
-            width: 2,
+        decoration: BoxDecoration(
+          border: const Border.symmetric(
+            horizontal: BorderSide(
+              color: Palette.borderColor,
+              width: 2,
+            ),
           ),
+          color: Theme.of(context).colorScheme.background,
         ),
-        color: Theme.of(context).colorScheme.background,
-      ),
-      child: Center(
-        child: Text(fileName),
-      ),
-    );
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fitHeight,
+              image: AssetImage("assets/images/meals/" + fileName),
+            ),
+          ),
+        ));
   }
 }
 
@@ -223,6 +227,7 @@ class ResultDescription extends StatelessWidget {
                 "€ " + price.toStringAsFixed(2).replaceAll(".", ","),
                 style: const TextStyle(
                   fontSize: 18,
+                  color: Palette.borderColor,
                 ),
               ),
             ),
