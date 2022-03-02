@@ -50,6 +50,8 @@ class _ResultPageState extends State<ResultPage> {
               child: ResultDescription(
                 text: selectedMeal.text,
                 price: selectedMeal.price,
+                isVegetarian: selectedMeal.vegetarian,
+                isVegan: selectedMeal.vegan,
               ),
             ),
             Expanded(
@@ -242,11 +244,15 @@ class ResultImage extends StatelessWidget {
 class ResultDescription extends StatelessWidget {
   final String text;
   final double price;
+  final bool isVegetarian;
+  final bool isVegan;
 
   const ResultDescription({
     Key? key,
     required this.text,
     required this.price,
+    this.isVegetarian = false,
+    this.isVegan = false,
   }) : super(key: key);
 
   @override
@@ -277,15 +283,38 @@ class ResultDescription extends StatelessWidget {
               endIndent: 10,
             ),
             Container(
-              alignment: Alignment.centerRight,
+              alignment: Alignment.center,
               height: 30,
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                "€ " + price.toStringAsFixed(2).replaceAll(".", ","),
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Palette.borderColor,
-                ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      if (isVegan) ...[
+                        const Image(
+                          image: AssetImage("assets/images/icons/vegan.png"),
+                          height: 26,
+                        ),
+                        const SizedBox(width: 10),
+                      ],
+                      if (isVegetarian) ...[
+                        const Image(
+                          image: AssetImage("assets/images/icons/no-meat.png"),
+                          height: 26,
+                        )
+                      ],
+                    ],
+                  ),
+                  Text(
+                    "€ " + price.toStringAsFixed(2).replaceAll(".", ","),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Palette.borderColor,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

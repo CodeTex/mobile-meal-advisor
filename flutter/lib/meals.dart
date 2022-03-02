@@ -1,14 +1,19 @@
 class Meal {
   String name;
   String text;
+  bool vegetarian;
+  bool vegan;
   double price;
   String imageFileName;
+
   static const String imageNotFound = "img-not-found-alt.jpg";
 
   Meal({
     required this.name,
     required this.text,
     required this.price,
+    this.vegetarian = false,
+    this.vegan = false,
     this.imageFileName = imageNotFound,
   });
 
@@ -16,6 +21,8 @@ class Meal {
         name: json["name"],
         text: json["text"],
         price: json["price"],
+        vegetarian: json.containsKey("vegetarian") ? json["vegetarian"] : false,
+        vegan: json.containsKey("vegan") ? json["vegan"] : false,
         imageFileName:
             json.containsKey("image") ? ("meals/" + json["image"]) : imageNotFound,
       );

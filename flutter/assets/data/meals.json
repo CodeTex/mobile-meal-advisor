@@ -37,7 +37,8 @@
     },
     {
       "name": "Halloumi Burger",
-      "text": "Halloumi Käse, Melanzani, Zwiebel, Paprika, Humus, leicht scharf, vegetarisch 🌱",
+      "text": "Halloumi Käse, Melanzani, Zwiebel, Paprika, Humus, leicht scharf",
+      "vegetarian": true,
       "price": 10.8
     },
     {
@@ -47,12 +48,14 @@
     },
     {
       "name": "Flammkuchen Portofino",
-      "text": "Mit Tomaten, Büffelmozarella und Basilikum, vegetarisch 🌱",
+      "text": "Mit Tomaten, Büffelmozarella und Basilikum",
+      "vegetarian": true,
       "price": 14.8
     },
     {
       "name": "Flammkuchen Trentino",
-      "text": "Mit Ziegenkäse, Feigen und Rucola, vegetarisch 🌱",
+      "text": "Mit Ziegenkäse, Feigen und Rucola",
+      "vegetarian": true,
       "price": 14.8
     },
     {
@@ -62,7 +65,8 @@
     },
     {
       "name": "Flammkuchen Napoli",
-      "text": "Mit Spinat und Schafskäse, vegetarisch 🌱",
+      "text": "Mit Spinat und Schafskäse",
+      "vegetarian": true,
       "price": 13.8
     },
     {
