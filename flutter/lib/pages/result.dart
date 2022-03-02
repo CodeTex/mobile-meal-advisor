@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile_meal_advisor/data/url_list.dart';
 import 'package:mobile_meal_advisor/meals.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
@@ -105,16 +106,7 @@ class _ResultPageState extends State<ResultPage> {
 }
 
 class ResultTopBar extends StatelessWidget {
-  final List<String> urlList = <String>[
-    "http://ninjaflex.com/",
-    "http://endless.horse/",
-    "https://thatsthefinger.com/",
-    "http://burymewithmymoney.com/",
-    "https://quickdraw.withgoogle.com/",
-    "http://crossdivisions.com/",
-    "https://cat-bounce.com/",
-    "http://www.koalastothemax.com/",
-  ];
+  final List<String> urlList = randomUrlList;
 
   ResultTopBar({Key? key}) : super(key: key);
 
