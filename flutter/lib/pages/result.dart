@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/data/url_list.dart';
 import 'package:mobile_meal_advisor/meals.dart';
+import 'package:mobile_meal_advisor/pages/buffer.dart';
 import 'package:mobile_meal_advisor/pages/home.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
@@ -138,7 +140,7 @@ class ResultTopBar extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.home),
-                onPressed: () {
+                onPressed: () async {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
