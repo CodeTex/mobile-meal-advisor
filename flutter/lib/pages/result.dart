@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/data/url_list.dart';
 import 'package:mobile_meal_advisor/meals.dart';
+import 'package:mobile_meal_advisor/pages/home.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -107,12 +108,17 @@ class ResultTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border.symmetric(
+          horizontal: BorderSide(color: Palette.borderColor, width: .2),
+        ),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(children: [
+          Row(children: <Widget>[
             IconButton(
               icon: const Icon(Icons.auto_fix_high),
               onPressed: _launchRandomURL,
@@ -124,8 +130,24 @@ class ResultTopBar extends StatelessWidget {
             //   },
             // ),
           ]),
-          const Icon(
-            Icons.add_box_outlined,
+          Row(
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.add_box_outlined),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.home),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const HomePage(),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),
