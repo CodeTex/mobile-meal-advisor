@@ -57,20 +57,15 @@ class _ResultPageState extends State<ResultPage> {
             ),
             Expanded(
               flex: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: ElevatedButton(
-                    child: const Text("Choose Meal"),
-                    onPressed: () {
-                      changeMeal();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).colorScheme.background,
-                      onPrimary: Colors.black,
-                    ),
+              child: Center(
+                child: ElevatedButton(
+                  child: const Text("Choose different Meal"),
+                  onPressed: () {
+                    changeMeal();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).colorScheme.background,
+                    onPrimary: Colors.black,
                   ),
                 ),
               ),
@@ -288,6 +283,7 @@ class ResultDescription extends StatelessWidget {
                         const Image(
                           image: AssetImage("assets/images/icons/vegan.png"),
                           height: 26,
+                          semanticLabel: "this meal is vegan",
                         ),
                         const SizedBox(width: 10),
                       ],
@@ -295,6 +291,7 @@ class ResultDescription extends StatelessWidget {
                         const Image(
                           image: AssetImage("assets/images/icons/no-meat.png"),
                           height: 26,
+                          semanticLabel: "this meal is vegetarian",
                         )
                       ],
                     ],
