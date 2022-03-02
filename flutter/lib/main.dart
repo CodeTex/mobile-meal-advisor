@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_meal_advisor/pages/login.dart';
-import 'package:mobile_meal_advisor/pages/result.dart';
+import 'package:mobile_meal_advisor/pages/home.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 void main() {
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Mobile Meal Advisor',
       theme: materialAdvisorTheme,
       debugShowCheckedModeBanner: false,
-      home: const ResultPage(),
+      home: const HomePage(),
     );
   }
 }
