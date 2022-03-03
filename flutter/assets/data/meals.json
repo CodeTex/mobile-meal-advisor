@@ -3,75 +3,88 @@
     {
       "name": "Hamburger",
       "text": "200g Rindfeisch, Rucola, Cheddarkäse, geröstete Zwiebel, Tomaten, Prosciutto, rote Rüben & BBQ-Sauce",
+      "category": "burger",
       "price": 11.9,
       "image": "hamburger.jpg"
     },
     {
       "name": "Cheeseburger",
       "text": "200g Rindfleisch, Rucola, Gurken, Tomaten, Bergkäse, Ketchup, Senf & Mayonnaise",
+      "category": "burger",
       "price": 11.9,
       "image": "cheeseburger.jpg"
     },
     {
       "name": "La Vie en Brie Burger",
       "text": "200g Rindfleisch, Brie, Preiselbeeren, Pekan-Nüssen, Vogerlsalat, Honigsenf",
+      "category": "burger",
       "price": 11.9,
       "image": "brieburger.jpg"
     },
     {
       "name": "Pulled Pork Burger",
       "text": "200g Schweinefleisch, Krautsalat, Tomaten, Essiggurken, Zwiebel, BBQ-Sauce",
+      "category": "burger",
       "price": 12.9,
       "image": "pulledporkburger.jpg"
     },
     {
       "name": "The Burger Burger",
       "text": "300g Rindfleisch, Cheddarkäse, Räucherschinken, Tomaten, Zwiebeln",
+      "category": "burger",
       "price": 15.8,
       "image": "burgerburger.jpg"
     },
     {
       "name": "Lachs Burger",
       "text": "180g Lachs, Kren, Zitronen, Mayonnaise, Gurken, Radieschen, Vogerlsalat",
+      "category": "burger",
       "price": 11.9
     },
     {
       "name": "Halloumi Burger",
       "text": "Halloumi Käse, Melanzani, Zwiebel, Paprika, Humus, leicht scharf",
       "vegetarian": true,
+      "category": "burger",
       "price": 10.8
     },
     {
       "name": "Flammkuchen Classico",
       "text": "Mit Speck und Zwiebel",
+      "category": "tarteFlambee",
       "price": 12.8
     },
     {
       "name": "Flammkuchen Portofino",
       "text": "Mit Tomaten, Büffelmozarella und Basilikum",
       "vegetarian": true,
+      "category": "tarteFlambee",
       "price": 14.8
     },
     {
       "name": "Flammkuchen Trentino",
       "text": "Mit Ziegenkäse, Feigen und Rucola",
       "vegetarian": true,
+      "category": "tarteFlambee",
       "price": 14.8
     },
     {
       "name": "Flammkuchen Parma",
       "text": "Mit frischem Prosciutto, Rucola und Grana",
+      "category": "tarteFlambee",
       "price": 15.8
     },
     {
       "name": "Flammkuchen Napoli",
       "text": "Mit Spinat und Schafskäse",
       "vegetarian": true,
+      "category": "tarteFlambee",
       "price": 13.8
     },
     {
       "name": "Flammkuchen Verona",
       "text": "Mit Tomatensauce, Büffelmozzarella, Thunfisch und roten Zwiebel",
+      "category": "tarteFlambee",
       "price": 14.8
     }
   ]
