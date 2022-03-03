@@ -16,16 +16,16 @@ class _BufferPageState extends State<BufferPage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance?.addPostFrameCallback((_) async {
-      await Future.delayed(Duration(milliseconds: gifDuration), () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const ResultPage(),
-          ),
-        );
-      });
-    });
+    // SchedulerBinding.instance?.addPostFrameCallback((_) async {
+    //   await Future.delayed(Duration(milliseconds: gifDuration), () {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (_) => const ResultPage(),
+    //       ),
+    //     );
+    //   });
+    // });
   }
 
   @override
