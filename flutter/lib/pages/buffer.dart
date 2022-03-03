@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mobile_meal_advisor/pages/result.dart';
-import 'package:mobile_meal_advisor/theme.dart';
 
 class BufferPage extends StatefulWidget {
   const BufferPage({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class _BufferPageState extends State<BufferPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Palette.primary,
+      backgroundColor: Color(0xFF825FBE),
       body: SafeArea(
         child: Center(
           child: Image(
