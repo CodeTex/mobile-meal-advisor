@@ -48,4 +48,6 @@ class Palette {
   static const Color secondary = Color(0xFFC3CCD5);
   static const Color borderColor = Color(0xFF103356);
   static const Color quartery = Color(0xFFE1E5EA);
+  static const Color border = Color(0xFF2D3741);
+  static const Color systemDark = Color(0xFF292929);
 }
