@@ -96,10 +96,7 @@ class HomePageButton extends StatelessWidget {
         _navigateToResults(context);
       },
       onPressed: () async {
-        // await Future.delayed(const Duration(milliseconds: 400), () {});
         _navigateToBuffer(context);
-        // await Future.delayed(const Duration(seconds: 12), () {});
-        // _navigateToResults(context);
       },
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(200, 200),
