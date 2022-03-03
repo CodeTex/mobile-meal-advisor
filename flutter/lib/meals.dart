@@ -1,8 +1,28 @@
+enum CalorieCategory {
+  undefined,
+  low,
+  high,
+}
+
+enum MealCategory {
+  undefined,
+  burger,
+  classic,
+  desert,
+  fingerFood,
+  salad,
+  sandwich,
+  sausage,
+  tarteFlambee,
+}
+
 class Meal {
   String name;
   String text;
   bool vegetarian;
   bool vegan;
+  CalorieCategory calories;
+  MealCategory category;
   double price;
   String imageFileName;
 
@@ -14,6 +34,8 @@ class Meal {
     required this.price,
     this.vegetarian = false,
     this.vegan = false,
+    this.calories = CalorieCategory.undefined,
+    this.category = MealCategory.undefined,
     this.imageFileName = imageNotFound,
   });
 
@@ -23,6 +45,10 @@ class Meal {
         price: json["price"],
         vegetarian: json.containsKey("vegetarian") ? json["vegetarian"] : false,
         vegan: json.containsKey("vegan") ? json["vegan"] : false,
+        calories:
+            json.containsKey("calories") ? json["calories"] : CalorieCategory.undefined,
+        category:
+            json.containsKey("category") ? json["category"] : MealCategory.undefined,
         imageFileName:
             json.containsKey("image") ? ("meals/" + json["image"]) : imageNotFound,
       );
