@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:mobile_meal_advisor/data/progress_messages.dart';
 import 'package:mobile_meal_advisor/pages/result.dart';
+import 'package:mobile_meal_advisor/theme.dart';
 
 class BufferPage extends StatefulWidget {
   const BufferPage({Key? key}) : super(key: key);
@@ -11,13 +15,13 @@ class BufferPage extends StatefulWidget {
 
 class _BufferPageState extends State<BufferPage> {
   // Get Gif length on https://gifduration.herokuapp.com/
-  final int gifDuration = 9000; //7560;
+  final int gifDurationMS = 9000; //7560;
 
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance?.addPostFrameCallback((_) async {
-      await Future.delayed(Duration(milliseconds: gifDuration), () {
+      await Future.delayed(Duration(milliseconds: gifDurationMS), () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -30,15 +34,95 @@ class _BufferPageState extends State<BufferPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFF825FBE),
+    return Scaffold(
+      backgroundColor: const Color(0xFF825FBE),
       body: SafeArea(
-        child: Center(
-          child: Image(
-            image: AssetImage("assets/gifs/construction.gif"),
-          ),
+        child: Stack(
+          children: <Widget>[
+            const Center(
+              child: Image(
+                image: AssetImage("assets/gifs/construction.gif"),
+              ),
+            ),
+            Column(
+              children: <Widget>[
+                const Spacer(flex: 3),
+                Expanded(
+                    flex: 1, child: BufferLoadingBar(duration: gifDurationMS ~/ 1000)),
+              ],
+            )
+          ],
         ),
       ),
     );
+  }
+}
+
+class BufferLoadingBar extends StatefulWidget {
+  final int duration;
+
+  const BufferLoadingBar({
+    Key? key,
+    required this.duration,
+  }) : super(key: key);
+
+  @override
+  State<BufferLoadingBar> createState() => _BufferLoadingBarState();
+}
+
+class _BufferLoadingBarState extends State<BufferLoadingBar>
+    with SingleTickerProviderStateMixin {
+  AnimationController? controller;
+  final List<String> messages = progressMessages;
+  String message = "";
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: widget.duration),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller?.forward();
+    message = _randomLoadingStatus();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            LinearProgressIndicator(
+              backgroundColor: const Color(0xFFE3DBB2),
+              color: Palette.border,
+              value: controller?.value,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+              child: Text(
+                message,
+                style: const TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _randomLoadingStatus() {
+    int index = Random().nextInt(messages.length);
+    return messages[index] + "...";
   }
 }
