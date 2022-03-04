@@ -74,18 +74,27 @@ class _BufferLoadingBarState extends State<BufferLoadingBar>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   final List<String> messages = progressMessages;
-  String message = "";
+  late String message;
+  late double progressStep;
 
   @override
   void initState() {
+    progressStep = (1.0 / widget.duration) * 3;
+    message = _randomLoadingStatus(progressStep, "");
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.duration),
-    )..addListener(() {
+    )
+      ..addListener(() {
         setState(() {});
+      })
+      ..addListener(() {
+        if (controller?.value != null) {
+          message = _randomLoadingStatus(controller?.value, message);
+        }
       });
     controller?.forward();
-    message = _randomLoadingStatus();
+    // message = _randomLoadingStatus(controller);
     super.initState();
   }
 
@@ -121,8 +130,11 @@ class _BufferLoadingBarState extends State<BufferLoadingBar>
     );
   }
 
-  String _randomLoadingStatus() {
-    int index = Random().nextInt(messages.length);
-    return messages[index] + "...";
+  dynamic _randomLoadingStatus(double? progress, String prev) {
+    if (progress != null && (progress % progressStep) == 0) {
+      int index = Random().nextInt(messages.length);
+      return messages[index] + "...";
+    }
+    return prev;
   }
 }
