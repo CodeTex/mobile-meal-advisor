@@ -254,14 +254,14 @@ class ResultImage extends StatelessWidget {
 
 class ResultDescription extends StatelessWidget {
   final String text;
-  final double price;
+  final double? price;
   final bool isVegetarian;
   final bool isVegan;
 
   const ResultDescription({
     Key? key,
     required this.text,
-    required this.price,
+    this.price,
     this.isVegetarian = false,
     this.isVegan = false,
   }) : super(key: key);
@@ -321,7 +321,7 @@ class ResultDescription extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "€ " + price.toStringAsFixed(2).replaceAll(".", ","),
+                    _priceString(price),
                     style: const TextStyle(
                       fontSize: 18,
                       color: Palette.borderColor,
@@ -334,5 +334,15 @@ class ResultDescription extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _priceString(double? price) {
+    String priceString = "€ ";
+    if (price == null) {
+      priceString += "n.a.";
+    } else {
+      priceString += price.toStringAsFixed(2).replaceAll(".", ",");
+    }
+    return priceString;
   }
 }
