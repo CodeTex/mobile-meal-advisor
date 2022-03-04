@@ -73,6 +73,12 @@ class HomePageTopBar extends StatelessWidget {
         )),
         color: Palette.primary,
       ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("assets/images/icons/work-in-progress.png"),
+        ),
+      ),
     );
   }
 }
