@@ -72,7 +72,7 @@
       "text": "200g Schweinefleisch, Krautsalat, Tomaten, Essiggurken, Zwiebel, BBQ-Sauce",
       "category": "burger",
       "price": 13.5,
-      "image": "pulledporkburger.jpg"
+      "image": "pulled-pork-burger.jpg"
     },
     {
       "name": "The Burger Burger",
@@ -132,7 +132,8 @@
       "name": "Club Sandwich mit Pommes",
       "text": "mit hausgemachter Cocktail-Whiskey Sauce",
       "category": "sandwich",
-      "price": 13.5
+      "price": 13.5,
+      "image": "club-sandwich.jpg"
     },
 
     {
@@ -145,7 +146,8 @@
       "name": "Cordon Bleu Bällchen",
       "text": "mit Preiselbeeren (3 STK. €€5,10 / 6 STK. €8,90 / 9 STK. €12,50)",
       "category": "fingerFood",
-      "price": 5.1
+      "price": 5.1,
+      "image": "cordon-bleu-baellchen.jpg"
     },
     {
       "name": "Ziegenkäse-Bällchen",
@@ -242,13 +244,15 @@
       "name": "Original Wiener Schnitzel vom Kalb",
       "text": "Preiselbeeren, 1 x Beilage nach Wahl",
       "category": "classic",
-      "price": 22.8
+      "price": 22.8,
+      "image": "schnitzel.jpg"
     },
     {
       "name": "Wiener Schnitzel vom Schwein",
       "text": "Preiselbeeren, 1 x Beilage nach Wahl",
       "category": "classic",
-      "price": 15.8
+      "price": 15.8,
+      "image": "schnitzel-wedges.jpeg"
     },
 
     {
