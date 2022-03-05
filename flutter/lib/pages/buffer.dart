@@ -72,7 +72,7 @@ class BufferLoadingBar extends StatefulWidget {
 
 class _BufferLoadingBarState extends State<BufferLoadingBar>
     with SingleTickerProviderStateMixin {
-  AnimationController? controller;
+  late final AnimationController controller;
   final List<String> messages = progressMessages;
   late String message;
   late double progressStep;
@@ -89,18 +89,16 @@ class _BufferLoadingBarState extends State<BufferLoadingBar>
         setState(() {});
       })
       ..addListener(() {
-        if (controller?.value != null) {
-          message = _randomLoadingStatus(controller?.value, message);
-        }
+        message = _randomLoadingStatus(controller.value, message);
       });
-    controller?.forward();
+    controller.forward();
     // message = _randomLoadingStatus(controller);
     super.initState();
   }
 
   @override
   void dispose() {
-    controller?.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -114,7 +112,7 @@ class _BufferLoadingBarState extends State<BufferLoadingBar>
             LinearProgressIndicator(
               backgroundColor: const Color(0xFFE3DBB2),
               color: Palette.border,
-              value: controller?.value,
+              value: controller.value,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
@@ -130,8 +128,8 @@ class _BufferLoadingBarState extends State<BufferLoadingBar>
     );
   }
 
-  dynamic _randomLoadingStatus(double? progress, String prev) {
-    if (progress != null && (progress % progressStep) == 0) {
+  dynamic _randomLoadingStatus(double progress, String prev) {
+    if ((progress % progressStep) == 0) {
       int index = Random().nextInt(messages.length);
       return messages[index] + "...";
     }
