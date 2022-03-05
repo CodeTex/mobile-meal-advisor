@@ -14,6 +14,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _loggedIn = true;
+  double _backgroundOpacity = 1;
+
+  void _loadUser(bool loggedIn) {
+    if (loggedIn) {
+      setState(() {
+        _backgroundOpacity = .4;
+      });
+    } else {
+      setState(() {
+        _backgroundOpacity = 1;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUser(_loggedIn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,20 +42,30 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         bottom: false,
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               // Specific centered alignment for gray-bowl.jpg
-              alignment: Alignment(-0.3, 0),
+              alignment: const Alignment(-0.3, 0),
               fit: BoxFit.fitHeight,
-              image: AssetImage("assets/images/login/gray-bowl.jpg"),
-              opacity: .4,
+              image: const AssetImage("assets/images/login/gray-bowl.jpg"),
+              opacity: _backgroundOpacity,
             ),
           ),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Column(
               children: <Widget>[
-                const Expanded(flex: 2, child: HomePageTopBar()),
+                Expanded(
+                  flex: 2,
+                  child: HomePageTopBar(
+                    onLogoutPressed: () {
+                      setState(() {
+                        _loggedIn = false;
+                      });
+                      _loadUser(_loggedIn);
+                    },
+                  ),
+                ),
                 Expanded(
                   flex: 5,
                   child: Center(
@@ -59,9 +90,19 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomePageTopBar extends StatelessWidget {
-  const HomePageTopBar({Key? key}) : super(key: key);
+class HomePageTopBar extends StatefulWidget {
+  final VoidCallback onLogoutPressed;
 
+  const HomePageTopBar({
+    Key? key,
+    required this.onLogoutPressed,
+  }) : super(key: key);
+
+  @override
+  State<HomePageTopBar> createState() => _HomePageTopBarState();
+}
+
+class _HomePageTopBarState extends State<HomePageTopBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,11 +114,22 @@ class HomePageTopBar extends StatelessWidget {
         )),
         color: Palette.primary,
       ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset("assets/images/icons/work-in-progress.png"),
-        ),
+      child: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset("assets/images/icons/work-in-progress.png"),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: const Icon(Icons.logout_outlined),
+              onPressed: widget.onLogoutPressed,
+            ),
+          )
+        ],
       ),
     );
   }
