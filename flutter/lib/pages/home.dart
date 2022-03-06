@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/pages/buffer.dart';
 import 'package:mobile_meal_advisor/pages/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   );
   late final Animation<Offset> _topbarAnimation = Tween<Offset>(
     begin: Offset.zero,
-    end: const Offset(0, -1),
+    end: const Offset(0, -2),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInQuart));
   late final Animation<double> _titleAnimation = Tween<double>(
     begin: 1,
@@ -40,24 +41,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     end: const Offset(0, .5),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticIn));
 
-  void _setHomepage(bool loginState) {
-    if (loginState) {
-      // user is logged in, widgets stay as they are built
+  void _setLogState({bool? state, bool altState = false}) async {
+    // true => logged in, false => logged out
+    bool newState;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (state != null) {
+      prefs.setBool("logState", state);
+      newState = state;
     } else {
-      // no user is logged in, jump to animation end state
-      _controller.forward(from: 1.0);
-      // _controller.forward();
+      newState = prefs.getBool("logState") ?? altState;
     }
+    if (!newState) _controller.forward(from: 1.0);
+    setState(() {
+      _logState = newState;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _logState = false;
-    });
-    _setHomepage(_logState);
-    // _loggedStateHandler(_logState);
+    _setLogState(state: true, altState: false);
   }
 
   @override
@@ -70,14 +73,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.primary,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         bottom: false,
         child: Stack(
           children: [
             Container(
               decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
+                border: Border.symmetric(
+                  horizontal: BorderSide(
                     color: Palette.border,
                     width: 6,
                   ),
@@ -145,11 +149,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  void _onLogin(String userName) {
+  void _onLogin(String userName) async {
+    _setLogState(state: true);
     _controller.reverse();
   }
 
-  void _onLogout() {
+  void _onLogout() async {
+    _setLogState(state: false);
     _controller.forward();
   }
 }
@@ -176,7 +182,7 @@ class _HomePageTopBarState extends State<HomePageTopBar> {
           color: Palette.border,
           width: 6,
         )),
-        color: Palette.primary,
+        color: Palette.secondary,
       ),
       child: Stack(
         children: [
@@ -223,6 +229,7 @@ class HomePageButton extends StatelessWidget {
         },
         style: ElevatedButton.styleFrom(
           fixedSize: const Size(200, 200),
+          primary: Palette.secondary,
           shape: const CircleBorder(
               side: BorderSide(
             color: Palette.border,
