@@ -35,7 +35,10 @@ class _ResultPageState extends State<ResultPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            ResultTopBar(),
+            ResultTopBar(
+              reloadAction: changeMeal,
+              filterAction: filterMeal,
+            ),
             Expanded(
               flex: 2,
               child: ResultTitle(
@@ -59,15 +62,13 @@ class _ResultPageState extends State<ResultPage> {
             ),
             Expanded(
               flex: 1,
-              child: Center(
-                child: ElevatedButton(
-                  child: const Text("Choose different Meal"),
-                  onPressed: () {
-                    changeMeal();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.background,
-                    onPrimary: Colors.black,
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border.symmetric(
+                    horizontal: BorderSide(
+                      color: Palette.borderColor,
+                      width: .2,
+                    ),
                   ),
                 ),
               ),
@@ -100,12 +101,20 @@ class _ResultPageState extends State<ResultPage> {
     });
     changeMeal();
   }
+
+  void filterMeal() {}
 }
 
 class ResultTopBar extends StatelessWidget {
   final List<String> urlList = randomUrlList;
+  final VoidCallback reloadAction;
+  final VoidCallback filterAction;
 
-  ResultTopBar({Key? key}) : super(key: key);
+  ResultTopBar({
+    Key? key,
+    required this.reloadAction,
+    required this.filterAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -121,18 +130,26 @@ class ResultTopBar extends StatelessWidget {
         children: <Widget>[
           Row(children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.auto_fix_high),
-              onPressed: _launchRandomURL,
+              icon: const Icon(Icons.replay_outlined),
+              onPressed: reloadAction,
             ),
-            // IconButton(
-            //   icon: const Icon(Icons.security_update_warning_outlined),
-            //   onPressed: () {
-            //     _launchURL("https://cat-bounce.com/");
-            //   },
-            // ),
+            IconButton(
+              icon: const Icon(Icons.filter_alt),
+              onPressed: reloadAction,
+            ),
           ]),
           Row(
             children: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.auto_fix_high),
+                onPressed: _launchRandomURL,
+              ),
+              IconButton(
+                icon: const Icon(Icons.security_update_warning_outlined),
+                onPressed: () {
+                  _launchURL("https://cat-bounce.com/");
+                },
+              ),
               IconButton(
                 icon: const Icon(Icons.add_box_outlined),
                 onPressed: () {},

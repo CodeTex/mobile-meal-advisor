@@ -45,10 +45,15 @@ class _BufferPageState extends State<BufferPage> {
               ),
             ),
             Column(
-              children: <Widget>[
-                const Spacer(flex: 3),
+              children: const <Widget>[
+                Spacer(flex: 3),
                 Expanded(
-                    flex: 1, child: BufferLoadingBar(duration: gifDurationMS ~/ 1000)),
+                  flex: 1,
+                  child: BufferLoadingBar(
+                    // duration: gifDurationMS ~/ 1000,
+                    duration: 3,
+                  ),
+                ),
               ],
             )
           ],
