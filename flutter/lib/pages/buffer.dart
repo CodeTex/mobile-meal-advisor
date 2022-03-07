@@ -45,13 +45,12 @@ class _BufferPageState extends State<BufferPage> {
               ),
             ),
             Column(
-              children: const <Widget>[
-                Spacer(flex: 3),
+              children: <Widget>[
+                const Spacer(flex: 3),
                 Expanded(
                   flex: 1,
                   child: BufferLoadingBar(
-                    // duration: gifDurationMS ~/ 1000,
-                    duration: 3,
+                    duration: gifDurationMS ~/ 1000,
                   ),
                 ),
               ],
@@ -84,7 +83,8 @@ class _BufferLoadingBarState extends State<BufferLoadingBar>
 
   @override
   void initState() {
-    progressStep = (1.0 / widget.duration) * 3;
+    progressStep = (1.0 / widget.duration) * 2;
+    // progressStep = 3;
     message = _randomLoadingStatus(progressStep, "");
     controller = AnimationController(
       vsync: this,

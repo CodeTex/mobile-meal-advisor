@@ -10,6 +10,12 @@ import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}
+
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
 
@@ -18,13 +24,17 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  List<Meal> meals = <Meal>[];
+  late List<Meal> meals;
   Meal selectedMeal = defaultMeal;
+  late Map<MealCategory, bool?> selectedCategories;
 
   @override
   void initState() {
-    loadMealsFromFile();
     super.initState();
+    loadMealsFromFile();
+    setState(() {
+      selectedCategories = _createCategoryMap();
+    });
   }
 
   @override
@@ -37,7 +47,9 @@ class _ResultPageState extends State<ResultPage> {
           children: <Widget>[
             ResultTopBar(
               reloadAction: changeMeal,
-              filterAction: filterMeal,
+              filterAction: () {
+                _showFilterDialog(context);
+              },
             ),
             Expanded(
               flex: 2,
@@ -81,9 +93,12 @@ class _ResultPageState extends State<ResultPage> {
 
   void changeMeal() {
     if (meals.isNotEmpty) {
-      int index = Random().nextInt(meals.length);
+      List<Meal> filteredMeals =
+          meals.where((element) => selectedCategories[element.category] == true).toList();
+
+      int index = Random().nextInt(filteredMeals.length);
       setState(() {
-        selectedMeal = meals[index];
+        selectedMeal = filteredMeals[index];
       });
     } else {
       setState(() {
@@ -102,7 +117,67 @@ class _ResultPageState extends State<ResultPage> {
     changeMeal();
   }
 
-  void filterMeal() {}
+  Map<MealCategory, bool?> _createCategoryMap() {
+    Map<MealCategory, bool?> categoryMap = {};
+    MealCategory.values.asMap().forEach((index, cat) {
+      categoryMap[cat] = true;
+    });
+    return categoryMap;
+  }
+
+  void _onFilterSelect(MealCategory category, bool? value) {
+    setState(() {
+      selectedCategories[category] = value;
+    });
+  }
+
+  Future<void> _showFilterDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CategoryFilter(
+          selectedCategories: selectedCategories,
+          onfilterSelect: _onFilterSelect,
+        );
+      },
+    );
+  }
+}
+
+class CategoryFilter extends StatefulWidget {
+  final void Function(MealCategory, bool?) onfilterSelect;
+  final Map<MealCategory, bool?> selectedCategories;
+  const CategoryFilter(
+      {Key? key, required this.selectedCategories, required this.onfilterSelect})
+      : super(key: key);
+
+  @override
+  State<CategoryFilter> createState() => _CategoryFilterState();
+}
+
+class _CategoryFilterState extends State<CategoryFilter> {
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: const Text("Select filters:"),
+      children: widget.selectedCategories.keys
+          .map((category) => CheckboxListTile(
+                title: Text(_mealCategoryStringify(category)),
+                value: widget.selectedCategories[category],
+                onChanged: (bool? value) {
+                  widget.onfilterSelect(category, value);
+                  widget.selectedCategories[category] = value;
+                },
+              ))
+          .toList(),
+    );
+  }
+
+  String _mealCategoryStringify(MealCategory category) {
+    String value = category.toString().split('.').last;
+    if (value == "tarteFlambee") value = "Tarte Flambée";
+    return value.capitalize();
+  }
 }
 
 class ResultTopBar extends StatelessWidget {
@@ -135,7 +210,7 @@ class ResultTopBar extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.filter_alt),
-              onPressed: reloadAction,
+              onPressed: filterAction,
             ),
           ]),
           Row(
