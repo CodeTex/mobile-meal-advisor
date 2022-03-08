@@ -220,6 +220,10 @@ class ResultTopBar extends StatelessWidget {
                 onPressed: _launchRandomURL,
               ),
               IconButton(
+                icon: const Icon(Icons.local_drink),
+                onPressed: () {},
+              ),
+              IconButton(
                 icon: const Icon(Icons.add_box_outlined),
                 onPressed: () {},
               ),
