@@ -83,6 +83,19 @@ class _ResultPageState extends State<ResultPage> {
                     ),
                   ),
                 ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset("assets/images/icons/work-in-progress.png"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset("assets/images/icons/under-construction.png"),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
