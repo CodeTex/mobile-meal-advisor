@@ -220,12 +220,6 @@ class ResultTopBar extends StatelessWidget {
                 onPressed: _launchRandomURL,
               ),
               IconButton(
-                icon: const Icon(Icons.security_update_warning_outlined),
-                onPressed: () {
-                  _launchURL("https://cat-bounce.com/");
-                },
-              ),
-              IconButton(
                 icon: const Icon(Icons.add_box_outlined),
                 onPressed: () {},
               ),
