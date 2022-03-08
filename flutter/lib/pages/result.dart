@@ -8,13 +8,8 @@ import 'package:mobile_meal_advisor/meals.dart';
 import 'package:mobile_meal_advisor/pages/home.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
+import 'package:mobile_meal_advisor/widgets/meal_category_checkbox.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
-  }
-}
 
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -165,52 +160,6 @@ class _ResultPageState extends State<ResultPage> {
   }
 }
 
-class MealCategoryCheckbox extends StatefulWidget {
-  final Function(MealCategory, bool?) onChanged;
-  final MealCategory category;
-  final bool? initialValue;
-
-  const MealCategoryCheckbox({
-    Key? key,
-    required this.onChanged,
-    required this.category,
-    required this.initialValue,
-  }) : super(key: key);
-
-  @override
-  State<MealCategoryCheckbox> createState() => _MealCategoryCheckboxState();
-}
-
-class _MealCategoryCheckboxState extends State<MealCategoryCheckbox> {
-  bool? _value;
-
-  @override
-  void initState() {
-    super.initState();
-    _value = widget.initialValue;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: Text(_mealCategoryStringify(widget.category)),
-      value: _value,
-      onChanged: (bool? value) {
-        setState(() {
-          _value = value;
-          widget.onChanged(widget.category, value);
-        });
-      },
-    );
-  }
-
-  String _mealCategoryStringify(MealCategory category) {
-    String value = category.toString().split('.').last;
-    if (value == "tarteFlambee") value = "Tarte Flambée";
-    return value.capitalize();
-  }
-}
-
 class ResultTopBar extends StatelessWidget {
   final List<String> urlList = randomUrlList;
   final VoidCallback reloadAction;
@@ -356,20 +305,6 @@ class ResultImage extends StatelessWidget {
           // child: Image.asset("assets/images/" + fileName),
         ));
   }
-
-  // AssetImage _load_img(String path,
-  //     {String altPath = "assets/images/img-not-found.png"}) {
-  //   AssetImage img;
-  //   try {
-  //     print(">>> " + path);
-  //     img = AssetImage(path);
-  //   } on FlutterError {
-  //   } catch (_) {
-  //     print(">>> " + altPath);
-  //     img = AssetImage(altPath);
-  //   }
-  //   return img;
-  // }
 }
 
 class ResultDescription extends StatelessWidget {
