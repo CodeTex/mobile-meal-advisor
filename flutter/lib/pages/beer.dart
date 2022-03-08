@@ -72,7 +72,7 @@ class BeerCategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       itemCount: beerMap.length,
       itemBuilder: (BuildContext context, int index) {
         BeerCategory category = beerMap.keys.toList()[index];
@@ -82,17 +82,41 @@ class BeerCategoryList extends StatelessWidget {
     );
   }
 
-  Widget _buildExpandableTile(BuildContext context, categoryInformation) {
-    return ExpansionTile(
-      title: Text(categoryInformation["name"]),
-      children: <Widget>[
-        ListTile(
-          title: Text(
-            categoryInformation["text"],
-            style: const TextStyle(fontWeight: FontWeight.w700),
-          ),
-        )
-      ],
+  Widget _buildExpandableTile(
+      BuildContext context, BeerCategoryInformation? categoryInformation) {
+    return ListTileTheme(
+      child: ExpansionTile(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Text(categoryInformation!.name),
+        children: categoryInformation.beers
+            .map(
+              (beer) => ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: Text(
+                        beer.name,
+                      ),
+                    ),
+                    Text(_priceString(beer.price)),
+                  ],
+                ),
+              ),
+            )
+            .toList(),
+      ),
     );
+  }
+
+  String _priceString(double? price) {
+    String priceString = "€ ";
+    if (price == null) {
+      priceString += "n.a.";
+    } else {
+      priceString += price.toStringAsFixed(2).replaceAll(".", ",");
+    }
+    return priceString;
   }
 }
