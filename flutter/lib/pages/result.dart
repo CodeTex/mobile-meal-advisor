@@ -138,51 +138,69 @@ class _ResultPageState extends State<ResultPage> {
     return categoryMap;
   }
 
-  void _onFilterSelect(MealCategory category, bool? value) {
-    setState(() {
-      selectedCategories[category] = value;
-    });
-  }
-
   Future<void> _showFilterDialog(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return CategoryFilter(
-          selectedCategories: selectedCategories,
-          onfilterSelect: _onFilterSelect,
+        return SimpleDialog(
+          title: const Text("Select filters:"),
+          children: selectedCategories.keys
+              .map(
+                (category) => MealCategoryCheckbox(
+                  onChanged: _changeCategorySelection,
+                  category: category,
+                  initialValue: selectedCategories[category],
+                ),
+              )
+              .toList(),
         );
       },
     );
   }
+
+  void _changeCategorySelection(MealCategory category, bool? value) {
+    setState(() {
+      selectedCategories[category] = value;
+    });
+  }
 }
 
-class CategoryFilter extends StatefulWidget {
-  final void Function(MealCategory, bool?) onfilterSelect;
-  final Map<MealCategory, bool?> selectedCategories;
-  const CategoryFilter(
-      {Key? key, required this.selectedCategories, required this.onfilterSelect})
-      : super(key: key);
+class MealCategoryCheckbox extends StatefulWidget {
+  final Function(MealCategory, bool?) onChanged;
+  final MealCategory category;
+  final bool? initialValue;
+
+  const MealCategoryCheckbox({
+    Key? key,
+    required this.onChanged,
+    required this.category,
+    required this.initialValue,
+  }) : super(key: key);
 
   @override
-  State<CategoryFilter> createState() => _CategoryFilterState();
+  State<MealCategoryCheckbox> createState() => _MealCategoryCheckboxState();
 }
 
-class _CategoryFilterState extends State<CategoryFilter> {
+class _MealCategoryCheckboxState extends State<MealCategoryCheckbox> {
+  bool? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.initialValue;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: const Text("Select filters:"),
-      children: widget.selectedCategories.keys
-          .map((category) => CheckboxListTile(
-                title: Text(_mealCategoryStringify(category)),
-                value: widget.selectedCategories[category],
-                onChanged: (bool? value) {
-                  widget.onfilterSelect(category, value);
-                  widget.selectedCategories[category] = value;
-                },
-              ))
-          .toList(),
+    return CheckboxListTile(
+      title: Text(_mealCategoryStringify(widget.category)),
+      value: _value,
+      onChanged: (bool? value) {
+        setState(() {
+          _value = value;
+          widget.onChanged(widget.category, value);
+        });
+      },
     );
   }
 
