@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/data/url_list.dart';
 import 'package:mobile_meal_advisor/meals.dart';
+import 'package:mobile_meal_advisor/pages/beer.dart';
 import 'package:mobile_meal_advisor/pages/home.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
@@ -201,7 +202,14 @@ class ResultTopBar extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.local_drink),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const BeerPage(),
+                    ),
+                  );
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.add_box_outlined),
