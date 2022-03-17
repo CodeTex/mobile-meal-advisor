@@ -212,8 +212,10 @@ class ResultTopBar extends StatelessWidget {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.add_box_outlined),
-                onPressed: () {},
+                icon: const Icon(Icons.menu_book_sharp),
+                onPressed: () {
+                  _launchURL("https://www.stadtboden.at/menu/");
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.home),
