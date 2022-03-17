@@ -8,6 +8,7 @@ class BeerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Column(
@@ -78,15 +79,22 @@ class BeerCategoryList extends StatelessWidget {
         BeerCategory category = beerMap.keys.toList()[index];
         return _buildExpandableTile(context, beerMap[category]);
       },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        color: Theme.of(context).colorScheme.background,
+        thickness: 6,
+      ),
     );
   }
 
   Widget _buildExpandableTile(
       BuildContext context, BeerCategoryInformation? categoryInformation) {
     return ListTileTheme(
+      // tileColor: Colors.blue,
       child: ExpansionTile(
+        textColor: Colors.black87,
+        collapsedTextColor: Colors.black,
         backgroundColor: Theme.of(context).colorScheme.background,
+        collapsedBackgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(categoryInformation!.name),
         children: categoryInformation.beers
             .map(
