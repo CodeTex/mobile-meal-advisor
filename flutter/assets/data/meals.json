@@ -37,7 +37,8 @@
       "name": "Flammkuchen Verona",
       "text": "Mit Tomatensauce, Büffelmozzarella, Thunfisch und roten Zwiebel",
       "category": "tarteFlambee",
-      "price": 14.8
+      "price": 14.8,
+      "image": "tarte-verona.png"
     },
 
     {
@@ -45,7 +46,7 @@
       "text": "200g Rindfeisch, Rucola, Cheddarkäse, geröstete Zwiebel, Tomaten, Prosciutto, rote Rüben & BBQ-Sauce",
       "category": "burger",
       "price": 12.5,
-      "image": "hamburger.jpg"
+      "image": "hamburger.png"
     },
     {
       "name": "Cheeseburger",
@@ -56,9 +57,10 @@
     },
     {
       "name": "Spicy Chicken Filet Burger",
-      "text": "180g im Speckmantel gegrilltes Chicken Filet, Rucola, Tomaten, Cheddar Käse, scharfe ausgemachte Chipotle-Sauce",
+      "text": "180g im Speckmantel gegrilltes Chicken Filet, Rucola, Tomaten, Cheddar Käse, scharfe hausgemachte Chipotle-Sauce",
       "category": "burger",
-      "price": 12.8
+      "price": 12.8,
+      "image": "spicy-chicken-filet-burger.png"
     },
     {
       "name": "La Vie en Brie Burger",
@@ -113,7 +115,8 @@
       "name": "Überbackenes Joseph Brot",
       "text": "Bauernschinken, Käse, Tomaten, Paprika, Zwiebel",
       "category": "sandwich",
-      "price": 12.2
+      "price": 12.2,
+      "image": "joseph-brot.png"
     },
     {
       "name": "Pide France",
@@ -147,7 +150,7 @@
       "text": "mit Preiselbeeren (3 STK. €€5,10 / 6 STK. €8,90 / 9 STK. €12,50)",
       "category": "fingerFood",
       "price": 5.1,
-      "image": "cordon-bleu-baellchen.jpg"
+      "image": "cordon-bleu-baellchen.png"
     },
     {
       "name": "Ziegenkäse-Bällchen",
@@ -165,7 +168,8 @@
       "name": "Snack Platte für Zwei",
       "text": "2 x Speck-Teig-Lollies, 2 x Cordon Bleu Bällchen, 2 x Rindfeisch Bällchen, 2 x Ziegenkäse-Bällchen, 2 x Chicken Fingers, 2 x Jalapenos, Pommes Frittes, Barbecue & Chili Sauce",
       "category": "fingerFood",
-      "price": 18.5
+      "price": 18.5,
+      "image": "snack-plate.jpg"
     },
     {
       "name": "Jalapenos",
@@ -217,6 +221,13 @@
     },
 
     {
+      "name": "Beef-Tartart mit getoasteten Weinbrot",
+      "text": "dazu Zwiebeln, Gurken & scharfe Pfefferoni zum verfeinern.",
+      "category": "classic",
+      "price": 9.5,
+      "image": "beef-tartar.png"
+    },
+    {
       "name": "Rinds-Gulasch mit Gebäck",
       "text": "",
       "category": "classic",
@@ -245,7 +256,7 @@
       "text": "Preiselbeeren, 1 x Beilage nach Wahl",
       "category": "classic",
       "price": 22.8,
-      "image": "schnitzel.jpg"
+      "image": "kalb-schnitzel.jpg"
     },
     {
       "name": "Wiener Schnitzel vom Schwein",
