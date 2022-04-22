@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_meal_advisor/beers.dart';
+import 'package:mobile_meal_advisor/services/beers.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class BeerPage extends StatelessWidget {

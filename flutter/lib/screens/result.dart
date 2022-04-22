@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/constants/url_list.dart';
-import 'package:mobile_meal_advisor/meals.dart';
+import 'package:mobile_meal_advisor/services/meals.dart';
 import 'package:mobile_meal_advisor/screens/beer.dart';
 import 'package:mobile_meal_advisor/screens/home.dart';
 import 'package:mobile_meal_advisor/theme.dart';

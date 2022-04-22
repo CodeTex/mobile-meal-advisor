@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_meal_advisor/meals.dart';
+import 'package:mobile_meal_advisor/services/meals.dart';
 
 extension StringExtension on String {
   String capitalize() {
