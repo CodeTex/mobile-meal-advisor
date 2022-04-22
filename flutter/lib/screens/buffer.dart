@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mobile_meal_advisor/data/progress_messages.dart';
-import 'package:mobile_meal_advisor/pages/result.dart';
+import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class BufferPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_meal_advisor/pages/buffer.dart';
-import 'package:mobile_meal_advisor/pages/result.dart';
+import 'package:mobile_meal_advisor/screens/buffer.dart';
+import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
