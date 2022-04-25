@@ -19,6 +19,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     begin: .1,
     end: 1,
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+  late final Animation<Offset> _menuOffset = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(0, -2),
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInQuart));
 
   @override
   void initState() {
@@ -69,18 +73,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               children: <Widget>[
                 Expanded(
                   flex: 2,
-                  child: HomePageMenu(
-                    onLogoutPressed: _logout,
-                    onSettingPressed: _login,
+                  child: SlideTransition(
+                    position: _menuOffset,
+                    child: HomePageMenu(
+                      onLogoutPressed: _logout,
+                      onSettingPressed: _login,
+                    ),
                   ),
                 ),
                 const Expanded(
                   flex: 5,
                   child: Text(""),
                 ),
-                const Expanded(
+                Expanded(
                   flex: 5,
-                  child: Text(""),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 140),
+                    child: ElevatedButton(
+                      child: const Text("Login"),
+                      onPressed: _login,
+                    ),
+                  ),
                 ),
               ],
             ),
