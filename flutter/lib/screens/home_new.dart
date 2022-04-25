@@ -26,6 +26,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     begin: Offset.zero,
     end: const Offset(0, -2),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInQuart));
+  late final Animation<Offset> _buttonOffset = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(0, 2),
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInQuart));
 
   @override
   void initState() {
@@ -100,16 +104,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           onPressed: _login,
                         ),
                       ),
-                      Stack(
-                        children: const <Widget>[
-                          Center(
-                            child: Divider(
-                              color: Palette.border,
-                              thickness: 6,
+                      SlideTransition(
+                        position: _buttonOffset,
+                        child: Stack(
+                          children: const <Widget>[
+                            Center(
+                              child: Divider(
+                                color: Palette.border,
+                                thickness: 6,
+                              ),
                             ),
-                          ),
-                          HomePageButton()
-                        ],
+                            HomePageButton()
+                          ],
+                        ),
                       )
                     ],
                   ),
