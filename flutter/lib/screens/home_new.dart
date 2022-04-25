@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_meal_advisor/screens/buffer.dart';
+import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -87,12 +90,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 Expanded(
                   flex: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 140),
-                    child: ElevatedButton(
-                      child: const Text("Login"),
-                      onPressed: _login,
-                    ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 140),
+                        child: ElevatedButton(
+                          child: const Text("Login"),
+                          onPressed: _login,
+                        ),
+                      ),
+                      Stack(
+                        children: const <Widget>[
+                          Center(
+                            child: Divider(
+                              color: Palette.border,
+                              thickness: 6,
+                            ),
+                          ),
+                          HomePageButton()
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ],
@@ -147,6 +166,144 @@ class HomePageMenu extends StatelessWidget {
               onPressed: () => onSettingPressed(),
             ),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class HomePageButton extends StatelessWidget {
+  const HomePageButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: Text(
+          "GO",
+          style: GoogleFonts.roboto(
+            color: Palette.border,
+            fontSize: 48,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        onLongPress: () {
+          _navigateToResults(context);
+        },
+        onPressed: () async {
+          _navigateToBuffer(context);
+        },
+        style: ElevatedButton.styleFrom(
+          fixedSize: const Size(200, 200),
+          primary: Palette.secondary,
+          shape: const CircleBorder(
+              side: BorderSide(
+            color: Palette.border,
+            width: 6,
+          )),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToBuffer(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const BufferPage(),
+      ),
+    );
+  }
+
+  void _navigateToResults(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ResultPage(),
+      ),
+    );
+  }
+}
+
+class LoginNameInput extends StatefulWidget {
+  final void Function(String) onSubmit;
+
+  const LoginNameInput({
+    Key? key,
+    required this.onSubmit,
+  }) : super(key: key);
+
+  @override
+  State<LoginNameInput> createState() => _LoginNameInputState();
+}
+
+class _LoginNameInputState extends State<LoginNameInput> {
+  final textController = TextEditingController();
+  Icon? inputIcon;
+  int charLength = 0;
+
+  void _onChanged(String value) {
+    setState(() {
+      charLength = value.length;
+
+      if (charLength <= 3) {
+        inputIcon = null;
+      } else {
+        inputIcon = const Icon(
+          Icons.login_outlined,
+          color: Palette.borderColor,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50),
+      child: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              "Please enter your name:",
+              style: GoogleFonts.roboto(
+                  color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Theme(
+            data: Theme.of(context).copyWith(
+              textSelectionTheme: const TextSelectionThemeData(
+                selectionColor: Colors.white70,
+              ),
+            ),
+            child: TextField(
+              controller: textController,
+              cursorColor: Colors.black26,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Palette.border,
+                    width: 3,
+                  ),
+                ),
+                filled: true,
+                fillColor: Colors.white70,
+                labelStyle: GoogleFonts.ubuntu(
+                  color: Palette.border,
+                ),
+                labelText: "Name",
+                suffixIcon: inputIcon, // make clickable
+              ),
+              // maxLength: 25,
+              maxLines: 1,
+              onChanged: _onChanged,
+              onSubmitted: widget.onSubmit,
+            ),
+          ),
         ],
       ),
     );
