@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInQuart));
   late final Animation<Offset> _userNameOffset = Tween<Offset>(
     begin: const Offset(0, 2),
-    end: const Offset(0, .5),
+    end: const Offset(0, .3),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInQuart));
 
   @override
