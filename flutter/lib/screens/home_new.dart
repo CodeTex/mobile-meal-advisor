@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,9 +17,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     vsync: this,
   );
   late final Animation<double> _backgroundFade = Tween<double>(
-    begin: .3,
+    begin: .1,
     end: 1,
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+
   @override
   void initState() {
     super.initState();
@@ -28,14 +30,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  void _login() async {
-    _controller.forward();
-  }
-
-  void _logout() async {
-    _controller.reverse();
   }
 
   @override
@@ -64,39 +58,76 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: const EdgeInsets.only(bottom: 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                      primary: Colors.white,
-                      textStyle: const TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () {
-                      _login();
-                    },
-                    child: const Text("Login"),
+            Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: HomePageMenu(
+                    onLogoutPressed: () {},
+                    onSettingPressed: () {},
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                      primary: Colors.white,
-                      textStyle: const TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () {
-                      _logout();
-                    },
-                    child: const Text("Logout"),
-                  )
-                ],
-              ),
-            )
+                ),
+                const Expanded(
+                  flex: 5,
+                  child: Text(""),
+                ),
+                const Expanded(
+                  flex: 5,
+                  child: Text(""),
+                ),
+              ],
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class HomePageMenu extends StatelessWidget {
+  final VoidCallback onLogoutPressed;
+  final VoidCallback onSettingPressed;
+
+  const HomePageMenu({
+    Key? key,
+    required this.onLogoutPressed,
+    required this.onSettingPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border.symmetric(
+            horizontal: BorderSide(
+          color: Palette.border,
+          width: 6,
+        )),
+        color: Palette.secondary,
+      ),
+      child: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset("assets/images/icons/work-in-progress.png"),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: const Icon(Icons.logout_outlined),
+              onPressed: () => onLogoutPressed(),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () => onSettingPressed(),
+            ),
+          )
+        ],
       ),
     );
   }
