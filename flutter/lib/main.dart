@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_meal_advisor/screens/home.dart';
+import 'package:mobile_meal_advisor/screens/home_new.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 void main() {

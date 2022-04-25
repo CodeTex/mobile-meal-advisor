@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/constants/url_list.dart';
 import 'package:mobile_meal_advisor/services/meals.dart';
 import 'package:mobile_meal_advisor/screens/beer.dart';
-import 'package:mobile_meal_advisor/screens/home.dart';
+import 'package:mobile_meal_advisor/screens/home_new.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 import 'package:mobile_meal_advisor/widgets/meal_category_checkbox.dart';
