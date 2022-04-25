@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.primary,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         bottom: false,
         child: Stack(
@@ -98,31 +99,38 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 Expanded(
                   flex: 5,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      SlideTransition(
-                        position: _userNameOffset,
-                        child: LoginNameInput(onSubmit: _login),
-                      ),
-                      SlideTransition(
-                        position: _buttonOffset,
-                        child: Stack(
-                          children: const <Widget>[
-                            Center(
-                              child: Divider(
-                                color: Palette.border,
-                                thickness: 6,
-                              ),
-                            ),
-                            HomePageButton()
-                          ],
+                  child: SlideTransition(
+                    position: _buttonOffset,
+                    child: Stack(
+                      children: const <Widget>[
+                        Center(
+                          child: Divider(
+                            color: Palette.border,
+                            thickness: 6,
+                          ),
                         ),
-                      )
-                    ],
+                        HomePageButton()
+                      ],
+                    ),
                   ),
                 ),
               ],
+            ),
+            Positioned(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 80,
+              left: 40,
+              right: 40,
+              child: SlideTransition(
+                position: _userNameOffset,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    color: Colors.white.withOpacity(.6),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: LoginNameInput(onSubmit: _login),
+                ),
+              ),
             ),
           ],
         ),
@@ -268,52 +276,49 @@ class _LoginNameInputState extends State<LoginNameInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
-      child: Column(
-        children: <Widget>[
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: const EdgeInsets.symmetric(vertical: 20),
-            child: Text(
-              "Please enter your name:",
-              style: GoogleFonts.roboto(
-                  color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w500),
+    return Column(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Text(
+            "Please enter your name:",
+            style: GoogleFonts.roboto(
+                color: Palette.borderColor, fontSize: 22, fontWeight: FontWeight.w500),
+          ),
+        ),
+        Theme(
+          data: Theme.of(context).copyWith(
+            textSelectionTheme: const TextSelectionThemeData(
+              selectionColor: Colors.white,
             ),
           ),
-          Theme(
-            data: Theme.of(context).copyWith(
-              textSelectionTheme: const TextSelectionThemeData(
-                selectionColor: Colors.white70,
-              ),
-            ),
-            child: TextField(
-              controller: textController,
-              cursorColor: Colors.black26,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Palette.border,
-                    width: 3,
-                  ),
-                ),
-                filled: true,
-                fillColor: Colors.white70,
-                labelStyle: GoogleFonts.ubuntu(
+          child: TextField(
+            controller: textController,
+            cursorColor: Colors.black26,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
                   color: Palette.border,
+                  width: 3,
                 ),
-                labelText: "Name",
-                suffixIcon: inputIcon, // make clickable
               ),
-              // maxLength: 25,
-              maxLines: 1,
-              onChanged: _onChanged,
-              onSubmitted: widget.onSubmit,
+              filled: true,
+              fillColor: Colors.white,
+              labelStyle: GoogleFonts.ubuntu(
+                color: Palette.border,
+              ),
+              labelText: "Name",
+              suffixIcon: inputIcon, // make clickable
             ),
+            // maxLength: 25,
+            maxLines: 1,
+            onChanged: _onChanged,
+            onSubmitted: widget.onSubmit,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
