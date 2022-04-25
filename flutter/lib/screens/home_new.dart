@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +29,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _login() async {
+    _controller.reverse();
+  }
+
+  void _logout() async {
+    _controller.forward();
   }
 
   @override
@@ -63,8 +70,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Expanded(
                   flex: 2,
                   child: HomePageMenu(
-                    onLogoutPressed: () {},
-                    onSettingPressed: () {},
+                    onLogoutPressed: _logout,
+                    onSettingPressed: _login,
                   ),
                 ),
                 const Expanded(
