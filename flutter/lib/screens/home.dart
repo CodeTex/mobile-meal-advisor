@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Column(
               children: <Widget>[
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: SlideTransition(
                     position: _menuOffset,
                     child: HomePageMenu(
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 const Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Text(""),
                 ),
                 Expanded(
@@ -199,7 +199,7 @@ class HomePageMenu extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Expanded(
-            flex: 10,
+            flex: 9,
             child: Stack(
               children: <Widget>[
                 Center(
@@ -228,7 +228,7 @@ class HomePageMenu extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Text(
               greet(userName),
               style: GoogleFonts.roboto(
