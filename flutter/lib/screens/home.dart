@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final Duration animationDuration = const Duration(seconds: 2);
   bool isLoggedIn = false;
-  late String? userName;
+  late String? userName = "";
 
   late final AnimationController _controller = AnimationController(
     duration: animationDuration,
