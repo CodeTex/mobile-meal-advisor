@@ -3,6 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/screens/buffer.dart';
 import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+// ignore: todo
+// TODO: separate independent widgets into separate files
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final Duration animationDuration = const Duration(seconds: 2);
+  bool isLoggedIn = false;
+  late String? userName;
 
   late final AnimationController _controller = AnimationController(
     duration: animationDuration,
@@ -38,6 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    sharedPreferencesInit();
   }
 
   @override
@@ -46,12 +53,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _login(String userName) async {
-    _controller.reverse();
+  void sharedPreferencesInit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
+    userName = prefs.getString("username");
+    if (!isLoggedIn) _controller.forward(from: 1.0);
+    // call setState to re-render entire page once informatin is fetched
+    setState(() {});
   }
 
-  void _logout() async {
+  void _performLogin(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isLoggedIn", true);
+    prefs.setString("username", name);
+    isLoggedIn = true;
+    userName = name;
+    _controller.reverse();
+    setState(() {});
+  }
+
+  void _performLogout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isLoggedIn", false);
+    prefs.remove("username");
+    isLoggedIn = false;
     _controller.forward();
+    setState(() {});
   }
 
   @override
@@ -84,17 +111,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Column(
               children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: SlideTransition(
                     position: _menuOffset,
                     child: HomePageMenu(
-                      onLogoutPressed: _logout,
+                      onLogoutPressed: _performLogout,
                       onSettingPressed: () => {},
+                      userName: userName,
                     ),
                   ),
                 ),
                 const Expanded(
-                  flex: 5,
+                  flex: 4,
                   child: Text(""),
                 ),
                 Expanded(
@@ -128,7 +156,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     color: Colors.white.withOpacity(.6),
                   ),
                   padding: const EdgeInsets.all(10),
-                  child: LoginNameInput(onSubmit: _login),
+                  child: LoginNameInput(onSubmit: _performLogin),
                 ),
               ),
             ),
@@ -142,12 +170,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 class HomePageMenu extends StatelessWidget {
   final VoidCallback onLogoutPressed;
   final VoidCallback onSettingPressed;
+  final String? userName;
 
   const HomePageMenu({
     Key? key,
     required this.onLogoutPressed,
     required this.onSettingPressed,
+    this.userName,
   }) : super(key: key);
+
+  String greet(String? userName) {
+    String greeting = "Hello";
+    if (userName != null) greeting += ", " + userName;
+    return greeting + "!";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,28 +196,48 @@ class HomePageMenu extends StatelessWidget {
         )),
         color: Palette.secondary,
       ),
-      child: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset("assets/images/icons/work-in-progress.png"),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 10,
+            child: Stack(
+              children: <Widget>[
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/images/icons/work-in-progress.png",
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: const Icon(Icons.logout_outlined),
+                    onPressed: () => onLogoutPressed(),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.settings),
+                    onPressed: () => onSettingPressed(),
+                  ),
+                )
+              ],
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              icon: const Icon(Icons.logout_outlined),
-              onPressed: () => onLogoutPressed(),
+          Expanded(
+            flex: 2,
+            child: Text(
+              greet(userName),
+              style: GoogleFonts.roboto(
+                color: Palette.border,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () => onSettingPressed(),
-            ),
-          )
         ],
       ),
     );
@@ -255,7 +311,7 @@ class LoginNameInput extends StatefulWidget {
 }
 
 class _LoginNameInputState extends State<LoginNameInput> {
-  final textController = TextEditingController();
+  final TextEditingController textController = TextEditingController();
   Icon? inputIcon;
   int charLength = 0;
 
