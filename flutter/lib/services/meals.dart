@@ -8,7 +8,7 @@ enum MealCategory {
   undefined,
   burger,
   classic,
-  desert,
+  dessert,
   fingerFood,
   salad,
   sandwich,

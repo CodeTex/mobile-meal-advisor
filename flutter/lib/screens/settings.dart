@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/theme.dart';
-import 'package:mobile_meal_advisor/widgets/settings/tile.dart';
+import 'package:mobile_meal_advisor/widgets/settings/filter_category.dart';
 import 'package:mobile_meal_advisor/widgets/settings/user.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -22,17 +22,9 @@ class _SettingsPageState extends State<SettingsPage> {
         bottom: false,
         child: ListView(
           padding: const EdgeInsets.all(10),
-          children: const <Widget>[
-            SettingsUsername(),
-            SettingsTile(
-              title: "Category Filter",
-              body: Text("Test 2"),
-            ),
-            SettingsTile(title: "Title", body: Text("Test 3")),
-            SettingsTile(title: "Title", body: Text("Test 4")),
-            SettingsTile(title: "Title", body: Text("Test 5")),
-            SettingsTile(title: "Title", body: Text("Test 6")),
-            SettingsTile(title: "Title", body: Text("Test 7")),
+          children: <Widget>[
+            const SettingsUsername(),
+            SettingsFilterCategory(),
           ],
         ),
       ),
