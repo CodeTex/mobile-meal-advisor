@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/widgets/settings/tile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsUsername extends StatefulWidget {
   const SettingsUsername({Key? key}) : super(key: key);
@@ -9,6 +10,25 @@ class SettingsUsername extends StatefulWidget {
 }
 
 class _SettingsUsernameState extends State<SettingsUsername> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    sharedPreferencesInit();
+  }
+
+  void sharedPreferencesInit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _controller.text = prefs.getString("username") ?? "";
+    setState(() {});
+  }
+
+  void _changeUsername(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("username", name);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SettingsTile(
@@ -19,13 +39,15 @@ class _SettingsUsernameState extends State<SettingsUsername> {
         children: <Widget>[
           Expanded(
             flex: 7,
-            child: TextFormField(),
+            child: TextFormField(
+              controller: _controller,
+            ),
           ),
           const Spacer(flex: 2),
           Expanded(
             flex: 3,
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () => {_changeUsername(_controller.text)},
               child: const Text("Change"),
             ),
           ),
