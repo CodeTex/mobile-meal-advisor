@@ -7,6 +7,24 @@ import 'package:mobile_meal_advisor/theme.dart';
 class HomePageButton extends StatelessWidget {
   const HomePageButton({Key? key}) : super(key: key);
 
+  void _navigateToBuffer(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BufferPage(),
+      ),
+    );
+  }
+
+  void _navigateToResults(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ResultPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
@@ -45,23 +63,5 @@ class HomePageButton extends StatelessWidget {
         ),
       ),
     ]);
-  }
-
-  void _navigateToBuffer(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const BufferPage(),
-      ),
-    );
-  }
-
-  void _navigateToResults(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const ResultPage(),
-      ),
-    );
   }
 }
