@@ -4,17 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/constants/greet_list.dart';
 import 'package:mobile_meal_advisor/functions/string.dart';
+import 'package:mobile_meal_advisor/screens/settings.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class HomePageMenu extends StatelessWidget {
   final VoidCallback onLogoutPressed;
-  final VoidCallback onSettingPressed;
   final String? userName;
 
   const HomePageMenu({
     Key? key,
     required this.onLogoutPressed,
-    required this.onSettingPressed,
     this.userName,
   }) : super(key: key);
 
@@ -47,6 +46,15 @@ class HomePageMenu extends StatelessWidget {
     }
     if (userName != null) greeting += ", " + userName;
     return greeting + lastCharacter;
+  }
+
+  void _navigateToSettings(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SettingsPage(),
+      ),
+    );
   }
 
   @override
@@ -85,7 +93,7 @@ class HomePageMenu extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     icon: const Icon(Icons.settings),
-                    onPressed: () => onSettingPressed(),
+                    onPressed: () => _navigateToSettings(context),
                   ),
                 )
               ],

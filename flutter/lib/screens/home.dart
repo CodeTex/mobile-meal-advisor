@@ -113,7 +113,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     position: _menuOffset,
                     child: HomePageMenu(
                       onLogoutPressed: _performLogout,
-                      onSettingPressed: () => {},
                       userName: userName,
                     ),
                   ),
