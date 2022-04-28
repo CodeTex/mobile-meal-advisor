@@ -38,10 +38,10 @@ class HomePageMenu extends StatelessWidget {
     if (greetings.isNotEmpty) {
       int index = Random().nextInt(greetings.length);
       greeting = capitalize(greetings[index]);
-      if (greetingsEm.contains(greetings[index])) {
-        lastCharacter = "!";
-      } else if (greetingsQm.contains(greetings[index])) {
+      if (greetingsQm.contains(greetings[index])) {
         lastCharacter = "?";
+      } else {
+        lastCharacter = "!";
       }
     }
     if (userName != null) greeting += ", " + userName;
