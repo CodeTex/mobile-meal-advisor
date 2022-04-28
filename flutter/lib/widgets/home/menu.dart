@@ -3,23 +3,49 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/functions/string.dart';
 import 'package:mobile_meal_advisor/screens/settings.dart';
 import 'package:mobile_meal_advisor/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePageMenu extends StatelessWidget {
+class HomePageMenu extends StatefulWidget {
   final VoidCallback onLogoutPressed;
-  final String? userName;
 
   const HomePageMenu({
     Key? key,
     required this.onLogoutPressed,
-    this.userName,
   }) : super(key: key);
+
+  @override
+  State<HomePageMenu> createState() => _HomePageMenuState();
+}
+
+class _HomePageMenuState extends State<HomePageMenu> {
+  late String userName = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _updateUsername();
+  }
+
+  void _updateUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userName = prefs.getString("username") ?? "";
+    setState(() {});
+  }
 
   void _navigateToSettings(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const SettingsPage(),
-      ),
+      MaterialPageRoute(builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            // when coming from settins reload username from shared preferences
+            _updateUsername();
+            Navigator.pop(context, false);
+            return Future.value(false);
+          },
+          child: const SettingsPage(),
+        );
+      }),
     );
   }
 
@@ -52,7 +78,7 @@ class HomePageMenu extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: IconButton(
                     icon: const Icon(Icons.logout_outlined),
-                    onPressed: () => onLogoutPressed(),
+                    onPressed: () => widget.onLogoutPressed(),
                   ),
                 ),
                 Align(

@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final Duration animationDuration = const Duration(seconds: 2);
   bool isLoggedIn = false;
-  late String? userName = "";
 
   late final AnimationController _controller = AnimationController(
     duration: animationDuration,
@@ -53,7 +52,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
-    userName = prefs.getString("username");
     if (!isLoggedIn) _controller.forward(from: 1.0);
     // call setState to re-render entire page once informatin is fetched
     setState(() {});
@@ -64,7 +62,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     prefs.setBool("isLoggedIn", true);
     prefs.setString("username", name);
     isLoggedIn = true;
-    userName = name;
     _controller.reverse();
     setState(() {});
   }
@@ -113,7 +110,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     position: _menuOffset,
                     child: HomePageMenu(
                       onLogoutPressed: _performLogout,
-                      userName: userName,
                     ),
                   ),
                 ),
