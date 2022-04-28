@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/settings/tile.dart';
+import 'package:mobile_meal_advisor/widgets/settings/user.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -21,14 +22,17 @@ class _SettingsPageState extends State<SettingsPage> {
         bottom: false,
         child: ListView(
           padding: const EdgeInsets.all(10),
-          children: const <SettingsTile>[
-            SettingsTile(title: "Title", widget: Text("Test 1")),
-            SettingsTile(title: "Title", widget: Text("Test 2")),
-            SettingsTile(title: "Title", widget: Text("Test 3")),
-            SettingsTile(title: "Title", widget: Text("Test 4")),
-            SettingsTile(title: "Title", widget: Text("Test 5")),
-            SettingsTile(title: "Title", widget: Text("Test 6")),
-            SettingsTile(title: "Title", widget: Text("Test 7")),
+          children: const <Widget>[
+            SettingsUsername(),
+            SettingsTile(
+              title: "Category Filter",
+              body: Text("Test 2"),
+            ),
+            SettingsTile(title: "Title", body: Text("Test 3")),
+            SettingsTile(title: "Title", body: Text("Test 4")),
+            SettingsTile(title: "Title", body: Text("Test 5")),
+            SettingsTile(title: "Title", body: Text("Test 6")),
+            SettingsTile(title: "Title", body: Text("Test 7")),
           ],
         ),
       ),

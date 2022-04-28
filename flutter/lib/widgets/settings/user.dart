@@ -13,7 +13,7 @@ class _SettingsUsernameState extends State<SettingsUsername> {
   Widget build(BuildContext context) {
     return SettingsTile(
       title: "Username",
-      widget: Row(
+      body: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

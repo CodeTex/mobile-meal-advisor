@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 
 class SettingsTile extends StatelessWidget {
-  final Widget widget;
   final String title;
+  final Widget body;
 
   const SettingsTile({
     Key? key,
-    required this.widget,
     required this.title,
+    required this.body,
   }) : super(key: key);
 
   String _withColon(String string) {
@@ -42,7 +42,7 @@ class SettingsTile extends StatelessWidget {
                 color: Palette.border,
               ),
             ),
-            widget
+            body
           ],
         ),
       ),
