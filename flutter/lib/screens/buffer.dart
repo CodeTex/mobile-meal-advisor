@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mobile_meal_advisor/constants/progress_messages.dart';
+import 'package:mobile_meal_advisor/functions/math.dart';
 import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/glass_morphism.dart';
+import 'package:mobile_meal_advisor/widgets/wave.dart';
 
 class BufferPage extends StatefulWidget {
   const BufferPage({Key? key}) : super(key: key);
@@ -15,11 +17,14 @@ class BufferPage extends StatefulWidget {
 }
 
 class _BufferPageState extends State<BufferPage> {
-  final int bufferDurationMS = 9000; //7560;
+  late int bufferDurationMS;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      bufferDurationMS = randint(3, 9);
+    });
     // SchedulerBinding.instance?.addPostFrameCallback((_) async {
     //   await Future.delayed(Duration(milliseconds: bufferDurationMS), () {
     //     Navigator.push(
@@ -64,20 +69,41 @@ class _BufferPageState extends State<BufferPage> {
                   // removed stutter by cutting last frame on https://onlinegiftools.com/cut-gif
                   child: Image.asset("assets/gifs/buffer-animation.gif"),
                 ),
-                const Expanded(
-                  flex: 2,
-                  child: Center(
-                    child: GlassContainer(
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Center(child: Text("Progress Bar")),
+                Expanded(
+                    flex: 2,
+                    child: Stack(
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            WaveContainer(
+                              duration: Duration(seconds: 2),
+                              height: 30,
+                              width: double.infinity,
+                              waveColor: Color.fromRGBO(109, 166, 223, 1),
+                            ),
+                            RotationTransition(
+                              turns: AlwaysStoppedAnimation(180 / 360),
+                              child: WaveContainer(
+                                duration: Duration(seconds: 2),
+                                height: 30,
+                                width: double.infinity,
+                                waveColor: Color.fromRGBO(109, 166, 223, 1),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                  ),
-                ),
+                        const GlassContainer(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Center(child: Text("Title")),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
               ],
             ),
           ),
