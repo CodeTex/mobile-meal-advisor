@@ -53,8 +53,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
-    _userName = prefs.getString("username") ?? _userName;
+    _isLoggedIn = prefs.getBool(keyLogState) ?? false;
+    _userName = prefs.getString(keyUserName) ?? _userName;
     if (!_isLoggedIn) _controller.forward(from: 1.0);
     // call setState to re-render entire page once informatin is fetched
     setState(() {});
@@ -62,8 +62,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void _performLogin(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isLoggedIn", true);
-    prefs.setString("username", name);
+    prefs.setBool(keyLogState, true);
+    prefs.setString(keyUserName, name);
     setState(() {
       _isLoggedIn = true;
       _userName = name;
@@ -73,8 +73,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void _performLogout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isLoggedIn", false);
-    prefs.remove("username");
+    prefs.setBool(keyLogState, false);
+    prefs.remove(keyUserName);
     setState(() {
       _isLoggedIn = false;
       _userName = "";

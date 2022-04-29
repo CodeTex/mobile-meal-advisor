@@ -29,9 +29,8 @@ class _HomePageMenuState extends State<HomePageMenu> {
 
   void _updateUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.userName = prefs.getString("username") ?? widget.userName;
     setState(() {
-      widget.userName = prefs.getString("username") ?? widget.userName;
+      widget.userName = prefs.getString(keyUserName) ?? widget.userName;
     });
   }
 
