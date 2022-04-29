@@ -13,7 +13,9 @@ class SettingsFilterCategory extends StatelessWidget {
     return SettingsTile(
       title: "Meal Category Filter",
       body: Container(
-        constraints: const BoxConstraints(maxHeight: 415),
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height / 2,
+        ),
         child: ListView(
           shrinkWrap: true,
           children: <CheckboxListTile>[
