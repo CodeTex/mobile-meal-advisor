@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/theme.dart';
+import 'package:mobile_meal_advisor/models/store.dart';
 import 'package:mobile_meal_advisor/widgets/home/button.dart';
 import 'package:mobile_meal_advisor/widgets/home/menu.dart';
 import 'package:mobile_meal_advisor/widgets/home/name_input.dart';
@@ -14,8 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final Duration animationDuration = const Duration(seconds: 2);
-  bool _isLoggedIn = false;
-  String? _userName;
+  StoreLogState _isLoggedIn = false;
+  StoreUserName? _userName;
 
   late final AnimationController _controller = AnimationController(
     duration: animationDuration,

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:mobile_meal_advisor/models/store.dart';
 import 'package:mobile_meal_advisor/widgets/settings/tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +23,12 @@ class _SettingsUsernameState extends State<SettingsUsername> {
 
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _controller.text = prefs.getString("username") ?? "";
+    StoreUserName? userName = prefs.getString("username");
+    if (userName == null) {
+      log("Store for key 'username' return 'null'.");
+      return;
+    }
+    _controller.text = userName;
     setState(() {});
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_meal_advisor/functions/string.dart';
+import 'package:mobile_meal_advisor/models/store.dart';
 import 'package:mobile_meal_advisor/screens/settings.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: must_be_immutable
 class HomePageMenu extends StatefulWidget {
   final VoidCallback onLogoutPressed;
-  String? userName;
+  StoreUserName? userName;
 
   HomePageMenu({
     Key? key,
