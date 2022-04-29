@@ -14,53 +14,70 @@ class BufferPage extends StatefulWidget {
 }
 
 class _BufferPageState extends State<BufferPage> {
-  // Get Gif length on https://gifduration.herokuapp.com/
-  final int gifDurationMS = 9000; //7560;
+  final int bufferDurationMS = 9000; //7560;
 
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance?.addPostFrameCallback((_) async {
-      await Future.delayed(Duration(milliseconds: gifDurationMS), () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const ResultPage(),
-          ),
-        );
-      });
-    });
+    // SchedulerBinding.instance?.addPostFrameCallback((_) async {
+    //   await Future.delayed(Duration(milliseconds: bufferDurationMS), () {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (_) => const ResultPage(),
+    //       ),
+    //     );
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF825FBE),
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            const Center(
-              child: Image(
-                image: AssetImage("assets/gifs/construction.gif"),
-              ),
-            ),
-            Column(
-              children: <Widget>[
-                const Spacer(flex: 3),
+    return WillPopScope(
+      onWillPop: () async => Future.value(false),
+      child: Scaffold(
+        backgroundColor: Palette.border,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Expanded>[
+                const Expanded(
+                  flex: 2,
+                  child: Center(child: Text("Title")),
+                ),
                 Expanded(
-                  flex: 1,
-                  child: BufferLoadingBar(
-                    duration: gifDurationMS ~/ 1000,
-                  ),
+                  flex: 8,
+                  // GIF taken from https://lottiefiles.com
+                  // removed stutter by cutting last frame on https://onlinegiftools.com/cut-gif
+                  child: Image.asset("assets/gifs/buffer-animation.gif"),
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: Center(child: Text("Progressbar")),
                 ),
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
+// Column(
+//                 children: <Widget>[
+//                   const Spacer(flex: 3),
+//                   Expanded(
+//                     flex: 1,
+//                     child: BufferLoadingBar(
+//                       duration: bufferDurationMS ~/ 1000,
+//                     ),
+//                   ),
+//                 ],
+//               )
+//             ],
 
 class BufferLoadingBar extends StatefulWidget {
   final int duration;
