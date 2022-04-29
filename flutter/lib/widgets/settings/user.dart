@@ -23,9 +23,9 @@ class _SettingsUsernameState extends State<SettingsUsername> {
 
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    StoreUserName? userName = prefs.getString("username");
+    StoreUserName? userName = prefs.getString(keyUserName);
     if (userName == null) {
-      log("Store for key 'username' return 'null'.");
+      log("Store for key '" + keyUserName + "' return 'null'.");
       return;
     }
     _controller.text = userName;
