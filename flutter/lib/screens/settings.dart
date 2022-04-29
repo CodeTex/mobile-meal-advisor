@@ -22,8 +22,8 @@ class _SettingsPageState extends State<SettingsPage> {
         bottom: false,
         child: ListView(
           padding: const EdgeInsets.all(10),
-          children: <Widget>[
-            const SettingsUsername(),
+          children: const <Widget>[
+            SettingsUsername(),
             SettingsFilterCategory(),
           ],
         ),
