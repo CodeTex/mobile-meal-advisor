@@ -15,6 +15,7 @@ class SettingsFilterCategory extends StatefulWidget {
 }
 
 class _SettingsFilterCategoryState extends State<SettingsFilterCategory> {
+  final ScrollController _scrollController = ScrollController();
   final List<String> mealCategories = mealCategoryMap.values.toList();
   StoreFilterCategories _activeCategories = <String>[];
 
@@ -58,26 +59,31 @@ class _SettingsFilterCategoryState extends State<SettingsFilterCategory> {
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height / 2,
         ),
-        child: ListView(
-          shrinkWrap: true,
-          children: <CheckboxListTile>[
-            ...List.generate(
-              mealCategoryMap.length,
-              (index) {
-                String category = mealCategories[index];
-                bool isSelected = _activeCategories.contains(category);
-                return CheckboxListTile(
-                  title: Text(capitalize(category)),
-                  value: isSelected,
-                  onChanged: (bool? value) => {
-                    // default is false
-                    value = value ?? false,
-                    _updateSelectedCategories(category, value),
-                  },
-                );
-              },
-            ),
-          ],
+        child: Scrollbar(
+          isAlwaysShown: true,
+          controller: _scrollController,
+          child: ListView(
+            controller: _scrollController,
+            shrinkWrap: true,
+            children: <CheckboxListTile>[
+              ...List.generate(
+                mealCategoryMap.length,
+                (index) {
+                  String category = mealCategories[index];
+                  bool isSelected = _activeCategories.contains(category);
+                  return CheckboxListTile(
+                    title: Text(capitalize(category)),
+                    value: isSelected,
+                    onChanged: (bool? value) => {
+                      // default is false
+                      value = value ?? false,
+                      _updateSelectedCategories(category, value),
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
