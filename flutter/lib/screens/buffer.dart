@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:mobile_meal_advisor/constants/progress_messages.dart';
 import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
+import 'package:mobile_meal_advisor/widgets/glass_morphism.dart';
 
 class BufferPage extends StatefulWidget {
   const BufferPage({Key? key}) : super(key: key);
@@ -45,7 +46,17 @@ class _BufferPageState extends State<BufferPage> {
               children: <Expanded>[
                 const Expanded(
                   flex: 2,
-                  child: Center(child: Text("Title")),
+                  child: Center(
+                    child: GlassContainer(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Center(child: Text("Title")),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 8,
@@ -55,7 +66,17 @@ class _BufferPageState extends State<BufferPage> {
                 ),
                 const Expanded(
                   flex: 2,
-                  child: Center(child: Text("Progressbar")),
+                  child: Center(
+                    child: GlassContainer(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Center(child: Text("Progress Bar")),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -65,19 +86,6 @@ class _BufferPageState extends State<BufferPage> {
     );
   }
 }
-
-// Column(
-//                 children: <Widget>[
-//                   const Spacer(flex: 3),
-//                   Expanded(
-//                     flex: 1,
-//                     child: BufferLoadingBar(
-//                       duration: bufferDurationMS ~/ 1000,
-//                     ),
-//                   ),
-//                 ],
-//               )
-//             ],
 
 class BufferLoadingBar extends StatefulWidget {
   final int duration;
