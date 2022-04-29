@@ -16,6 +16,7 @@ class SettingsFilterCategory extends StatefulWidget {
 
 class _SettingsFilterCategoryState extends State<SettingsFilterCategory> {
   final List<String> mealCategories = mealCategoryMap.values.toList();
+  StoreFilterCategories _activeCategories = <String>[];
 
   @override
   void initState() {
@@ -25,12 +26,28 @@ class _SettingsFilterCategoryState extends State<SettingsFilterCategory> {
 
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    StoreFilterCategories? activeFilters = prefs.getStringList(keyFilterCategories);
-    if (activeFilters == null) {
+    StoreFilterCategories? activeCategories = prefs.getStringList(keyFilterCategories);
+    if (activeCategories == null) {
       log("Store for key " + keyFilterCategories + " return 'null'.");
       return;
     }
-    setState(() {});
+    setState(() {
+      _activeCategories = activeCategories;
+    });
+  }
+
+  void _updateSelectedCategories(String category, bool addElement) async {
+    StoreFilterCategories activeCategories = _activeCategories;
+    if (addElement) {
+      activeCategories.add(category);
+    } else {
+      activeCategories.remove(category);
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(keyFilterCategories, activeCategories);
+    setState(() {
+      _activeCategories = activeCategories;
+    });
   }
 
   @override
@@ -48,10 +65,15 @@ class _SettingsFilterCategoryState extends State<SettingsFilterCategory> {
               mealCategoryMap.length,
               (index) {
                 String category = mealCategories[index];
+                bool isSelected = _activeCategories.contains(category);
                 return CheckboxListTile(
                   title: Text(capitalize(category)),
-                  value: false,
-                  onChanged: (bool? value) => {},
+                  value: isSelected,
+                  onChanged: (bool? value) => {
+                    // default is false
+                    value = value ?? false,
+                    _updateSelectedCategories(category, value),
+                  },
                 );
               },
             ),
