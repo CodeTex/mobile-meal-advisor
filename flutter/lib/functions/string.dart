@@ -5,6 +5,8 @@ import 'package:mobile_meal_advisor/constants/greet_list.dart';
 String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
 String greet(String? userName) {
+  if (userName == null || userName == "") return "Goodbye!";
+
   String greeting = "Hello";
   String lastCharacter = "";
   List<String> greetings = [];

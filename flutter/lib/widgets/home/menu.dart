@@ -5,12 +5,15 @@ import 'package:mobile_meal_advisor/screens/settings.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class HomePageMenu extends StatefulWidget {
   final VoidCallback onLogoutPressed;
+  String? userName;
 
-  const HomePageMenu({
+  HomePageMenu({
     Key? key,
     required this.onLogoutPressed,
+    required this.userName,
   }) : super(key: key);
 
   @override
@@ -18,18 +21,17 @@ class HomePageMenu extends StatefulWidget {
 }
 
 class _HomePageMenuState extends State<HomePageMenu> {
-  late String userName = "";
-
   @override
   void initState() {
     super.initState();
-    _updateUsername();
   }
 
   void _updateUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    userName = prefs.getString("username") ?? "";
-    setState(() {});
+    widget.userName = prefs.getString("username") ?? widget.userName;
+    setState(() {
+      widget.userName = prefs.getString("username") ?? widget.userName;
+    });
   }
 
   void _navigateToSettings(BuildContext context) {
@@ -94,7 +96,7 @@ class _HomePageMenuState extends State<HomePageMenu> {
           Expanded(
             flex: 3,
             child: Text(
-              greet(userName),
+              greet(widget.userName),
               style: GoogleFonts.roboto(
                 color: Palette.border,
                 fontSize: 24,

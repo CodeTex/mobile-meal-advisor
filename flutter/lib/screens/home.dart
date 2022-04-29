@@ -14,7 +14,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final Duration animationDuration = const Duration(seconds: 2);
-  bool isLoggedIn = false;
+  bool _isLoggedIn = false;
+  String? _userName;
 
   late final AnimationController _controller = AnimationController(
     duration: animationDuration,
@@ -51,8 +52,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
-    if (!isLoggedIn) _controller.forward(from: 1.0);
+    _isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
+    _userName = prefs.getString("username") ?? _userName;
+    if (!_isLoggedIn) _controller.forward(from: 1.0);
     // call setState to re-render entire page once informatin is fetched
     setState(() {});
   }
@@ -61,18 +63,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLoggedIn", true);
     prefs.setString("username", name);
-    isLoggedIn = true;
-    _controller.reverse();
-    setState(() {});
+    setState(() {
+      _isLoggedIn = true;
+      _userName = name;
+      _controller.reverse();
+    });
   }
 
   void _performLogout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLoggedIn", false);
     prefs.remove("username");
-    isLoggedIn = false;
-    _controller.forward();
-    setState(() {});
+    setState(() {
+      _isLoggedIn = false;
+      _userName = "";
+      _controller.forward();
+    });
   }
 
   @override
@@ -110,6 +116,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     position: _menuOffset,
                     child: HomePageMenu(
                       onLogoutPressed: _performLogout,
+                      userName: _userName,
                     ),
                   ),
                 ),
