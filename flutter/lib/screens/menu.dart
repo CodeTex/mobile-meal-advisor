@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/models/viewer.dart';
-import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/pdf_viewer.dart';
 
 class MenuPage extends StatelessWidget {
   final String menuLink;
+  final String appBarTitle = "Menu";
 
   const MenuPage({
     Key? key,
@@ -34,25 +34,21 @@ class MenuPage extends StatelessWidget {
       case Viewer.html:
         return Container();
       case Viewer.pdf:
-        if (link.contains("html")) {
+        if (link.startsWith("http")) {
           sourceType = PDFSourceType.url;
         } else {
           sourceType = PDFSourceType.file;
         }
-        return PDFMenuViewer(pdfLink: link, sourceType: sourceType);
+        return PDFViewer(
+          title: appBarTitle,
+          pdfLink: link,
+          sourceType: sourceType,
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Menu"),
-      ),
-      backgroundColor: Palette.primary.withOpacity(.8),
-      body: SafeArea(
-        child: _displayViewer(menuLink),
-      ),
-    );
+    return _displayViewer(menuLink);
   }
 }

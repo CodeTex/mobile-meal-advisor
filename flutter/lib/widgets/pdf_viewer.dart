@@ -1,32 +1,35 @@
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart' as apv;
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/models/viewer.dart';
+import 'package:mobile_meal_advisor/theme.dart';
 
-class PDFMenuViewer extends StatefulWidget {
+class PDFViewer extends StatefulWidget {
   final String pdfLink;
   final PDFSourceType sourceType;
+  final String title;
 
-  const PDFMenuViewer({
+  const PDFViewer({
     Key? key,
     required this.pdfLink,
     required this.sourceType,
+    required this.title,
   }) : super(key: key);
 
   @override
-  State<PDFMenuViewer> createState() => _PDFMenuViewerState();
+  State<PDFViewer> createState() => _PDFViewerState();
 }
 
-class _PDFMenuViewerState extends State<PDFMenuViewer> {
+class _PDFViewerState extends State<PDFViewer> {
   bool _isLoading = true;
-  late PDFDocument _pdf;
+  late apv.PDFDocument _pdf;
 
   void _loadFile() async {
     switch (widget.sourceType) {
       case PDFSourceType.url:
-        _pdf = await PDFDocument.fromURL(widget.pdfLink);
+        _pdf = await apv.PDFDocument.fromURL(widget.pdfLink);
         break;
       case PDFSourceType.file:
-        _pdf = await PDFDocument.fromAsset(widget.pdfLink);
+        _pdf = await apv.PDFDocument.fromAsset(widget.pdfLink);
         break;
     }
 
@@ -43,8 +46,16 @@ class _PDFMenuViewerState extends State<PDFMenuViewer> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : PDFViewer(document: _pdf);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      backgroundColor: Palette.primary.withOpacity(.8),
+      body: SafeArea(
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : apv.PDFViewer(document: _pdf),
+      ),
+    );
   }
 }
