@@ -3,7 +3,7 @@ import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 
 class ResultDescription extends StatelessWidget {
-  final String text;
+  final String? text;
   final double? price;
   final bool isVegetarian;
   final bool isVegan;
@@ -33,7 +33,7 @@ class ResultDescription extends StatelessWidget {
                   horizontal: 15,
                   vertical: 10,
                 ),
-                child: Text(text),
+                child: Text(text ?? ""),
               ),
             ),
             const Divider(

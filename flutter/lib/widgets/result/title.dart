@@ -3,7 +3,7 @@ import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/bordered_box.dart';
 
 class ResultTitle extends StatelessWidget {
-  final String title;
+  final String? title;
 
   const ResultTitle({
     Key? key,
@@ -21,7 +21,7 @@ class ResultTitle extends StatelessWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(10),
           child: Text(
-            title,
+            title ?? "title not available",
             style: const TextStyle(
               color: Palette.borderColor,
               fontSize: 24,

@@ -17,8 +17,8 @@ enum MealCategory {
 }
 
 class Meal {
-  String name;
-  String text;
+  String? name;
+  String? text;
   bool vegetarian;
   bool vegan;
   CalorieCategory calories;
@@ -40,8 +40,8 @@ class Meal {
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) => Meal(
-      name: _setStringField(json, "name", "undefined"),
-      text: _setStringField(json, "text", "undefined"),
+      name: _setStringField(json, "name"),
+      text: _setStringField(json, "text"),
       price: _setDoubleField(json),
       vegetarian: _setBooleanField(json, "vegetarian"),
       vegan: _setBooleanField(json, "vegan"),
@@ -50,7 +50,7 @@ class Meal {
       imageFileName: _setImageFileName(json, imageNotFound));
 }
 
-String _setStringField(Map<String, dynamic> json, String field, String alt) =>
+String? _setStringField(Map<String, dynamic> json, String field, {String? alt}) =>
     json.containsKey(field) ? json[field] : alt;
 
 double? _setDoubleField(Map<String, dynamic> json) =>
