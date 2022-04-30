@@ -29,19 +29,30 @@ class ResultTopBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(children: <Widget>[
+        children: <Row>[
+          Row(children: <IconButton>[
             IconButton(
-              icon: const Icon(Icons.replay_outlined),
-              onPressed: reloadAction,
+              icon: const Icon(Icons.home),
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const HomePage(),
+                  ),
+                );
+              },
             ),
             IconButton(
               icon: const Icon(Icons.filter_alt),
               onPressed: filterAction,
             ),
+            IconButton(
+              icon: const Icon(Icons.replay_outlined),
+              onPressed: reloadAction,
+            ),
           ]),
           Row(
-            children: <Widget>[
+            children: <IconButton>[
               IconButton(
                 icon: const Icon(Icons.auto_fix_high),
                 onPressed: _launchRandomURL,
@@ -61,17 +72,6 @@ class ResultTopBar extends StatelessWidget {
                 icon: const Icon(Icons.menu_book_sharp),
                 onPressed: () {
                   _launchURL("https://www.stadtboden.at/menu/");
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.home),
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HomePage(),
-                    ),
-                  );
                 },
               ),
             ],
