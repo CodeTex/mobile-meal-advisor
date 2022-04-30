@@ -4,9 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/services/meals.dart';
-import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/meal_category_checkbox.dart';
 import 'package:mobile_meal_advisor/widgets/result/description.dart';
+import 'package:mobile_meal_advisor/widgets/result/footer.dart';
 import 'package:mobile_meal_advisor/widgets/result/image.dart';
 import 'package:mobile_meal_advisor/widgets/result/title.dart';
 import 'package:mobile_meal_advisor/widgets/result/top_bar.dart';
@@ -124,31 +124,9 @@ class _ResultPageState extends State<ResultPage> {
                 isVegan: selectedMeal.vegan,
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 1,
-              child: Container(
-                decoration: const BoxDecoration(
-                  border: Border.symmetric(
-                    horizontal: BorderSide(
-                      color: Palette.borderColor,
-                      width: .2,
-                    ),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset("assets/images/icons/work-in-progress.png"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset("assets/images/icons/under-construction.png"),
-                    ),
-                  ],
-                ),
-              ),
+              child: ResultFooter(),
             ),
           ],
         ),
