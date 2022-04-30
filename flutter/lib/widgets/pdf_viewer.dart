@@ -1,6 +1,6 @@
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_meal_advisor/models/pdf.dart';
+import 'package:mobile_meal_advisor/models/viewer.dart';
 
 class PDFMenuViewer extends StatefulWidget {
   final String pdfLink;
