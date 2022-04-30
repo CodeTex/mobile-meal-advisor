@@ -8,7 +8,7 @@ import 'package:mobile_meal_advisor/functions/math.dart';
 import 'package:mobile_meal_advisor/models/store.dart';
 import 'package:mobile_meal_advisor/services/meals.dart';
 import 'package:mobile_meal_advisor/widgets/result/description.dart';
-import 'package:mobile_meal_advisor/widgets/result/filter_category.dart';
+import 'package:mobile_meal_advisor/widgets/result/filter_dialog.dart';
 import 'package:mobile_meal_advisor/widgets/result/footer.dart';
 import 'package:mobile_meal_advisor/widgets/result/image.dart';
 import 'package:mobile_meal_advisor/widgets/result/title.dart';
