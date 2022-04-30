@@ -17,16 +17,23 @@ class BufferPage extends StatefulWidget {
 }
 
 class _BufferPageState extends State<BufferPage> {
-  late int bufferDurationMS;
+  late int _bufferDurationMS;
+
+  final Widget _waveContainer = const WaveContainer(
+    duration: Duration(seconds: 3),
+    height: 30,
+    width: double.infinity,
+    waveColor: Color.fromRGBO(109, 166, 223, 1),
+  );
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      bufferDurationMS = randint(3, 9);
+      _bufferDurationMS = randint(3, 9) * 1000;
     });
     // SchedulerBinding.instance?.addPostFrameCallback((_) async {
-    //   await Future.delayed(Duration(milliseconds: bufferDurationMS), () {
+    //   await Future.delayed(Duration(milliseconds: _bufferDurationMS), () {
     //     Navigator.push(
     //       context,
     //       MaterialPageRoute(
@@ -75,21 +82,11 @@ class _BufferPageState extends State<BufferPage> {
                       children: <Widget>[
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            WaveContainer(
-                              duration: Duration(seconds: 2),
-                              height: 30,
-                              width: double.infinity,
-                              waveColor: Color.fromRGBO(109, 166, 223, 1),
-                            ),
+                          children: <Widget>[
+                            _waveContainer,
                             RotationTransition(
-                              turns: AlwaysStoppedAnimation(180 / 360),
-                              child: WaveContainer(
-                                duration: Duration(seconds: 2),
-                                height: 30,
-                                width: double.infinity,
-                                waveColor: Color.fromRGBO(109, 166, 223, 1),
-                              ),
+                              turns: const AlwaysStoppedAnimation(180 / 360),
+                              child: _waveContainer,
                             ),
                           ],
                         ),
