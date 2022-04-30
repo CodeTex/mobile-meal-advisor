@@ -21,7 +21,7 @@ class _BufferPageState extends State<BufferPage> {
 
   final Widget _waveContainer = const WaveContainer(
     duration: Duration(seconds: 3),
-    height: 30,
+    height: 40,
     width: double.infinity,
     waveColor: Color.fromRGBO(109, 166, 223, 1),
   );
@@ -74,7 +74,10 @@ class _BufferPageState extends State<BufferPage> {
                   flex: 8,
                   // GIF taken from https://lottiefiles.com
                   // removed stutter by cutting last frame on https://onlinegiftools.com/cut-gif
-                  child: Image.asset("assets/gifs/buffer-animation.gif"),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Image.asset("assets/gifs/buffer-animation.gif"),
+                  ),
                 ),
                 Expanded(
                     flex: 2,
@@ -90,12 +93,17 @@ class _BufferPageState extends State<BufferPage> {
                             ),
                           ],
                         ),
-                        const GlassContainer(
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Center(child: Text("Title")),
+                        SizedBox(
+                          height: double.infinity,
+                          width: double.infinity,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 10,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: const LinearProgressIndicator(
+                              backgroundColor: Palette.primary,
+                              color: Palette.border,
+                              minHeight: 5,
                             ),
                           ),
                         ),
