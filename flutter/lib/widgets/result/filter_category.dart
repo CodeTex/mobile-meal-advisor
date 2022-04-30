@@ -20,6 +20,7 @@ class FilterCategoryDialog extends StatefulWidget {
 }
 
 class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
+  final ScrollController _scrollController = ScrollController();
   List<String> _tempSelectedCategories = <String>[];
 
   @override
@@ -59,8 +60,11 @@ class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
       content: SizedBox(
         height: MediaQuery.of(context).size.height / 2,
         width: 400,
-        child: SingleChildScrollView(
+        child: Scrollbar(
+          isAlwaysShown: true,
+          controller: _scrollController,
           child: ListView(
+            controller: _scrollController,
             shrinkWrap: true,
             children: <CheckboxListTile>[
               ...List.generate(
