@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_meal_advisor/constants/meal_map.dart';
 import 'package:mobile_meal_advisor/functions/math.dart';
-import 'package:mobile_meal_advisor/functions/string.dart';
 import 'package:mobile_meal_advisor/models/store.dart';
 import 'package:mobile_meal_advisor/services/meals.dart';
 import 'package:mobile_meal_advisor/widgets/result/description.dart';
+import 'package:mobile_meal_advisor/widgets/result/filter_category.dart';
 import 'package:mobile_meal_advisor/widgets/result/footer.dart';
 import 'package:mobile_meal_advisor/widgets/result/image.dart';
 import 'package:mobile_meal_advisor/widgets/result/title.dart';
@@ -24,28 +24,28 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   final String _mealDataPath = "assets/data/meals.json";
+  final List<String> _mealCategories = mealCategoryMap.values.toList();
   late List<Meal> _meals = [];
   late Meal _selectedMeal;
-  final List<String> mealCategories = mealCategoryMap.values.toList();
-  late StoreFilterCategories _activeCategories;
+  StoreFilterCategories _selectedCategories = <String>[];
 
   @override
   void initState() {
-    super.initState();
     sharedPreferencesInit();
     _selectedMeal = Meal(name: null, text: null);
     loadMealsFromFile();
+    super.initState();
   }
 
   void sharedPreferencesInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    StoreFilterCategories? activeCategories = prefs.getStringList(keyFilterCategories);
-    if (activeCategories == null) {
+    StoreFilterCategories? selectedCategories = prefs.getStringList(keyFilterCategories);
+    if (selectedCategories == null) {
       log("Store for key " + keyFilterCategories + " return 'null'.");
       return;
     }
     setState(() {
-      _activeCategories = activeCategories;
+      _selectedCategories = selectedCategories;
     });
   }
 
@@ -58,61 +58,10 @@ class _ResultPageState extends State<ResultPage> {
     changeMeal();
   }
 
-  void _updateSelectedCategories(String category, bool addElement) async {
-    StoreFilterCategories activeCategories = _activeCategories;
-    if (addElement) {
-      activeCategories.add(category);
-    } else {
-      activeCategories.remove(category);
-    }
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(keyFilterCategories, activeCategories);
-    setState(() {
-      _activeCategories = activeCategories;
-    });
-  }
-
-  Future<void> _showFilterDialog(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.symmetric(vertical: 20),
-          title: const Text("Apply filters:"),
-          content: SizedBox(
-            child: SingleChildScrollView(
-              child: ListView(
-                shrinkWrap: true,
-                children: <CheckboxListTile>[
-                  ...List.generate(
-                    mealCategoryMap.length,
-                    (index) {
-                      String category = mealCategories[index];
-                      bool isSelected = _activeCategories.contains(category);
-                      return CheckboxListTile(
-                        title: Text(capitalize(category)),
-                        value: isSelected,
-                        onChanged: (bool? value) => {
-                          // default is false
-                          value = value ?? false,
-                          _updateSelectedCategories(category, value),
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   void changeMeal() {
     if (_meals.isNotEmpty) {
       List<Meal> filteredMeals = _meals.where((element) {
-        return _activeCategories
+        return _selectedCategories
             .contains(mealCategoryMap[element.category.name.toString()]);
       }).toList();
 
@@ -139,7 +88,17 @@ class _ResultPageState extends State<ResultPage> {
             ResultTopBar(
               reloadAction: changeMeal,
               filterAction: () {
-                _showFilterDialog(context);
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return FilterCategoryDialog(
+                        categories: _mealCategories,
+                        selectedCategories: _selectedCategories,
+                        onSelectedCategoryChanged: (List<String> categories) {
+                          _selectedCategories = categories;
+                        },
+                      );
+                    });
               },
             ),
             Expanded(

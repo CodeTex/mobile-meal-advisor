@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:mobile_meal_advisor/functions/string.dart';
+import 'package:mobile_meal_advisor/models/store.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class FilterCategoryDialog extends StatefulWidget {
+  final List<String> categories;
+  final List<String> selectedCategories;
+  final ValueChanged<List<String>> onSelectedCategoryChanged;
+
+  const FilterCategoryDialog({
+    Key? key,
+    required this.categories,
+    required this.selectedCategories,
+    required this.onSelectedCategoryChanged,
+  }) : super(key: key);
+
+  @override
+  State<FilterCategoryDialog> createState() => _FilterCategoryDialogState();
+}
+
+class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
+  List<String> _tempSelectedCategories = <String>[];
+
+  @override
+  void initState() {
+    _tempSelectedCategories = widget.selectedCategories;
+    super.initState();
+  }
+
+  void _updateSelectedCategories(String category, bool addElement) async {
+    if (addElement) {
+      if (!_tempSelectedCategories.contains(category)) {
+        setState(() {
+          _tempSelectedCategories.add(category);
+        });
+      }
+    } else {
+      if (_tempSelectedCategories.contains(category)) {
+        setState(() {
+          _tempSelectedCategories.removeWhere((String cat) => cat == category);
+        });
+      }
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(keyFilterCategories, _tempSelectedCategories);
+
+    widget.onSelectedCategoryChanged(_tempSelectedCategories);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      contentPadding: const EdgeInsets.symmetric(vertical: 20),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      title: const Text("Apply filters:"),
+      content: SizedBox(
+        height: MediaQuery.of(context).size.height / 2,
+        width: 400,
+        child: SingleChildScrollView(
+          child: ListView(
+            shrinkWrap: true,
+            children: <CheckboxListTile>[
+              ...List.generate(
+                widget.categories.length,
+                (index) {
+                  final String category = widget.categories[index];
+                  return CheckboxListTile(
+                    title: Text(capitalize(category)),
+                    value: _tempSelectedCategories.contains(category),
+                    onChanged: (bool? value) => {
+                      // default is false
+                      value = value ?? false,
+                      _updateSelectedCategories(category, value),
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
