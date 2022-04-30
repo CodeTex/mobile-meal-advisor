@@ -6,7 +6,12 @@ import 'package:mobile_meal_advisor/functions/math.dart';
 import 'package:mobile_meal_advisor/widgets/glass_morphism.dart';
 
 class BufferMessages extends StatefulWidget {
-  const BufferMessages({Key? key}) : super(key: key);
+  final int periodicityMS;
+
+  const BufferMessages({
+    Key? key,
+    required this.periodicityMS,
+  }) : super(key: key);
 
   @override
   State<BufferMessages> createState() => _BufferMessagesState();
@@ -27,7 +32,10 @@ class _BufferMessagesState extends State<BufferMessages> {
     setState(() {
       _message = _updateMessage();
     });
-    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+    _timer = Timer.periodic(
+        Duration(
+          milliseconds: widget.periodicityMS,
+        ), (Timer timer) {
       setState(() {
         _message = _updateMessage();
       });

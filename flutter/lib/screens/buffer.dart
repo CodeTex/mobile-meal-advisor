@@ -49,7 +49,7 @@ class _BufferPageState extends State<BufferPage> {
               children: const <Expanded>[
                 Expanded(
                   flex: 2,
-                  child: BufferMessages(),
+                  child: BufferMessages(periodicityMS: 3000),
                 ),
                 Expanded(
                   flex: 8,
