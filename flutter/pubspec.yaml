@@ -38,6 +38,7 @@ dependencies:
   url_launcher: ^6.0.20
   shared_preferences: ^2.0.13
   advance_pdf_viewer: ^2.0.1
+  webview_flutter: ^3.0.2
 
 dev_dependencies:
   flutter_test:
