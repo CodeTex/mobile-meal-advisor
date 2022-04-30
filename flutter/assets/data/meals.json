@@ -332,49 +332,49 @@
     {
       "name": "Hausgemachter Erdbeere-Cheesecake",
       "text": "",
-      "category": "desert",
+      "category": "dessert",
       "price": 5.9
     },
     {
       "name": "Mc Dreamy",
       "text": "Hausgemachter Schoko-Karamell Brownie im Glas mit Vanilleeis, frischen Früchten, dunklem Schoko-Guss",
-      "category": "desert",
+      "category": "dessert",
       "price": 8.2
     },
     {
       "name": "Sachertorte",
       "text": "mit Schlag",
-      "category": "desert",
+      "category": "dessert",
       "price": 5.5
     },
     {
       "name": "Homemade Nutella Mugcake",
       "text": "mit Früchten",
-      "category": "desert",
+      "category": "dessert",
       "price": 6.5
     },
     {
       "name": "Palatschinken",
       "text": "Marillenmarmelade oder Schokolade, 1 Stück 4,50 / 2 Stück 7,90",
-      "category": "desert",
+      "category": "dessert",
       "price": 4.5
     },
     {
       "name": "Apfelstrudel",
       "text": "",
-      "category": "desert",
+      "category": "dessert",
       "price": 5.7
     },
     {
       "name": "Kaiserschmarrn",
       "text": "mit Apfelmus oder Zwetschkenröster",
-      "category": "desert",
+      "category": "dessert",
       "price": 8.9
     },
     {
       "name": "Vanilleeis",
       "text": "Joghurt-Beeren Parfait",
-      "category": "desert",
+      "category": "dessert",
       "price": 7.5
     }
   ]

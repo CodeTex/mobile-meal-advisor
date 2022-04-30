@@ -19,26 +19,26 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  late List<Meal> meals = [];
-  late Meal selectedMeal;
-  late Map<MealCategory, bool?> selectedCategories;
+  final String _mealDataPath = "assets/data/meals.json";
+  late List<Meal> _meals = [];
+  late Meal _selectedMeal;
+  late Map<MealCategory, bool?> _selectedCategories;
 
   @override
   void initState() {
     super.initState();
-    selectedMeal = Meal(name: "", text: "");
+    _selectedMeal = Meal(name: "", text: "");
     loadMealsFromFile();
     setState(() {
-      selectedCategories = _createCategoryMap();
+      _selectedCategories = _createCategoryMap();
     });
   }
 
   Future<void> loadMealsFromFile() async {
-    String path = "assets/data/meals.json";
-    final String response = await rootBundle.loadString(path);
+    final String response = await rootBundle.loadString(_mealDataPath);
     final data = await json.decode(response);
     setState(() {
-      meals = Meals.fromJson(data).meals;
+      _meals = Meals.fromJson(data).meals;
     });
     changeMeal();
   }
@@ -57,12 +57,12 @@ class _ResultPageState extends State<ResultPage> {
       builder: (BuildContext context) {
         return SimpleDialog(
           title: const Text("Select filters:"),
-          children: selectedCategories.keys
+          children: _selectedCategories.keys
               .map(
                 (category) => MealCategoryCheckbox(
                   onChanged: _changeCategorySelection,
                   category: category,
-                  initialValue: selectedCategories[category],
+                  initialValue: _selectedCategories[category],
                 ),
               )
               .toList(),
@@ -73,18 +73,19 @@ class _ResultPageState extends State<ResultPage> {
 
   void _changeCategorySelection(MealCategory category, bool? value) {
     setState(() {
-      selectedCategories[category] = value;
+      _selectedCategories[category] = value;
     });
   }
 
   void changeMeal() {
-    if (meals.isNotEmpty) {
-      List<Meal> filteredMeals =
-          meals.where((element) => selectedCategories[element.category] == true).toList();
+    if (_meals.isNotEmpty) {
+      List<Meal> filteredMeals = _meals
+          .where((element) => _selectedCategories[element.category] == true)
+          .toList();
 
       int index = Random().nextInt(filteredMeals.length);
       setState(() {
-        selectedMeal = filteredMeals[index];
+        _selectedMeal = filteredMeals[index];
       });
     }
   }
@@ -106,22 +107,22 @@ class _ResultPageState extends State<ResultPage> {
             Expanded(
               flex: 2,
               child: ResultTitle(
-                title: selectedMeal.name,
+                title: _selectedMeal.name,
               ),
             ),
             Expanded(
               flex: 5,
               child: ResultImage(
-                fileName: selectedMeal.imageFileName,
+                fileName: _selectedMeal.imageFileName,
               ),
             ),
             Expanded(
               flex: 4,
               child: ResultDescription(
-                text: selectedMeal.text,
-                price: selectedMeal.price,
-                isVegetarian: selectedMeal.vegetarian,
-                isVegan: selectedMeal.vegan,
+                text: _selectedMeal.text,
+                price: _selectedMeal.price,
+                isVegetarian: _selectedMeal.vegetarian,
+                isVegan: _selectedMeal.vegan,
               ),
             ),
             const Expanded(

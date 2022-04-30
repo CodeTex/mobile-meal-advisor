@@ -40,27 +40,24 @@ class Meal {
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) => Meal(
-      name: json["name"],
-      text: json["text"],
-      price: _setPriceField(json),
-      vegetarian: _setVegetarianField(json),
-      vegan: _setVeganField(json),
+      name: _setStringField(json, "name", "undefined"),
+      text: _setStringField(json, "text", "undefined"),
+      price: _setDoubleField(json),
+      vegetarian: _setBooleanField(json, "vegetarian"),
+      vegan: _setBooleanField(json, "vegan"),
       calories: _setCalorieCategory(json, "undefined"),
       category: _setMealCategory(json, "undefined"),
       imageFileName: _setImageFileName(json, imageNotFound));
 }
 
-double? _setPriceField(Map<String, dynamic> json) {
-  return json.containsKey("price") ? json["price"].toDouble() : null;
-}
+String _setStringField(Map<String, dynamic> json, String field, String alt) =>
+    json.containsKey(field) ? json[field] : alt;
 
-bool _setVegetarianField(Map<String, dynamic> json) {
-  return json.containsKey("vegetarian") ? json["vegetarian"] : false;
-}
+double? _setDoubleField(Map<String, dynamic> json) =>
+    json.containsKey("price") ? json["price"].toDouble() : null;
 
-bool _setVeganField(Map<String, dynamic> json) {
-  return json.containsKey("vegan") ? json["vegan"] : false;
-}
+bool _setBooleanField(Map<String, dynamic> json, String field, {bool alt = false}) =>
+    json.containsKey(field) ? json[field] : alt;
 
 // Meal() util
 CalorieCategory _setCalorieCategory(Map<String, dynamic> json, String alt) {
@@ -75,9 +72,8 @@ MealCategory _setMealCategory(Map<String, dynamic> json, String alt) {
   return MealCategory.values.firstWhere((e) => e.toString() == "MealCategory." + value);
 }
 
-String _setImageFileName(Map<String, dynamic> json, String alt) {
-  return json.containsKey("image") ? ("meals/" + json["image"]) : alt;
-}
+String _setImageFileName(Map<String, dynamic> json, String alt) =>
+    json.containsKey("image") ? ("meals/" + json["image"]) : alt;
 
 class Meals {
   List<Meal> meals;
