@@ -1,8 +1,10 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile_meal_advisor/models/store.dart';
 import 'package:mobile_meal_advisor/services/meals.dart';
 import 'package:mobile_meal_advisor/widgets/meal_category_checkbox.dart';
 import 'package:mobile_meal_advisor/widgets/result/description.dart';
@@ -10,6 +12,7 @@ import 'package:mobile_meal_advisor/widgets/result/footer.dart';
 import 'package:mobile_meal_advisor/widgets/result/image.dart';
 import 'package:mobile_meal_advisor/widgets/result/title.dart';
 import 'package:mobile_meal_advisor/widgets/result/top_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -22,15 +25,25 @@ class _ResultPageState extends State<ResultPage> {
   final String _mealDataPath = "assets/data/meals.json";
   late List<Meal> _meals = [];
   late Meal _selectedMeal;
-  late Map<MealCategory, bool?> _selectedCategories;
+  late StoreFilterCategories _activeCategories;
 
   @override
   void initState() {
     super.initState();
+    sharedPreferencesInit();
     _selectedMeal = Meal(name: "", text: "");
     loadMealsFromFile();
+  }
+
+  void sharedPreferencesInit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    StoreFilterCategories? activeCategories = prefs.getStringList(keyFilterCategories);
+    if (activeCategories == null) {
+      log("Store for key " + keyFilterCategories + " return 'null'.");
+      return;
+    }
     setState(() {
-      _selectedCategories = _createCategoryMap();
+      _activeCategories = activeCategories;
     });
   }
 
@@ -43,47 +56,35 @@ class _ResultPageState extends State<ResultPage> {
     changeMeal();
   }
 
-  Map<MealCategory, bool?> _createCategoryMap() {
-    Map<MealCategory, bool?> categoryMap = {};
-    MealCategory.values.asMap().forEach((index, cat) {
-      categoryMap[cat] = true;
-    });
-    return categoryMap;
-  }
-
   Future<void> _showFilterDialog(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text("Select filters:"),
-          children: _selectedCategories.keys
-              .map(
-                (category) => MealCategoryCheckbox(
-                  onChanged: _changeCategorySelection,
-                  category: category,
-                  initialValue: _selectedCategories[category],
-                ),
-              )
-              .toList(),
+          contentPadding: const EdgeInsets.symmetric(vertical: 20),
+          title: const Text("Apply filters:"),
+          children: [],
+          // children: _activeCategories.keys
+          //     .map(
+          //       (category) => MealCategoryCheckbox(
+          //         onChanged: _changeCategorySelection,
+          //         category: category,
+          //         initialValue: _activeCategories[category],
+          //       ),
+          //     )
+          //     .toList(),
         );
       },
     );
   }
 
-  void _changeCategorySelection(MealCategory category, bool? value) {
-    setState(() {
-      _selectedCategories[category] = value;
-    });
-  }
-
   void changeMeal() {
     if (_meals.isNotEmpty) {
       List<Meal> filteredMeals = _meals
-          .where((element) => _selectedCategories[element.category] == true)
+          .where((element) => _activeCategories.contains(element.category.toString()))
           .toList();
 
-      int index = Random().nextInt(filteredMeals.length);
+      int index = math.Random().nextInt(filteredMeals.length);
       setState(() {
         _selectedMeal = filteredMeals[index];
       });
