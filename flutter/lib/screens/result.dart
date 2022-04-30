@@ -20,17 +20,74 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  late List<Meal> meals;
-  Meal selectedMeal = defaultMeal;
+  late List<Meal> meals = [];
+  late Meal selectedMeal;
   late Map<MealCategory, bool?> selectedCategories;
 
   @override
   void initState() {
     super.initState();
+    selectedMeal = Meal(name: "", text: "");
     loadMealsFromFile();
     setState(() {
       selectedCategories = _createCategoryMap();
     });
+  }
+
+  Future<void> loadMealsFromFile() async {
+    String path = "assets/data/meals.json";
+    final String response = await rootBundle.loadString(path);
+    final data = await json.decode(response);
+    setState(() {
+      meals = Meals.fromJson(data).meals;
+    });
+    changeMeal();
+  }
+
+  Map<MealCategory, bool?> _createCategoryMap() {
+    Map<MealCategory, bool?> categoryMap = {};
+    MealCategory.values.asMap().forEach((index, cat) {
+      categoryMap[cat] = true;
+    });
+    return categoryMap;
+  }
+
+  Future<void> _showFilterDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text("Select filters:"),
+          children: selectedCategories.keys
+              .map(
+                (category) => MealCategoryCheckbox(
+                  onChanged: _changeCategorySelection,
+                  category: category,
+                  initialValue: selectedCategories[category],
+                ),
+              )
+              .toList(),
+        );
+      },
+    );
+  }
+
+  void _changeCategorySelection(MealCategory category, bool? value) {
+    setState(() {
+      selectedCategories[category] = value;
+    });
+  }
+
+  void changeMeal() {
+    if (meals.isNotEmpty) {
+      List<Meal> filteredMeals =
+          meals.where((element) => selectedCategories[element.category] == true).toList();
+
+      int index = Random().nextInt(filteredMeals.length);
+      setState(() {
+        selectedMeal = filteredMeals[index];
+      });
+    }
   }
 
   @override
@@ -98,66 +155,6 @@ class _ResultPageState extends State<ResultPage> {
         ),
       ),
     );
-  }
-
-  void changeMeal() {
-    if (meals.isNotEmpty) {
-      List<Meal> filteredMeals =
-          meals.where((element) => selectedCategories[element.category] == true).toList();
-
-      int index = Random().nextInt(filteredMeals.length);
-      setState(() {
-        selectedMeal = filteredMeals[index];
-      });
-    } else {
-      setState(() {
-        selectedMeal = defaultMeal;
-      });
-    }
-  }
-
-  Future<void> loadMealsFromFile() async {
-    String path = "assets/data/meals.json";
-    final String response = await rootBundle.loadString(path);
-    final data = await json.decode(response);
-    setState(() {
-      meals = Meals.fromJson(data).meals;
-    });
-    changeMeal();
-  }
-
-  Map<MealCategory, bool?> _createCategoryMap() {
-    Map<MealCategory, bool?> categoryMap = {};
-    MealCategory.values.asMap().forEach((index, cat) {
-      categoryMap[cat] = true;
-    });
-    return categoryMap;
-  }
-
-  Future<void> _showFilterDialog(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SimpleDialog(
-          title: const Text("Select filters:"),
-          children: selectedCategories.keys
-              .map(
-                (category) => MealCategoryCheckbox(
-                  onChanged: _changeCategorySelection,
-                  category: category,
-                  initialValue: selectedCategories[category],
-                ),
-              )
-              .toList(),
-        );
-      },
-    );
-  }
-
-  void _changeCategorySelection(MealCategory category, bool? value) {
-    setState(() {
-      selectedCategories[category] = value;
-    });
   }
 }
 

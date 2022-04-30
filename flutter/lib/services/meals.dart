@@ -40,16 +40,26 @@ class Meal {
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) => Meal(
-        name: json["name"],
-        text: json["text"],
-        price: json.containsKey("price") ? json["price"].toDouble() : null,
-        vegetarian: json.containsKey("vegetarian") ? json["vegetarian"] : false,
-        vegan: json.containsKey("vegan") ? json["vegan"] : false,
-        calories: _setCalorieCategory(json, "undefined"),
-        category: _setMealCategory(json, "undefined"),
-        imageFileName:
-            json.containsKey("image") ? ("meals/" + json["image"]) : imageNotFound,
-      );
+      name: json["name"],
+      text: json["text"],
+      price: _setPriceField(json),
+      vegetarian: _setVegetarianField(json),
+      vegan: _setVeganField(json),
+      calories: _setCalorieCategory(json, "undefined"),
+      category: _setMealCategory(json, "undefined"),
+      imageFileName: _setImageFileName(json, imageNotFound));
+}
+
+double? _setPriceField(Map<String, dynamic> json) {
+  return json.containsKey("price") ? json["price"].toDouble() : null;
+}
+
+bool _setVegetarianField(Map<String, dynamic> json) {
+  return json.containsKey("vegetarian") ? json["vegetarian"] : false;
+}
+
+bool _setVeganField(Map<String, dynamic> json) {
+  return json.containsKey("vegan") ? json["vegan"] : false;
 }
 
 // Meal() util
@@ -65,6 +75,10 @@ MealCategory _setMealCategory(Map<String, dynamic> json, String alt) {
   return MealCategory.values.firstWhere((e) => e.toString() == "MealCategory." + value);
 }
 
+String _setImageFileName(Map<String, dynamic> json, String alt) {
+  return json.containsKey("image") ? ("meals/" + json["image"]) : alt;
+}
+
 class Meals {
   List<Meal> meals;
 
@@ -78,6 +92,3 @@ class Meals {
         ),
       );
 }
-
-// TODO: remove this later on
-Meal defaultMeal = Meal(name: "", text: "");
