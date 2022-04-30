@@ -115,7 +115,7 @@ class _ResultPageState extends State<ResultPage> {
         return _activeCategories
             .contains(mealCategoryMap[element.category.name.toString()]);
       }).toList();
-      filteredMeals = [];
+
       if (filteredMeals.isEmpty) {
         log("Filter Meals returned an empty list.");
         return;
