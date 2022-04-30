@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/functions/string.dart';
 import 'package:mobile_meal_advisor/models/store.dart';
+import 'package:mobile_meal_advisor/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FilterCategoryDialog extends StatefulWidget {
@@ -29,7 +30,12 @@ class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
     super.initState();
   }
 
-  void _updateSelectedCategories(String category, bool addElement) async {
+  void _updateSharedPreferences(List<String> categories) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(keyFilterCategories, categories);
+  }
+
+  void _updateSelectedCategories(String category, bool addElement) {
     if (addElement) {
       if (!_tempSelectedCategories.contains(category)) {
         setState(() {
@@ -43,9 +49,8 @@ class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
         });
       }
     }
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(keyFilterCategories, _tempSelectedCategories);
 
+    _updateSharedPreferences(_tempSelectedCategories);
     widget.onSelectedCategoryChanged(_tempSelectedCategories);
   }
 
@@ -57,7 +62,15 @@ class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       title: const Text("Apply filters:"),
-      content: SizedBox(
+      content: Container(
+        decoration: BoxDecoration(
+          border: Border.symmetric(
+            horizontal: BorderSide(
+              color: Palette.borderColor.withOpacity(.6),
+              width: 1,
+            ),
+          ),
+        ),
         height: MediaQuery.of(context).size.height / 2,
         width: 400,
         child: Scrollbar(
@@ -86,6 +99,55 @@ class _FilterCategoryDialogState extends State<FilterCategoryDialog> {
           ),
         ),
       ),
+      actions: <Row>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: ElevatedButton(
+                child: const Text("Select all"),
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xFFA6B401).withOpacity(.9),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _tempSelectedCategories = widget.categories;
+                  });
+                  _updateSharedPreferences(_tempSelectedCategories);
+                },
+              ),
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width * .02),
+            Expanded(
+              child: ElevatedButton(
+                child: const Text("Deselect all"),
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xFFD50102).withOpacity(.9),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _tempSelectedCategories = [];
+                  });
+                  _updateSharedPreferences(_tempSelectedCategories);
+                },
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                child: const Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
