@@ -1,11 +1,13 @@
+// URLs are all from: https://theuselessweb.com/
 List<String> randomUrlList = <String>[
-  // "http://ninjaflex.com/",
   "https://pointerpointer.com/",
-  "http://endless.horse/",
-  "https://thatsthefinger.com/",
-  // "http://burymewithmymoney.com/",
-  // "https://quickdraw.withgoogle.com/",
-  // "http://crossdivisions.com/",
-  "https://cat-bounce.com/",
-  // "http://www.koalastothemax.com/",
+  "https://onesquareminesweeper.com/",
+  "http://corndog.io/",
+  "https://floatingqrcode.com/",
+  "https://longdogechallenge.com/",
+  "https://alwaysjudgeabookbyitscover.com/",
+  "http://eelslap.com/",
+  "http://www.staggeringbeauty.com/",
+  "https://jacksonpollock.org/",
+  "https://smashthewalls.com/"
 ];
