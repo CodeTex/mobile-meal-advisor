@@ -1,0 +1,1 @@
+enum PDFSourceType { url, file }

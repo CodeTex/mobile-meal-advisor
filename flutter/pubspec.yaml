@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^2.3.1
   url_launcher: ^6.0.20
   shared_preferences: ^2.0.13
+  advance_pdf_viewer: ^2.0.1
 
 dev_dependencies:
   flutter_test:
