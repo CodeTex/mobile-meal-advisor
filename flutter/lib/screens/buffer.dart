@@ -23,16 +23,16 @@ class _BufferPageState extends State<BufferPage> {
     setState(() {
       _bufferDurationMS = randint(3, 9) * 1000;
     });
-    // SchedulerBinding.instance?.addPostFrameCallback((_) async {
-    //   await Future.delayed(Duration(milliseconds: _bufferDurationMS), () {
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (_) => const ResultPage(),
-    //       ),
-    //     );
-    //   });
-    // });
+    SchedulerBinding.instance?.addPostFrameCallback((_) async {
+      await Future.delayed(Duration(milliseconds: _bufferDurationMS), () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const ResultPage(),
+          ),
+        );
+      });
+    });
   }
 
   @override
