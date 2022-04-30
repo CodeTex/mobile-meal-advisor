@@ -4,8 +4,8 @@ import 'package:mobile_meal_advisor/functions/math.dart';
 import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
 import 'package:mobile_meal_advisor/widgets/buffer/gif.dart';
+import 'package:mobile_meal_advisor/widgets/buffer/messages.dart';
 import 'package:mobile_meal_advisor/widgets/buffer/progress.dart';
-import 'package:mobile_meal_advisor/widgets/glass_morphism.dart';
 
 class BufferPage extends StatefulWidget {
   const BufferPage({Key? key}) : super(key: key);
@@ -49,17 +49,7 @@ class _BufferPageState extends State<BufferPage> {
               children: const <Expanded>[
                 Expanded(
                   flex: 2,
-                  child: Center(
-                    child: GlassContainer(
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Center(child: Text("Title")),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: BufferMessages(),
                 ),
                 Expanded(
                   flex: 8,
