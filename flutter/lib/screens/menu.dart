@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobile_meal_advisor/models/viewer.dart';
 import 'package:mobile_meal_advisor/widgets/pdf_viewer.dart';
+import 'package:mobile_meal_advisor/widgets/web_viewer.dart';
 
 class MenuPage extends StatelessWidget {
   final String menuLink;
@@ -32,7 +33,10 @@ class MenuPage extends StatelessWidget {
       case null:
         return const Center(child: Text("Invalid menu link."));
       case Viewer.html:
-        return Container();
+        return WebViewer(
+          title: appBarTitle,
+          webLink: link,
+        );
       case Viewer.pdf:
         if (link.startsWith("http")) {
           sourceType = PDFSourceType.url;
