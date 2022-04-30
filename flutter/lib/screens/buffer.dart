@@ -1,13 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:mobile_meal_advisor/constants/progress_messages.dart';
 import 'package:mobile_meal_advisor/functions/math.dart';
 import 'package:mobile_meal_advisor/screens/result.dart';
 import 'package:mobile_meal_advisor/theme.dart';
+import 'package:mobile_meal_advisor/widgets/buffer/gif.dart';
+import 'package:mobile_meal_advisor/widgets/buffer/progress.dart';
 import 'package:mobile_meal_advisor/widgets/glass_morphism.dart';
-import 'package:mobile_meal_advisor/widgets/wave.dart';
 
 class BufferPage extends StatefulWidget {
   const BufferPage({Key? key}) : super(key: key);
@@ -18,13 +16,6 @@ class BufferPage extends StatefulWidget {
 
 class _BufferPageState extends State<BufferPage> {
   late int _bufferDurationMS;
-
-  final Widget _waveContainer = const WaveContainer(
-    duration: Duration(seconds: 3),
-    height: 40,
-    width: double.infinity,
-    waveColor: Color.fromRGBO(109, 166, 223, 1),
-  );
 
   @override
   void initState() {
@@ -55,8 +46,8 @@ class _BufferPageState extends State<BufferPage> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Expanded>[
-                const Expanded(
+              children: const <Expanded>[
+                Expanded(
                   flex: 2,
                   child: Center(
                     child: GlassContainer(
@@ -72,43 +63,12 @@ class _BufferPageState extends State<BufferPage> {
                 ),
                 Expanded(
                   flex: 8,
-                  // GIF taken from https://lottiefiles.com
-                  // removed stutter by cutting last frame on https://onlinegiftools.com/cut-gif
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Image.asset("assets/gifs/buffer-animation.gif"),
-                  ),
+                  child: BufferGIF(),
                 ),
                 Expanded(
-                    flex: 2,
-                    child: Stack(
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            _waveContainer,
-                            RotationTransition(
-                              turns: const AlwaysStoppedAnimation(180 / 360),
-                              child: _waveContainer,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: double.infinity,
-                          width: double.infinity,
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 10,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: const LinearProgressIndicator(
-                              backgroundColor: Palette.primary,
-                              color: Palette.border,
-                              minHeight: 5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                  flex: 2,
+                  child: BufferProgressBar(),
+                ),
               ],
             ),
           ),
