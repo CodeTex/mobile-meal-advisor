@@ -14,6 +14,12 @@ class BufferMessages extends StatefulWidget {
 
 class _BufferMessagesState extends State<BufferMessages> {
   String _message = "";
+  late Timer _timer;
+
+  String _updateMessage() {
+    int index = randint(0, progressMessages.length - 1);
+    return progressMessages[index] + " ...";
+  }
 
   @override
   void initState() {
@@ -21,16 +27,17 @@ class _BufferMessagesState extends State<BufferMessages> {
     setState(() {
       _message = _updateMessage();
     });
-    Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
       setState(() {
         _message = _updateMessage();
       });
     });
   }
 
-  String _updateMessage() {
-    int index = randint(0, progressMessages.length - 1);
-    return progressMessages[index];
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -41,7 +48,13 @@ class _BufferMessagesState extends State<BufferMessages> {
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: Center(child: Text(_message)),
+            child: Center(
+              child: Text(
+                _message,
+                style: const TextStyle(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ),
       ),
