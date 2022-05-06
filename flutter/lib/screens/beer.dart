@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_meal_advisor/screens/akinator.dart';
 import 'package:mobile_meal_advisor/widgets/beer/menu.dart';
 import 'package:mobile_meal_advisor/widgets/beer/top_bar.dart';
 
@@ -8,7 +9,21 @@ class BeerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <IconButton>[
+          IconButton(
+            icon: const Icon(Icons.call_split_rounded),
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const MaltAkinator(),
+                ),
+              )
+            },
+          )
+        ],
+      ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Column(
