@@ -21,7 +21,7 @@ class _BufferPageState extends State<BufferPage> {
   void initState() {
     super.initState();
     setState(() {
-      _bufferDurationMS = randint(3, 9) * 1000;
+      _bufferDurationMS = randint(5, 9) * 1000;
     });
     SchedulerBinding.instance?.addPostFrameCallback((_) async {
       await Future.delayed(Duration(milliseconds: _bufferDurationMS), () {
@@ -49,7 +49,7 @@ class _BufferPageState extends State<BufferPage> {
               children: const <Expanded>[
                 Expanded(
                   flex: 2,
-                  child: BufferMessages(periodicityMS: 3000),
+                  child: BufferMessages(periodicityMS: 2400),
                 ),
                 Expanded(
                   flex: 8,
