@@ -11,14 +11,16 @@
       "text": "Mit Tomaten, Büffelmozarella und Basilikum",
       "vegetarian": true,
       "category": "tarteFlambee",
-      "price": 14.8
+      "price": 14.8,
+      "image": "tarte-portofino.jpg"
     },
     {
       "name": "Flammkuchen Trentino",
       "text": "Mit Ziegenkäse, Feigen und Rucola",
       "vegetarian": true,
       "category": "tarteFlambee",
-      "price": 14.8
+      "price": 14.8,
+      "image": "tarte-trentino.jpg"
     },
     {
       "name": "Flammkuchen Parma",
@@ -46,7 +48,7 @@
       "text": "200g Rindfeisch, Rucola, Cheddarkäse, geröstete Zwiebel, Tomaten, Prosciutto, rote Rüben & BBQ-Sauce",
       "category": "burger",
       "price": 12.5,
-      "image": "hamburger.png"
+      "image": "hamburger.jpg"
     },
     {
       "name": "Cheeseburger",
@@ -74,14 +76,14 @@
       "text": "200g Schweinefleisch, Krautsalat, Tomaten, Essiggurken, Zwiebel, BBQ-Sauce",
       "category": "burger",
       "price": 13.5,
-      "image": "pulled-pork-burger.jpg"
+      "image": "burger-pulled-pork.jpg"
     },
     {
       "name": "The Burger Burger",
       "text": "300g Rindfleisch, Cheddarkäse, Räucherschinken, Tomaten, Zwiebeln",
       "category": "burger",
       "price": 16.5,
-      "image": "burgerburger.jpg"
+      "image": "burger-burger.jpg"
     },
     {
       "name": "Lachs Burger",
@@ -109,7 +111,8 @@
       "text": "Joseph Brot, Avocado, Tomaten Stücke, Ei, Radieschen (kalt)",
       "vegetarian": true,
       "category": "sandwich",
-      "price": 10.2
+      "price": 10.2,
+      "image": "avocado-brot.jpg"
     },
     {
       "name": "Überbackenes Joseph Brot",
@@ -143,7 +146,8 @@
       "name": "Rindfleich-Bällchen",
       "text": "mit Cocktail-Whiskey Sauce (3 STK. €5,10 / 6 STK. €8,90 / 9 STK. €12,50)",
       "category": "fingerFood",
-      "price": 5.1
+      "price": 5.1,
+      "image": "rindfleisch-baellchen.jpg"
     },
     {
       "name": "Cordon Bleu Bällchen",
@@ -282,7 +286,8 @@
       "name": "Die Steak-Streifen",
       "text": "Gegrillte Rinderfilet Streifen, gem. Salat, Cherrytomaten, Balsamico Zwiebeln, Maiskolben, Gurken, Parmesan",
       "category": "salad",
-      "price": 17.5
+      "price": 17.5,
+      "image": "salad-steak.jpg"
     },
     {
       "name": "Americano",
@@ -300,7 +305,8 @@
       "name": "Der Ziegenkäse",
       "text": "Gemischter Salat mit gratiniertem Ziegenkäse, Tomaten, Trauben, Himbeer-Dressing, vegetarisch",
       "category": "salad",
-      "price": 15.2
+      "price": 15.2,
+      "image": "salad-ziegenkaese.jpg"
     },
 
     {
@@ -344,7 +350,8 @@
       "name": "Hausgemachter Erdbeere-Cheesecake",
       "text": "",
       "category": "desert",
-      "price": 5.9
+      "price": 5.9,
+      "image": "cheesecake.jpg"
     },
     {
       "name": "Mc Dreamy",
@@ -380,13 +387,15 @@
       "name": "Kaiserschmarrn",
       "text": "mit Apfelmus oder Zwetschkenröster",
       "category": "desert",
-      "price": 8.9
+      "price": 8.9,
+      "image": "kaiserschmarrn.jpg"
     },
     {
       "name": "Vanilleeis",
       "text": "Joghurt-Beeren Parfait",
       "category": "desert",
-      "price": 7.5
+      "price": 7.5,
+      "image": "joghurt-parfait.jpg"
     }
   ]
 }
